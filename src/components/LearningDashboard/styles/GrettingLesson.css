@@ -1,0 +1,123 @@
+#gt h2 {
+  font-size: 18px;
+  color: #555555;
+  font-weight: bold;
+}
+#gt span {
+  font-size: 0.7rem;
+  color: white;
+  font-weight: 400;
+  border-radius: 3px;
+  padding: 0.09rem 0.4rem 0.15rem;
+}
+
+/* #gt .card {
+  transition: box-shadow 0.4s ease, top 0.4s ease, width 0.4s ease,
+    height 0.4s ease;
+  transition-property: box-shadow, top, width, height;
+  transition-duration: 0.4s, 0.4s, 0.4s, 0.4s;
+  transition-timing-function: ease, ease, ease, ease;
+  transition-delay: 0s, 0s, 0s, 0s;
+} */
+#gt .card-box {
+  height: 220px;
+}
+
+#gt .card {
+  box-shadow: 0 0px 0px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Add a transition for both box-shadow and transform properties */
+  cursor: pointer;
+}
+#gt a {
+  text-decoration: none;
+}
+#gt .card:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  transform: translateY(-5px) scale(1.05); /* Add a scale transform for a zoom effect */
+}
+
+#gt .card img {
+  border-left: 2px solid orangered;
+  border-right: 2px solid orangered;
+  height: 150px;
+}
+#gt .card span {
+  background-color: orangered;
+}
+
+/* Learn Gretting Lession */
+
+#lgl .card {
+  width: 200px;
+  height: 200px;
+  padding: 20px 50px;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 10px 49px -20px rgba(0, 0, 0, 0.75);
+  transition: box-shadow 0.3s ease; /* Add animation with a 0.3s duration */
+}
+
+#lgl .card:hover {
+  -webkit-box-shadow: 0px 10px 49px -20px rgba(255, 140, 29, 0.75);
+}
+
+#lgl .inner-icon {
+}
+
+#lgl a {
+  text-decoration: none;
+}
+#lgl h2 {
+  color: #ff8c1d;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  margin-top: 8px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#lgl path {
+  fill: #ff8c1d;
+}
+
+#lgl {
+  margin-top: 320px;
+}
+
+@media only screen and (max-width: 1199px) {
+  #lgl {
+    margin-top: 220px;
+  }
+}
+
+.back {
+  position: absolute;
+  top: 30px !important;
+  left: 30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.back .backbox {
+  padding: 1px 40px;
+  cursor: pointer;
+}
+
+.back .backbox span {
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  #lgl {
+    margin-top: 150px;
+  }
+  .back {
+    cursor: pointer;
+    position: absolute;
+    top: 70px !important;
+    left: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
+}

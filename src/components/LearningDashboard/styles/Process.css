@@ -1,0 +1,97 @@
+#process {
+  padding: 20px 30px;
+  border-radius: 44px;
+  width: 100%;
+  margin-top: 50px;
+  position: relative;
+}
+.progress {
+  --bs-progress-bar-bg: #df5411 !important;
+}
+#process .div-lavel-box {
+  z-index: 10;
+  position: relative;
+}
+#process h3 {
+  color: #000;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+#process .lavel-box {
+  width: 110px;
+  height: 110px;
+  border-radius: 55px;
+  border: 5px solid #ff6b35;
+  position: absolute;
+  top: -40px;
+}
+
+#process .lavel-box h3 {
+  color: #000;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+#process-p {
+  margin-top: 80px;
+}
+
+#process-p .p-svg {
+  transform: translateY(-70px);
+  position: relative;
+}
+
+#process-p .p-svg img {
+  height: 155px;
+  width: 103px;
+  position: absolute;
+  left: 0;
+  right: 30px;
+  top: 0;
+  bottom: 35px;
+  margin: auto;
+}
+#process-p h2 {
+  color: #000;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+  position: absolute;
+  bottom: 26px;
+  margin: auto;
+}
+
+@media only screen and (max-width: 1399px) {
+  #process {
+    padding: 20px 30px;
+    border-radius: 44px;
+    width: 400px;
+    margin-top: 55px;
+  }
+  #process-p {
+    margin-top: 120px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  #process {
+    padding: 10px 10px;
+    border-radius: 44px;
+    width: 100% !important;
+    margin-top: 45px;
+    position: relative;
+  }
+}

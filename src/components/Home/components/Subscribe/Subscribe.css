@@ -1,0 +1,143 @@
+.subscribe_wrapper {
+  height: 368px;
+  background: url("../../../../assets/subscribe-banner.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.subscribe_wrapper .subscribe_content_left {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.subscribe_wrapper .subscribe_content_left .title {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 54px;
+}
+
+.subscribe_wrapper .subscribe_content_left .desc {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 30px;
+  margin-top: 30px;
+}
+
+.subscribe_wrapper .subscribe_content_right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 30px;
+}
+
+.subscribe_wrapper .subscribe_content_right .email_input_box {
+  width: 100%;
+  height: 73px;
+  border: 3px solid white;
+  display: flex;
+}
+
+.subscribe_wrapper .subscribe_content_right .email_input_box input {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  color: white;
+  background-color: transparent;
+  padding: 0 40px;
+}
+
+.subscribe_wrapper
+  .subscribe_content_right
+  .email_input_box
+  input::placeholder {
+  color: white;
+  font-size: 18px;
+}
+
+.subscribe_wrapper .subscribe_content_right .email_input_box button {
+  width: 200px;
+  height: 100%;
+  color: white;
+  font-size: 18px;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  border-left: 3px solid white;
+  font-weight: 400;
+  transition: background-color 0.3s ease;
+}
+
+.subscribe_wrapper .subscribe_content_right .email_input_box button:hover {
+  color: #ff865a;
+  background-color: white;
+}
+
+.subscribe_wrapper .subscribe_content_right .check_box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.subscribe_wrapper .subscribe_content_right .check_box .checkbox_input {
+  width: 22px;
+  height: 22px;
+  background: none;
+}
+
+.subscribe_wrapper .subscribe_content_right .check_box label {
+  color: white;
+  font-size: 18px;
+}
+
+/* MEDIA QUERY FOR RESPONSIVENESS */
+
+@media screen and (max-width: 991px) {
+  /* CSS styles for small mobile devices */
+
+  .subscribe_wrapper {
+    height: auto;
+    padding-bottom: 50px;
+  }
+
+  .subscribe_wrapper .subscribe_content_left {
+    text-align: center;
+  }
+
+  .subscribe_wrapper .subscribe_content_left .title {
+    font-size: 36px;
+    line-height: 45px;
+  }
+
+  .subscribe_wrapper .subscribe_content_left .desc {
+    margin-top: 20px;
+  }
+
+  .subscribe_wrapper .subscribe_content_right .email_input_box {
+    height: 60px;
+  }
+
+  .subscribe_wrapper .subscribe_content_right .email_input_box input {
+    padding: 0 20px;
+  }
+
+  .subscribe_wrapper
+    .subscribe_content_right
+    .email_input_box
+    input::placeholder {
+    font-size: 16px;
+  }
+
+  .subscribe_wrapper .subscribe_content_right .email_input_box button {
+    font-size: 16px;
+  }
+
+  .subscribe_wrapper .subscribe_content_right .check_box {
+    justify-content: center;
+  }
+}

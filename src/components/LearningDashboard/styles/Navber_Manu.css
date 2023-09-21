@@ -1,0 +1,322 @@
+.navber {
+  position: fixed;
+  top: 0px;
+  z-index: 20;
+  width: 100%;
+  height: 100px;
+  background-color: white;
+  border-bottom: 1px solid gray;
+  display: flex;
+}
+
+.nav-list {
+  margin-top: 30px;
+  font-weight: 600 !important;
+}
+.nav-list li {
+  margin-left: 30px;
+  list-style: none;
+  font-weight: 600 !important;
+  margin-left: 42px;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #1e1e1e;
+  font-weight: 600 !important;
+  font-size: 22px;
+  font-family: "Poppins", sans-serif;
+}
+
+.logo {
+  height: 97px;
+  width: 90px;
+}
+.lang img {
+  width: 417px;
+  height: 42px;
+  cursor: pointer;
+}
+
+.lang {
+  transform: translateY(-2px);
+}
+.profile span {
+  transform: translate(-10px, -1px);
+  display: inline-block;
+}
+
+.profile {
+  position: relative;
+  cursor: pointer;
+}
+.profile .profile-manu {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border: 1px solid #fff;
+  color: #1e1e1e;
+  position: absolute;
+  top: 60px;
+  right: 70px;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  z-index: +2;
+  transition: transform ease-in-out 0.5s;
+  transform: scale(1.2); /* Scale up on hover */
+}
+
+.profile .profile-toggle {
+  width: 170px;
+  height: auto;
+  padding: 15px 2px;
+  transition: transform ease-in-out 0.5s;
+  transform: scale(1.2); /* Scale up on hover */
+}
+
+.profile .profile-manu .link {
+  color: black !important;
+  padding: 2px 2px;
+  font-size: 13px;
+}
+
+/* lang */
+.lang {
+  position: relative;
+}
+.lang .lang-manu {
+  background-color: #1e1e1e;
+  color: white !important;
+  position: absolute;
+  top: 60px;
+  right: 30px;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  transition: transform ease-in-out 0.5s;
+  transform: scale(0.5); /* Initial state */
+  z-index: 999;
+}
+
+.lang .lang-toggle {
+  width: 170px;
+  height: 75px;
+  padding: 15px 2px;
+  transition: transform ease-in-out 0.5s;
+  transform: scale(1.2); /* Scale up on hover */
+}
+
+.lang .link {
+  color: white;
+  padding: 2px 2px;
+}
+
+.lang .pointer {
+  cursor: pointer;
+}
+
+/* toogle link */
+.profile .profile-manu .active {
+  color: #df5411 !important;
+}
+.lang .lang-manu .active {
+  color: #df5411 !important;
+}
+.link {
+  font-size: 12px !important;
+}
+
+@media only screen and (max-width: 1399px) {
+  .profile {
+    transform: translateY(-4px);
+    margin-left: 20px;
+  }
+  .lang {
+    transform: translateY(-4px);
+  }
+
+  .nav-list li a {
+    text-decoration: none;
+    color: #1e1e1e;
+    font-weight: 600 !important;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+  }
+  /* 
+  fdfdf */
+  .lang {
+    transform: translate(12px, -2px);
+  }
+  .profile span {
+    transform: translate(-10px, 1px);
+    display: inline-block;
+  }
+  .nav-list li {
+    list-style: none;
+    font-weight: 600 !important;
+    margin-left: 25px;
+  }
+
+  .nav-list li a {
+    text-decoration: none;
+    color: #1e1e1e;
+    font-weight: 600 !important;
+    font-size: 19px;
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  .profile {
+    transform: translate(10px, -21px);
+  }
+  .lang {
+    transform: translate(20px, -20px);
+  }
+  #toggle-btn {
+    border: 1px solid black;
+    padding: 2px 2px;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    transform: translateY(-18px);
+  }
+}
+@media only screen and (max-width: 991px) {
+  .nav-list li {
+    font-size: 14px;
+    margin-left: 15px;
+  }
+  .logo {
+    height: 77px;
+    width: 70px;
+  }
+}
+.toggle-btn {
+  display: inline-block;
+  font-size: 50px;
+  cursor: pointer;
+
+  border: none;
+  transform: translateY(2px);
+
+  font-size: 40px !important;
+}
+#toggle-btn {
+  border: 1px solid black;
+  padding: 2px 2px;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+}
+.profile svg {
+  height: 28px;
+  height: 28px;
+}
+.lang .flag {
+  height: 35px;
+  width: 28px;
+}
+.manu-toggle {
+  background-color: #1e1e1e;
+  width: 90%;
+  align-items: center;
+  overflow: hidden;
+  transform: translateX(-100%);
+  transition: transform ease-in-out 0.5s;
+  top: 0px;
+  height: 100vh;
+  position: absolute;
+}
+@media only screen and (max-width: 1199px) {
+  .manu-ber {
+    z-index: 120;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .lang .flag {
+    height: 37px;
+    width: 32px;
+  }
+  .nav-list {
+    margin-top: 5px;
+  }
+  .profile svg {
+    height: 30px;
+    height: 30px;
+  }
+  .nav-list li {
+    margin-left: 0px;
+    list-style: none;
+    font-weight: 600 !important;
+  }
+  #toggle-btn {
+    border: 1px solid black;
+    padding: 2px 2px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    margin-top: 30px;
+  }
+  .profile .profile-manu .link {
+    padding: 2px 2px;
+    font-size: 11px;
+  }
+  .lang .lang-manu .link {
+    padding: 2px 2px;
+  }
+  .profile {
+    transform: translate(10px, -9px);
+  }
+  .lang {
+    transform: translate(10px, -9px);
+  }
+  #toggle-btn {
+    border: 1px solid black;
+    padding: 2px 2px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    transform: translateY(-18px);
+  }
+}
+
+.toggler-class {
+  transform: translateX(0%);
+}
+
+.remove-toggle {
+  transform: translateX(-100%);
+}
+
+.manu .logo {
+  background-color: white;
+  margin-top: 50px;
+  padding: 5px 6px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.manu .nav-list li a {
+  color: #eef4ed;
+}
+.manu .nav-list {
+  margin-top: 50px;
+  padding: 12px;
+}
+.manu .manu-list {
+  padding-top: 100px !important;
+}
+.manu hr {
+  height: 2px;
+  background-color: #eef4ed;
+}
+
+.manu .close-manu-btn {
+  color: #eef4ed;
+  font-size: 40px;
+  cursor: pointer;
+}

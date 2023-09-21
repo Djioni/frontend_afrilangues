@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;600&family=Roboto:wght@400;500&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #ececeb !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 22px;
+  font-weight: 600 !important;
+}
+.sec-nav {
+  background-color: white;
+}
+
+.layout {
+  margin-top: 120px;
+}
+.sec-lessions {
+  background-color: white;
+
+  width: 98%;
+  border-radius: 30px;
+  position: absolute;
+  height: 2400px;
+  display: flex;
+  justify-content: center;
+}
+
+.sec-m-process {
+  background-color: white;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.sec-m-lessions {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.sec-process {
+  border-radius: 30px;
+  background-color: white;
+}
+
+@media only screen and (max-width: 1616px) {
+  .sec-lessions {
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 1680px) {
+  .sec-lessions {
+    width: 93%;
+  }
+}
+
+@media only screen and (max-width: 1520px) {
+  .sec-lessions {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 1480px) {
+  .sec-lessions {
+    width: 87%;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  .sec-lessions {
+    width: 84%;
+  }
+}
+
+@media only screen and (max-width: 1399px) {
+  .sec-lessions {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 1399px) {
+  .sec-lessions {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  .sec-m-lessions {
+    background-color: white;
+
+    width: 98%;
+    border-radius: 30px;
+    position: absolute;
+    height: 2380px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .sec-m-lessions {
+    background-color: white;
+
+    width: 98%;
+    border-radius: 30px;
+    position: absolute;
+    height: 1550px;
+    display: flex;
+    justify-content: center;
+  }
+}

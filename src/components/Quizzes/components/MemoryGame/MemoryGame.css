@@ -1,0 +1,139 @@
+#mgame-card .card {
+  height: 300px;
+  cursor: pointer;
+}
+.game-score {
+  color: rgb(77, 74, 74);
+  font-family: "Poppins", sans-serif !important;
+  font-size: 12px !important;
+}
+.game-cover {
+  background: linear-gradient(90deg, #ff6b36, #df9904);
+  border: 3px solid #ff6b36;
+}
+#mgame-card .card img {
+  height: 300px;
+}
+#mgame-card .card .front {
+  position: absolute;
+  inset: 0;
+  z-index: 99;
+  cursor: pointer;
+  transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+}
+
+#mgame-card .card .flipped .front {
+  transform: rotateY(0deg);
+  transition-delay: 0.2s;
+  cursor: not-allowed;
+}
+
+#mgame-card .card .back {
+  transition: all 0.2s ease-in;
+  transition-delay: 0.2s;
+  left: 2px;
+}
+
+#mgame-card .card .flipped .back {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(
+    1,
+    minmax(0, 1fr)
+  ); /* Adjust the column width as needed */
+  gap: 1rem; /* Adjust the gap between items as needed */
+}
+.bg-brand-tartary {
+  background-color: #ead4a2;
+}
+.score-card {
+  width: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  ); /* Adjust the column width as needed */
+  gap: 2px; /* Adjust the gap between items as needed */
+}
+.brand-primary {
+  color: #191d88;
+}
+.main-heading {
+  font-size: 38px;
+}
+.text-xl {
+  font-size: 22px;
+}
+.dialoge-box {
+  height: 350px;
+  width: 330px;
+}
+.dialoge-box img {
+  height: 300px;
+}
+.dialoge-box button {
+  height: 42px;
+  width: 42px;
+  top: -34px;
+  right: 0;
+}
+.grid-container {
+}
+@media (min-width: 1000px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(
+      5,
+      minmax(0, 1fr)
+    ); /* Adjust the column width as needed */
+    gap: 1rem; /* Adjust the gap between items as needed */
+  }
+  .score-card {
+    width: 35%;
+    margin: auto;
+  }
+  .main-heading {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(
+      3,
+      minmax(0, 1fr)
+    ); /* Adjust the column width as needed */
+    gap: 1rem; /* Adjust the gap between items as needed */
+  }
+  .score-card {
+    width: 50%;
+  }
+  .main-heading {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 768px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(
+      2,
+      minmax(0, 1fr)
+    ); /* Adjust the column width as needed */
+    gap: 1rem; /* Adjust the gap between items as needed */
+  }
+  .score-card {
+    width: 70%;
+    margin: auto;
+  }
+  .main-heading {
+    font-size: 48px;
+  }
+}

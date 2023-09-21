@@ -1,0 +1,33 @@
+[
+    {
+      "format": "multipleChoice",
+      "questions": [
+        {
+          "question": "What is 2 + 2?",
+          "options": ["3", "4", "5"],
+          "answer": "4"
+        },
+        {
+          "question": "Which planet is known as the Red Planet?",
+          "options": ["Mars", "Venus", "Earth"],
+          "answer": "Mars"
+        }
+      ]
+    },
+    {
+      "format": "matchWords",
+      "questions": [
+        {
+          "question": "Match the capital with the country:",
+          "options": ["Paris", "London", "Berlin"],
+          "answer": "Berlin"
+        },
+        {
+          "question": "Match the actor with the character:",
+          "options": ["Johnny Depp", "Tom Hanks", "Brad Pitt"],
+          "answer": "Johnny Depp"
+        }
+      ]
+    }
+  ]
+  

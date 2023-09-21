@@ -1,0 +1,1 @@
+export const GET_CURRENT_PATH = "GET_CURRENT_PATH";

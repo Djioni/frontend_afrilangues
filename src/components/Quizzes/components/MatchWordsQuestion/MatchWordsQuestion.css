@@ -1,0 +1,91 @@
+.match_words_question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left_column,
+.right_column {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 15px;
+}
+
+.word_option {
+  background-color: #d9d9d9;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.word_option:hover {
+  background-color: #df5411;
+  color: white;
+}
+
+/* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
+
+.match_words_question {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  /* margin-top: 58px; */
+}
+
+.left_column,
+.right_column {
+  flex: 1;
+  padding: 10px;
+  margin: 10px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.word_option {
+  padding: 10px;
+  margin: 5px 30px;
+  width: 200px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.word_option.selected {
+  background-color: #df5411;
+  /* border-color: green; */
+}
+
+/* MatchWordsQuestion.css */
+.correntoption {
+  background-color: #8dc084 !important;
+  color: white !important;
+
+  /* border-color: green; */
+}
+.wrongoption {
+  background-color: black !important;
+
+  /* border-color: green; */
+}
+/* MEDIA QUERY FOR RESPONSIVENESS */
+
+@media screen and (max-width: 768px) {
+  /* Your CSS styles for small mobile devices */
+
+  .match_words_question {
+    padding: 50px 20px;
+    width: 100%;
+  }
+
+  .left_column,
+  .right_column {
+    width: 10%;
+  }
+}

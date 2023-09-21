@@ -1,0 +1,69 @@
+{
+  "languages": [
+    {
+      "name": "Bambara",
+      "logo": "/assets/Languages/bambara.png",
+      "members": 3044
+    },
+    {
+      "name": "Bassa",
+      "logo": "/assets/Languages/bassa.png",
+      "members": 245
+    },
+    {
+      "name": "Douala",
+      "logo": "/assets/Languages/douala.png",
+      "members": 780
+    },
+    {
+      "name": "Fongbe",
+      "logo": "/assets/Languages/fongbe.png",
+      "members": 586
+    },
+    {
+      "name": "Lingala",
+      "logo": "/assets/Languages/lingla.png",
+      "members": 1408
+    },
+    {
+      "name": "Mina",
+      "logo": "/assets/Languages/mina.png",
+      "members": 523
+    },
+    {
+      "name": "Pulaar",
+      "logo": "/assets/Languages/pulaar.png",
+      "members": 1135
+    },
+    {
+      "name": "Sango",
+      "logo": "/assets/Languages/sango.png",
+      "members": 300
+    },
+    {
+      "name": "Serere",
+      "logo": "/assets/Languages/serere.png",
+      "members": 271
+    },
+    {
+      "name": "Soninke",
+      "logo": "/assets/Languages/soninke.png",
+      "members": 1817
+    },
+    {
+      "name": "Swahili",
+      "logo": "/assets/Languages/swahili.png",
+      "members": 501
+    },
+    {
+      "name": "Wolof",
+      "logo": "/assets/Languages/wolof.png",
+      "members": 1637
+    },
+    {
+      "name": "Yoruba",
+      "logo": "/assets/Languages/yoruba.png",
+      "members": 247
+    }
+  ]
+}

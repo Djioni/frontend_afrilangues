@@ -1,0 +1,387 @@
+/* ; */
+#fullpath {
+  width: 450px;
+  height: 3000px;
+  background-repeat: no-repeat;
+  background: url(/assets/groupline.png);
+  position: relative;
+  margin-top: 130px;
+  background-repeat: no-repeat;
+}
+
+.lession-link div h2 {
+  color: #000;
+  font-family: "Poppins", "sans-serif";
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+  font-size: 15px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lession-link {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.lession-link div {
+  transition: ease-in-out 0.3s;
+}
+.lession-link:hover div {
+  transform: scale(1.2);
+  transition: ease-in-out 0.3;
+}
+.lession-link-e {
+  cursor: pointer;
+}
+.lession-link-e div {
+  transition: ease-in-out 0.3s;
+}
+.lession-link-e:hover div {
+  transform: scale(1.1);
+  transition: ease-in-out 0.3;
+}
+
+.lsvg-1 {
+  position: absolute;
+  top: -70px;
+  left: 20px;
+}
+.lsvg-1 h2 {
+  position: absolute;
+  top: 35px;
+  left: 110px;
+}
+
+/* link */
+.lsvg-2 {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+}
+.lsvg-2 h2 {
+  position: absolute;
+  top: 35px;
+  right: 110px;
+}
+/* link */
+.lsvg-3 {
+  position: absolute;
+  top: 250px;
+  left: -18px;
+}
+.lsvg-3 h2 {
+  position: absolute;
+  top: 35px;
+  left: 110px;
+}
+
+/* link */
+.lsvg-4 {
+  position: absolute;
+  top: 440px;
+  right: 18px;
+}
+.lsvg-4 h2 {
+  position: absolute;
+  top: 35px;
+  right: 110px;
+}
+/* link */
+.lsvg-5 {
+  position: absolute;
+  top: 615px;
+  left: -18px;
+}
+.lsvg-5 h2 {
+  position: absolute;
+  top: 35px;
+  left: 110px;
+}
+
+/* link */
+.lsvg-6 {
+  position: absolute;
+  top: 800px;
+  right: 18px;
+}
+.lsvg-6 h2 {
+  position: absolute;
+  top: 35px;
+  right: 110px;
+}
+/* link */
+.lsvg-7 {
+  position: absolute;
+  top: 970px;
+  left: -18px;
+}
+.lsvg-7 h2 {
+  position: absolute;
+  top: 35px;
+  left: 110px;
+}
+
+/* link */
+.lsvg-8 {
+  position: absolute;
+  top: 1150px;
+  right: 18px;
+}
+.lsvg-8 h2 {
+  position: absolute;
+  top: 35px;
+  right: 110px;
+}
+/* link */
+.lsvg-9 {
+  position: absolute;
+  top: 1330px;
+  left: -18px;
+}
+.lsvg-9 h2 {
+  position: absolute;
+  top: 35px;
+  left: 110px;
+}
+
+/* link */
+.lsvg-10 {
+  position: absolute;
+  top: 1520px;
+  right: 18px;
+}
+.lsvg-10 h2 {
+  position: absolute;
+  top: 35px;
+  right: 110px;
+}
+/* link */
+.lsvg-11 {
+  position: absolute;
+  top: 1685px;
+  left: -18px;
+  width: 50px;
+}
+
+.lsvg-12 {
+  width: 50px;
+  position: absolute;
+  top: 1695px;
+  left: -2px;
+}
+/* link */
+.lsvg-13 {
+  position: absolute;
+  top: 1870px;
+  right: 8px;
+}
+.lsvg-14 {
+  position: absolute;
+  top: 1860px;
+  right: 28px;
+}
+/* end */
+.lsvg-15 {
+  position: absolute;
+  top: 2050px;
+  left: -18px;
+  width: 50px;
+}
+
+.fill-color path {
+  fill: #df5411;
+}
+
+.cmt:hover .cmt path {
+  fill: #df5411 !important;
+}
+.processh2 {
+  color: #df5411 !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .lsvg-2 .lession-link div h2 {
+    white-space: pre-wrap;
+    width: 200px;
+    right: 10px;
+  }
+  .lsvg-3 .lession-link div h2 {
+    white-space: pre-wrap;
+    width: 200px;
+    right: 10px;
+  }
+  .lession-link div {
+    transition: ease-in-out 0.3s;
+  }
+  .lession-link:hover div {
+    transform: scale(1.4);
+    transition: ease-in-out 0.3;
+  }
+
+  /* link */
+  .lsvg-2 {
+    position: absolute;
+    top: 30px;
+    right: -18px;
+  }
+  .lsvg-2 h2 {
+    position: absolute;
+    top: 35px;
+    right: 65px;
+  }
+
+  /* link */
+  .lsvg-3 {
+    position: absolute;
+    top: 140px;
+    left: -18px;
+  }
+  .lsvg-3 h2 {
+    position: absolute;
+    top: 35px;
+    left: 65px;
+  }
+
+  .lsvg-4 {
+    position: absolute;
+    top: 265px;
+    right: -18px;
+  }
+  .lsvg-4 h2 {
+    position: absolute;
+    top: 35px;
+    right: 65px;
+  }
+  .lsvg-5 {
+    position: absolute;
+    top: 380px;
+    left: -18px;
+  }
+  .lsvg-5 h2 {
+    position: absolute;
+    top: 35px;
+    left: 65px;
+  }
+  /* link */
+  .lsvg-6 {
+    position: absolute;
+    top: 500px;
+    right: -18px;
+  }
+  .lsvg-6 h2 {
+    position: absolute;
+    top: 35px;
+    right: 65px;
+  }
+  /* link */
+  .lsvg-7 {
+    position: absolute;
+    top: 610px;
+    left: -18px;
+  }
+  .lsvg-7 h2 {
+    position: absolute;
+    top: 35px;
+    left: 65px;
+  }
+
+  /* link */
+  .lsvg-8 {
+    position: absolute;
+    top: 730px;
+    right: -18px;
+  }
+  .lsvg-8 h2 {
+    position: absolute;
+    top: 35px;
+    right: 65px;
+  }
+  /* link */
+  .lsvg-9 {
+    position: absolute;
+    top: 850px;
+    left: -18px;
+  }
+  .lsvg-9 h2 {
+    position: absolute;
+    top: 35px;
+    left: 65px;
+  }
+  /* link */
+  .lsvg-10 {
+    position: absolute;
+    top: 965px;
+    right: -18px;
+  }
+  .lsvg-10 h2 {
+    position: absolute;
+    top: 35px;
+    right: 65px;
+  }
+  /* 
+   /* link */
+  .lsvg-11 {
+    position: absolute;
+    top: 1082px;
+    left: -10px;
+  }
+  /* link */
+  .lsvg-12 {
+    position: absolute;
+    top: 1072px;
+    left: -20px;
+  }
+  .lsvg-13 {
+    position: absolute;
+    top: 1190px;
+    right: -15px;
+  }
+  .lsvg-14 {
+    position: absolute;
+    top: 1198px;
+    right: -27px;
+  }
+
+  .lsvg-15 {
+    position: absolute;
+    top: 1310px;
+    right: -27px;
+  }
+
+  /* end */
+
+  .lession-link div h2 {
+    font-size: 13px;
+  }
+  .lsvg-1 {
+    top: -70px;
+    left: 20px;
+  }
+  .lsvg-1 h2 {
+    top: 35px;
+    left: 65px;
+  }
+
+  #fullpath {
+    margin-top: 10px;
+  }
+  #fullpath .cmt svg {
+    width: 60px;
+  }
+  #fullpath svg {
+    width: 8px;
+  }
+  #fullpath {
+    width: 255px;
+    height: 3000px;
+    background-repeat: no-repeat;
+    margin-top: 200px;
+    position: relative;
+    background-size: 100%;
+    margin-top: 80px;
+    background-repeat: no-repeat;
+  }
+}

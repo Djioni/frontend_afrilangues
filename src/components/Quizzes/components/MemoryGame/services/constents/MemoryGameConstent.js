@@ -1,0 +1,1 @@
+export const GET_MEMORY_GAME_DATA = "GET_MEMORY_GAME_DATA";
