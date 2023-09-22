@@ -15,6 +15,7 @@ import { Home, LearningDashboard, Quizzes } from "./components";
 import Game from "./components/Quizzes/components/MemoryGame/Game";
 import { store } from "./store";
 import { MemoryGameDataAction } from "./components/Quizzes/components/MemoryGame/services/actions/MemoryGameDataAction";
+import CoursePlan from "./components/Home/components/plan-section/CoursePlan";
 
 const App = () => {
   const authData = useSelector((state) => state.auth);
@@ -62,6 +63,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Layout />
+      {/* <Home /> */}
+      {/* <CoursePlan /> */}
     </BrowserRouter>
   );
 };

@@ -6,9 +6,11 @@ import Testimonials from "./Testimonials/Testimonials";
 import FrequentlyQuestions from "./FrequentlyQuestions/FrequentlyQuestions";
 import Media from "./Media/Media";
 import Subscribe from "./Subscribe/Subscribe";
+import CoursePlan from "./plan-section/CoursePlan";
 
 export {
   Banner,
+  CoursePlan,
   ReferenceAfricanLanguage,
   DownloadApp,
   Testimonials,

@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=News+Cycle&family=Poppins&display=swap");
+
+@font-face {
+  font-family: "Milliard ExtraLight";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Milliard ExtraLight"),
+    url("./font/Rene\ Bieder\ \ Milliard\ ExtraLight.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Milliard Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Milliard SemiBold"),
+    url("./font/Rene\ Bieder\ \ Milliard\ Bold.woff") format("woff");
+}
+@font-face {
+  font-family: "Milliard ExtraBold";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Milliard ExtraBold"),
+    url("./font/Rene\ Bieder\ \ Milliard\ ExtraBold.woff") format("woff");
+}
+@font-face {
+  font-family: "Milliard Thin";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Milliard Thin"),
+    url("./font/Rene\ Bieder\ \ Milliard\ Hairline.woff") format("woff");
+}
+
+#c-plan {
+  background-color: #ececeb;
+  padding: 50px 0px;
+  margin-top: 50px;
+}
+
+#c-plan .c-plan-header {
+  color: rgb(12, 46, 68);
+  font-size: 2.5rem;
+
+  font-weight: 600;
+}
+
+.c-plan-card {
+  padding: 30px 0px;
+}
+.c-plan-card .card-body {
+  padding: 25px 25px;
+  background-color: white;
+}
+.c-plan-card .card-title {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  letter-spacing: 0.2px;
+  text-align: left;
+  font-weight: bold;
+  color: rgb(14, 14, 17) !important;
+}
+.c-plan-card .card-sub-title {
+  font-size: 1rem;
+  line-height: 1.7rem;
+  letter-spacing: 0.2px;
+  font-weight: 600;
+  text-align: left;
+  color: rgb(30, 30, 31) !important;
+}
+
+.c-plan-card .card .card-img-top {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 15px !important;
+}
+.c-plan-card .card {
+  border: none;
+  width: 355px;
+  background: none !important;
+  border-radius: none !important;
+}
+.c-plan-card .card ul {
+  margin: 0;
+  padding: 0;
+}
+.c-plan-card .card ul li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding: 4px 0px;
+  font-family: none !important;
+}
+
+.c-plan-card .card ul li .icon {
+  display: inline-block;
+  margin-right: 10px;
+  transform: translateY(5px);
+}
+
+.c-plan-card .card ul li .text {
+  font-size: 1.1rem;
+  letter-spacing: 0px;
+
+  line-height: 1.5rem;
+  color: rgb(57, 57, 58) !important;
+  white-space: normal;
+  font-weight: 1 !important;
+  font-family: "Milliard ExtraLight";
+}
+
+.c-plan-card .card button {
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  min-width: 152px;
+  height: 3rem;
+  width: auto;
+  flex-shrink: 0;
+  -moz-box-pack: center;
+  justify-content: center;
+  -moz-box-align: center;
+  align-items: center;
+  outline: none;
+  text-decoration: none;
+  margin: 0px;
+  padding: 0.75rem 1rem;
+  transition: all 100ms ease-out 0s;
+  background-color: rgb(255, 117, 53);
+  color: rgb(255, 255, 255);
+  border: medium;
+  transition: ease-in-out;
+  transition-duration: 0.1s;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 15px;
+}
+.c-plan-card .card .btn-1 {
+  margin-top: 65px;
+}
+
+.c-plan-card .card button:hover {
+  background-color: #e14a05;
+  transition: ease-in-out;
+  transition-duration: 0.1s;
+}
+.c-plan-card .row {
+  gap: 40px;
+}
+
+@media only screen and (min-width: 768px) {
+  .c-plan-card .row-col {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .c-plan-card .row-col-2 {
+    margin-top: 20px;
+  }
+  #c-plan .c-plan-header {
+    font-size: 1.7rem;
+  }
+}
+@media only screen and (max-width: 367px) {
+  .c-plan-card .card {
+    width: 100%;
+    padding: 0px 20px;
+  }
+}
+@media only screen and (max-width: 1399px) {
+  .c-plan-card .row {
+    gap: 100px;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .c-plan-card .row {
+    gap: 120px;
+  }
+}

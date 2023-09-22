@@ -12,6 +12,7 @@ import {
   FrequentlyQuestions,
   Media,
   Subscribe,
+  CoursePlan,
 } from "./components/index";
 import { useDispatch } from "react-redux";
 import { CurrentPathAction } from "../LearningDashboard/services/actions/CurrentPathAction";
@@ -26,6 +27,7 @@ const Home = () => {
     <div style={{ overflowX: "hidden" }}>
       <Navigation />
       <Banner />
+      <CoursePlan />
       <ReferenceAfricanLanguage />
       <DownloadApp />
       <Pricing />
