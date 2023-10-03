@@ -225,6 +225,31 @@ const quizData = [
 ];
 
 const Quizzes = () => {
+  // scrolling handle
+  const [removeSmPadding, setRemoveSmPadding] = useState("");
+
+  useEffect(() => {
+    // console.log("Adding event listeners");
+    // const updateScreenSize = () => {
+    //   setScreenWidth(window.innerWidth);
+    //   setScreenHeight(window.innerHeight);
+    // };
+    // const handleScroll = () => {
+    //   console.log("Hello");
+    //   setRemoveSmPadding("quiz_footer_add");
+    // };
+    // // Add a resize event listener to update screen size when the window is resized
+    // window.addEventListener("resize", updateScreenSize);
+    // // Check if the scroll event listener is already attached
+    // if (!window.scrollListenerAdded) {
+    //   console.log("Adding scroll event listener");
+    //   window.addEventListener("scroll", handleScroll);
+    //   window.scrollListenerAdded = true;
+    // }
+    // Rest of your code...
+  }, []);
+
+  // handle scrolling end
   const currentQuiz = useSelector((state) => state.currentQuiz);
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [currentLesson, setCurrentLesson] = useState(0);
@@ -246,6 +271,7 @@ const Quizzes = () => {
   const [correntWordMatch, setCorrentWordMatch] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [rightMultipleAnswer, setRightMultipleAnswer] = useState("");
+  const [successAlert, setSuccessAlert] = useState(null);
   // quizData = quizData[0];
   const content = JSON.parse(localStorage.getItem("content"));
   const navigate = useNavigate();
@@ -307,7 +333,9 @@ const Quizzes = () => {
 
   const [selectedPairs, setSelectedPairs] = useState([]);
   const [isWordMatchingComplete, setIsWordMatchingComplete] = useState(false);
-
+  const [putInOrderVerifyWrongCounter, setPutInOrderVerifyWrongCounter] =
+    useState(1);
+  const [putWordBg, setPutWordBG] = useState(false);
   const handleWordClick = (word) => {
     // setWordOrder((prevOrder) => [...prevOrder, word]);
 
@@ -350,7 +378,7 @@ const Quizzes = () => {
     //   icon: "success",
     //   confirmButtonText: "OK",
     // });
-    navigate("/lessons/section/");
+    navigate(-1);
   };
 
   const handleNext = () => {
@@ -482,16 +510,29 @@ const Quizzes = () => {
             wrongSound.play();
             setIsLoading(false);
             isCorrect = false;
-            setShowVerifyButton(false);
+            setShowVerifyButton(true);
             console.log(
               "right answer:",
               assessment.data.answerValidation[0].content
             );
-            setRightMultipleAnswer(assessment.data.answerValidation[0].content);
+            setPutInOrderVerifyWrongCounter((prev) => prev + 1);
+            if (putInOrderVerifyWrongCounter >= 3) {
+              setPutInOrderVerifyWrongCounter(1);
+              console.log("ready for redirect to next question");
+              setShowVerifyButton(false);
+              setRightMultipleAnswer(
+                assessment.data.answerValidation[0].content
+              );
+              isCorrect = true;
+              successSound.play();
+            }
           }
         } catch (error) {
           console.log(error.message);
           if (error.message === "Request failed with status code 401") {
+            Cookies("token", "");
+            Cookies("id", "");
+            localStorage.clear();
             navigate("/auth/login");
           }
         }
@@ -704,8 +745,12 @@ const Quizzes = () => {
         } catch (error) {
           console.log(error.message);
           if (error.message === "Request failed with status code 401") {
+            Cookies("token", "");
+            Cookies("id", "");
+            localStorage.clear();
             navigate("/auth/login");
           }
+
           if (error.message === "Request failed with status code 500") {
             setIsLoading(false);
           }
@@ -770,18 +815,33 @@ const Quizzes = () => {
             setShowVerifyButton(false);
           } else {
             wrongSound.play();
+
             setIsLoading(false);
             isCorrect = false;
-            setShowVerifyButton(false);
+            setShowVerifyButton(true);
             console.log(
               "right answer:",
               assessment.data.answerValidation[0].content
             );
-            setRightMultipleAnswer(assessment.data.answerValidation[0].content);
+            setPutInOrderVerifyWrongCounter((prev) => prev + 1);
+            if (putInOrderVerifyWrongCounter >= 3) {
+              setPutInOrderVerifyWrongCounter(1);
+              console.log("ready for redirect to next question");
+              setShowVerifyButton(false);
+              setRightMultipleAnswer(
+                assessment.data.answerValidation[0].content
+              );
+
+              isCorrect = true;
+              successSound.play();
+            }
           }
         } catch (error) {
           console.log(error.message);
           if (error.message === "Request failed with status code 401") {
+            Cookies("token", "");
+            Cookies("id", "");
+            localStorage.clear();
             navigate("/auth/login");
           }
         }
@@ -853,16 +913,34 @@ const Quizzes = () => {
             wrongSound.play();
             setIsLoading(false);
             isCorrect = false;
-            setShowVerifyButton(false);
+
+            console.log("wrong number ", putInOrderVerifyWrongCounter);
+            setPutInOrderVerifyWrongCounter((prev) => prev + 1);
+            if (putInOrderVerifyWrongCounter >= 3) {
+              setPutInOrderVerifyWrongCounter(1);
+              console.log("ready for redirect to next question");
+              setShowVerifyButton(false);
+              setWordOrder(
+                assessment.data.answerValidation[0].content.split(" ")
+              );
+              isCorrect = true;
+              setPutWordBG(true);
+              successSound.play();
+            }
+
             console.log(
               "right answer:",
-              assessment.data.answerValidation[0].content
+              assessment.data.answerValidation[0].content.split(" ")
             );
+
             setRightMultipleAnswer(assessment.data.answerValidation[0].content);
           }
         } catch (error) {
           console.log(error.message);
           if (error.message === "Request failed with status code 401") {
+            Cookies("token", "");
+            Cookies("id", "");
+            localStorage.clear();
             navigate("/auth/login");
           }
         }
@@ -893,6 +971,7 @@ const Quizzes = () => {
         ? JSON.parse(Cookies.get("token"))
         : "";
       const sentence = currentQuestionData.word;
+
       console.log("fdf", selectedTranslation);
       const content = selectedTranslation;
       console.log("content", currentQuizID);
@@ -936,16 +1015,33 @@ const Quizzes = () => {
             wrongSound.play();
             setIsLoading(false);
             isCorrect = false;
-            setShowVerifyButton(false);
+            setShowVerifyButton(true);
             console.log(
               "right answer:",
               assessment.data.answerValidation[0].content
             );
-            setRightMultipleAnswer(assessment.data.answerValidation[0].content);
+
+            setPutInOrderVerifyWrongCounter((prev) => prev + 1);
+            if (putInOrderVerifyWrongCounter >= 3) {
+              setPutInOrderVerifyWrongCounter(1);
+              console.log("ready for redirect to next question");
+              setSelectedTranslation(
+                assessment.data.answerValidation[0].content
+              );
+
+              setShowVerifyButton(false);
+
+              isCorrect = true;
+
+              successSound.play();
+            }
           }
         } catch (error) {
           console.log(error.message);
           if (error.message === "Request failed with status code 401") {
+            Cookies("token", "");
+            Cookies("id", "");
+            localStorage.clear();
             navigate("/auth/login");
           }
         }
@@ -1072,7 +1168,7 @@ const Quizzes = () => {
           // onVerify={handleVerify}
           // handleWordClick={handleWordClick}
           // wordOrder={wordOrder}
-
+          putWordBg={putWordBg}
           sentence={currentQuestionData.sentence}
           correctOrder={currentQuestionData.correctOrder}
           onVerify={handleVerify}
@@ -1138,10 +1234,15 @@ const Quizzes = () => {
               <h5>{content}</h5>
             </div>
           ) : (
-            <div className="quiz_container">
+            <div className={`quiz_container`}>
               {/* QUIZ HEADER */}
               <div className="quiz_header">
-                <button className="close_btn">
+                <button
+                  className="close_btn"
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                >
                   <img src={close_icon} alt="" className="img-fluid" />
                 </button>
                 <QuizProgressBar
@@ -1171,8 +1272,8 @@ const Quizzes = () => {
 
                   {/* QUIZ FOOTER */}
                   <div
-                    className={`quiz_footer ${
-                      answerCorrect === true
+                    className={`quiz_footer ${removeSmPadding} ${
+                      answerCorrect === true || successAlert === true
                         ? "correct"
                         : answerCorrect === false
                         ? "wrong"
@@ -1210,7 +1311,7 @@ const Quizzes = () => {
                               )}
                             </div>
                           </>
-                        ) : answerCorrect ? (
+                        ) : answerCorrect || successAlert ? (
                           <>
                             <div className="avatar_img_cont">
                               <img
@@ -1220,7 +1321,9 @@ const Quizzes = () => {
                               />
                             </div>
                             <div className="quiz_avatar_ques">
-                              <div className="cong_text">Bonne réponse</div>
+                              <div className="cong_text">
+                                Bravo ! C'est la bonne réponse !
+                              </div>
                             </div>
                           </>
                         ) : (
@@ -1233,7 +1336,9 @@ const Quizzes = () => {
                               />
                             </div>
                             <div className="quiz_avatar_ques">
-                              <div className="wrong_text">Mauvaise réponse</div>
+                              <div className="wrong_text">
+                                Oups ! Mauvaise réponse !
+                              </div>
                             </div>
                           </>
                         )}
@@ -1260,8 +1365,13 @@ const Quizzes = () => {
                         <button
                           className="next_button"
                           onClick={() => {
+                            setWordOrder([]);
                             setRightMultipleAnswer(null);
                             handleContinue();
+                            setPutInOrderVerifyWrongCounter(1);
+                            setAnswerCorrect(null);
+                            setSelectedTranslation("");
+                            setPutWordBG(false);
                           }}
                         >
                           {currentQuestion <
@@ -1269,11 +1379,11 @@ const Quizzes = () => {
                             ? "Continue"
                             : currentLesson < quizData.length - 1
                             ? "Next Lesson"
-                            : "Finish Test"}
+                            : "Continue"}
                         </button>
                       ) : (
                         <div className="test-finished-message">
-                          Test Finished!
+                          L'exercice est fini ! Bravo!
                         </div>
                       )}
                     </div>

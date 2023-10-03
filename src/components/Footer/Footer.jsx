@@ -112,7 +112,9 @@ const Footer = () => {
         </div>
       </div>
 
-      <p className="copyright_text">Copyright @ 2023 - 2025 xlent studio.</p>
+      <p className="copyright_text">
+        AFRILANGUES © 2023, Tous droits réservés.
+      </p>
     </div>
   );
 };

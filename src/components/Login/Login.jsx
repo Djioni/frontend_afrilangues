@@ -68,7 +68,7 @@ const Login = () => {
   );
   const [successSound] = useState(
     new Howl({
-      src: ["/sounds/success.mp3"],
+      src: ["/sounds/success_login.mp3"],
     })
   );
 
@@ -229,7 +229,7 @@ const Login = () => {
                 >
                   Mot de passe oublié ?
                 </NavLink>
-                <NavLink to="/auth/languages" className="outlined-link">
+                <NavLink to="/auth/register" className="outlined-link">
                   Créer un compte ?
                 </NavLink>
               </div>

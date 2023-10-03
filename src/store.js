@@ -11,6 +11,9 @@ import { QuizDataReducer } from "./components/LearningDashboard/services/reducer
 import { CurrentPathReducer } from "./components/LearningDashboard/services/reducers/CurrentPathReducer";
 import { ThemeReducer } from "./components/services/reducers/ThemeReducer";
 import { MemoryGameDataReducer } from "./components/Quizzes/components/MemoryGame/services/reducers/MemoryGameReducer";
+import { GetLessonReducer } from "./components/LearningDashboard/services/reducers/GetLessonReduer";
+import { GetLessonSectionReducer } from "./components/LearningDashboard/services/reducers/GetLessonSectionReducer";
+import { GetExerciseReducer } from "./components/LearningDashboard/services/reducers/GetExerciseReducer";
 const rootReducer = combineReducers({
   auth: AuthReducer,
   lessons: LessonReducer,
@@ -24,6 +27,9 @@ const rootReducer = combineReducers({
   currentPath: CurrentPathReducer,
   currentTheme: ThemeReducer,
   cardArray: MemoryGameDataReducer,
+  lesson: GetLessonReducer,
+  lessonsection: GetLessonSectionReducer,
+  exercises: GetExerciseReducer,
 
   // Add more reducers here if needed
 });

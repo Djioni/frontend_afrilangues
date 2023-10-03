@@ -82,7 +82,7 @@ export const FormatDialogueData = (QAdata, QuizID) => {
     let totalInputNumber = 0;
 
     QAdata.exerciseAndAnswers.forEach((exercise, index) => {
-      if (totalInputNumber >= 5) {
+      if (totalInputNumber >= 20) {
         return;
       }
 
@@ -181,7 +181,7 @@ export const FormatDialogueData = (QAdata, QuizID) => {
         keywords: jsonData.exerciseWords.sort(() => Math.random() - 0.5),
         audio: "/audio/q1.mp3",
         iconRight: true,
-        inputs: 5,
+        inputs: 20,
 
         questions: transformedData,
       },

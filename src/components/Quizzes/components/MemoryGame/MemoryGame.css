@@ -7,9 +7,19 @@
   font-family: "Poppins", sans-serif !important;
   font-size: 12px !important;
 }
+.score-card {
+  border: 2px solid #ff6b36;
+}
 .game-cover {
   background: linear-gradient(90deg, #ff6b36, #df9904);
   border: 3px solid #ff6b36;
+}
+.swal2-popup {
+  border: 2px solid #ff6b36;
+  border-radius: 20px;
+}
+.swal2-confirm {
+  background-color: #ff6b36 !important;
 }
 #mgame-card .card img {
   height: 300px;
@@ -136,4 +146,77 @@
   .main-heading {
     font-size: 48px;
   }
+}
+
+@media (max-width: 576px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(
+      2,
+      minmax(0, 1fr)
+    ); /* Adjust the column width as needed */
+    gap: 1rem; /* Adjust the gap between items as needed */
+  }
+  .game-cover {
+    height: 150px !important;
+  }
+  .mgame-card {
+    height: 150px !important;
+  }
+  .mgame-card-box {
+    height: 150px !important;
+  }
+  .game-score {
+    justify-content: space-between !important;
+    font-size: 12px;
+  }
+  .game-score p,
+  .game-score span {
+    color: rgb(77, 74, 74);
+    font-family: "Poppins", sans-serif !important;
+    font-size: 20px !important;
+  }
+  .main-card {
+    margin-top: 17px;
+  }
+  .score-box-1 {
+    justify-content: start !important;
+  }
+  .score-box-2 {
+    justify-content: start !important;
+  }
+  .score-1-space {
+    display: none !important;
+  }
+  .game-score .score-box-3 {
+    justify-content: start !important;
+  }
+  .score-box-4 {
+    justify-content: start !important;
+    display: -block;
+  }
+  .score-card {
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(
+      1,
+      minmax(0, 1fr)
+    ); /* Adjust the column width as needed */
+    gap: 2px; /* Adjust the gap between items as needed */
+  }
+  .game-score .s-3-card-space {
+    width: 75px;
+    display: none;
+  }
+}
+
+.game-score .s-3-card-space {
+  width: 75px;
+}
+.score-box-1 {
+  justify-content: center;
+}
+.score-box-2 {
+  justify-content: start;
 }

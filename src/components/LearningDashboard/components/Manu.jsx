@@ -44,7 +44,7 @@ export default function Manu(props) {
             </li>
             <hr />
             <li className="">
-              <a href="/">AIDECOURS EN DIRECT </a>
+              <a href="/">COURS EN DIRECT</a>
             </li>
             <hr />
             <li className="">

@@ -23,7 +23,7 @@
 }
 
 .word_option:hover {
-  background-color: #df5411;
+  background-color: #df5411 !important;
   color: white;
 }
 
@@ -57,18 +57,19 @@
   text-align: center;
 }
 
+/* MatchWordsQuestion.css */
 .word_option.selected {
-  background-color: #df5411;
+  background-color: #df5411 !important;
   /* border-color: green; */
 }
 
-/* MatchWordsQuestion.css */
-.correntoption {
+/* Increase specificity for .correntoption */
+.quiz_body .correntoption {
   background-color: #8dc084 !important;
   color: white !important;
-
   /* border-color: green; */
 }
+
 .wrongoption {
   background-color: black !important;
 
@@ -87,5 +88,39 @@
   .left_column,
   .right_column {
     width: 10%;
+  }
+}
+@media screen and (max-width: 576px) {
+  /* Your CSS styles for small mobile devices */
+  .match_words_question {
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .left_column,
+  .right_column {
+  }
+  .match_words_question .word_option {
+    padding: 15px 5px;
+    margin: 0;
+
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    width: 100%;
+    background-color: white;
+    border: 0px;
+    box-shadow: 0px 4px 4px 0px #00000040 !important;
+    border-radius: 23px;
+    font-size: 15px;
+  }
+  .match_words_question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    margin: 20px;
   }
 }

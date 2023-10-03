@@ -27,6 +27,7 @@ export default function Topics() {
   const [checkAuth, setCheckAuth] = useState(false);
   const theme = localStorage.getItem("theme");
   const lesson = localStorage.getItem("lesson");
+
   const lessonsection = localStorage.getItem("lessonsection");
   useEffect(() => {
     console.log("currenttheme", currentTheme);
@@ -40,7 +41,8 @@ export default function Topics() {
       };
 
       const GetMe = async () => {
-        if (theme && lesson && lessonsection) {
+        // theme && lesson && lessonsection
+        if (false) {
           //
           setUserTheme(JSON.parse(theme));
           //
@@ -82,6 +84,13 @@ export default function Topics() {
             //loading false
             setIsPageLoading(false);
           } catch (error) {
+            if (error.response.status === 401) {
+              Cookies.set("token", "");
+              Cookies.set("id", "");
+              localStorage.clear();
+              navigate("/auth/login");
+            }
+
             console.error("An error occurred while fetching data:", error);
             console.log("Data not found"); // Log a message when data is not found
           }
@@ -108,17 +117,17 @@ export default function Topics() {
 
   //handle topics
 
-  const handleTheme = (themeName) => {
+  const handleTheme = (themeID) => {
     console.log("hello");
 
-    const filteGreetings = userTheme.filter((item) => item.name === themeName);
+    const filteGreetings = userTheme.filter((item) => item.id === themeID);
     console.log(filteGreetings);
     if (filteGreetings[0]) {
       // dispatch(ThemeAction(filteGreetings));
       localStorage.setItem("currentTheme", JSON.stringify(filteGreetings));
       console.log("topic found");
       // redirect lessons
-      navigate("/lessons");
+      navigate(`/lessons?id=${themeID}`);
     } else {
       if (userToken) {
         setShowModal(true);
@@ -131,246 +140,220 @@ export default function Topics() {
   return (
     <div>
       {isPageLoading ? (
-        <Loading page={true} message={"S'il vous plaît, attendez!"} />
+        <div style={{ marginTop: "200px" }}>
+          <Loading page={true} message={"S'il vous plaît, attendez!"} />
+        </div>
       ) : (
         <div id="fullpath">
           <div>
             <div className="lsvg-1">
               <div
                 className={"lession-link"}
-                onClick={() => handleTheme("greetings")}
+                onClick={() => handleTheme(userTheme[0] ? userTheme[0].id : "")}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[0]
+                        ? `${API_URL}/mediaObject/download/${userTheme[0].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Salutations</h2>
+                    <h2>{userTheme[0] ? userTheme[0].name : ""}</h2>
                   </span>
                 </div>
               </div>
             </div>
             <div className="lsvg-2">
               <div
-                onClick={() => handleTheme("givingAndGettingNews")}
+                onClick={() => handleTheme(userTheme[1] ? userTheme[1].id : "")}
                 className={"lession-link"}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[1]
+                        ? `${API_URL}/mediaObject/download/${userTheme[1].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Donner et prendre des nouvelles</h2>
+                    <h2 className="">
+                      {userTheme[1] ? userTheme[1].name : ""}
+                    </h2>
                   </span>
                 </div>
               </div>
             </div>
             <div className="lsvg-3">
               <div
-                onClick={() => handleTheme("givingAndGettingNews2")}
+                onClick={() => handleTheme(userTheme[2] ? userTheme[2].id : "")}
                 className={"lession-link"}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[2]
+                        ? `${API_URL}/mediaObject/download/${userTheme[2].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Donner et prendre des nouvelles</h2>
+                    <h2>{userTheme[2] ? userTheme[2].name : ""}</h2>
                   </span>
                 </div>
               </div>
             </div>
             <div className="lsvg-4">
               <div
-                onClick={() => handleTheme("blessings")}
+                onClick={() => handleTheme(userTheme[3] ? userTheme[3].id : "")}
                 className={"lession-link"}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[3]
+                        ? `${API_URL}/mediaObject/download/${userTheme[3].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Bennedictions</h2>
+                    <h2>{userTheme[3] ? userTheme[3].name : ""}</h2>
                   </span>
                 </div>
               </div>
             </div>
             <div className="lsvg-5">
               <div
-                onClick={() => handleTheme("blessings2")}
+                onClick={() => handleTheme(userTheme[4] ? userTheme[4].id : "")}
                 className={"lession-link"}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[4]
+                        ? `${API_URL}/mediaObject/download/${userTheme[4].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Bennedictions</h2>
+                    <h2>{userTheme[4] ? userTheme[4].name : ""}</h2>
                   </span>
                 </div>
               </div>
             </div>
             <div className="lsvg-6">
               <div
-                onClick={() => handleTheme("introduceYourself1")}
+                onClick={() => handleTheme(userTheme[5] ? userTheme[5].id : "")}
                 className={"lession-link"}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[5]
+                        ? `${API_URL}/mediaObject/download/${userTheme[5].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Se présenter 1</h2>
+                    <h2>{userTheme[5] ? userTheme[5].name : ""}</h2>
                   </span>
                 </div>
               </div>
             </div>
             <div className="lsvg-7">
               <div
-                onClick={() => handleTheme("introduceYourself2")}
+                onClick={() => handleTheme(userTheme[6] ? userTheme[6].id : "")}
                 className={"lession-link"}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[6]
+                        ? `${API_URL}/mediaObject/download/${userTheme[6].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Se présenter 2</h2>
+                    <h2>{userTheme[6] ? userTheme[6].name : ""}</h2>
                   </span>
                 </div>
               </div>
             </div>
             <div className="lsvg-8">
               <div
-                onClick={() => handleTheme("FiguresAndNumbers")}
+                onClick={() => handleTheme(userTheme[7] ? userTheme[7].id : "")}
                 className={"lession-link"}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[7]
+                        ? `${API_URL}/mediaObject/download/${userTheme[7].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Chiffres et nombres</h2>
+                    <h2>{userTheme[7] ? userTheme[7].name : ""}</h2>
                   </span>
                 </div>
               </div>
             </div>
             <div className="lsvg-9">
               <div
-                onClick={() => handleTheme("thePresentative")}
+                onClick={() => handleTheme(userTheme[8] ? userTheme[8].id : "")}
                 className={"lession-link"}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[8]
+                        ? `${API_URL}/mediaObject/download/${userTheme[8].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Le présentatif </h2>
+                    <h2>{userTheme[8] ? userTheme[8].name : ""}</h2>
                   </span>
                 </div>
               </div>
             </div>
             <div className="lsvg-10">
               <div
-                onClick={() => handleTheme("whatDoYouLike")}
+                onClick={() => handleTheme(userTheme[8] ? userTheme[8].id : "")}
                 className={"lession-link"}
               >
                 <div className="div">
+                  <img
+                    className="w-100 h-100"
+                    src={`${
+                      userTheme[8]
+                        ? `${API_URL}/mediaObject/download/${userTheme[8].image}`
+                        : "/assets/lock1.png"
+                    }`}
+                    alt=""
+                  />
                   <span className="cmt">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="97"
-                      height="91"
-                      viewBox="0 0 97 91"
-                      fill="none"
-                    >
-                      <path
-                        d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                        fill="#D9D9D9"
-                      />
-                    </svg>
-                    <h2>Qu’aimes-tu ?</h2>
+                    <h2>{userTheme[8] ? userTheme[8].name : ""}</h2>
                   </span>
                 </div>
               </div>
@@ -384,115 +367,9 @@ export default function Topics() {
                 <div className={""}>
                   <div className="div">
                     <span className="cmt">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="97"
-                          height="91"
-                          viewBox="0 0 97 91"
-                          fill="none"
-                        >
-                          <path
-                            d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                            fill="#D9D9D9"
-                          />
-                        </svg>
-                      </div>
+                      <div></div>
                     </span>
                   </div>
-                </div>
-              </div>
-              <div className="lsvg-12">
-                <div className={""}>
-                  <div className="div">
-                    <span className="cmt">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="97"
-                          height="91"
-                          viewBox="0 0 97 91"
-                          fill="none"
-                        >
-                          <path
-                            d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                            fill="#D9D9D9"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              onClick={() => handleTheme("moreTopic2")}
-              className={"lession-link-e"}
-            >
-              <div className="lsvg-13">
-                <div className={""}>
-                  <div className="div">
-                    <span className="cmt">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="97"
-                          height="91"
-                          viewBox="0 0 97 91"
-                          fill="none"
-                        >
-                          <path
-                            d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                            fill="#D9D9D9"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="lsvg-14">
-                <div className={""}>
-                  <div className="div">
-                    <span className="cmt">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="97"
-                          height="91"
-                          viewBox="0 0 97 91"
-                          fill="none"
-                        >
-                          <path
-                            d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                            fill="#D9D9D9"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div onClick={() => handleTheme("moreTopic3")} className="lsvg-15">
-              <div className={"lession-link-e"}>
-                <div className="div">
-                  <span className="cmt">
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="97"
-                        height="91"
-                        viewBox="0 0 97 91"
-                        fill="none"
-                      >
-                        <path
-                          d="M97 45.5C97 70.629 75.2858 91 48.5 91C21.7142 91 0 70.629 0 45.5C0 20.371 21.7142 0 48.5 0C75.2858 0 97 20.371 97 45.5Z"
-                          fill="#D9D9D9"
-                        />
-                      </svg>
-                    </div>
-                  </span>
                 </div>
               </div>
             </div>

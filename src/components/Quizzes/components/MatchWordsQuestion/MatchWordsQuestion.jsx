@@ -138,6 +138,7 @@ const MatchWordsQuestion = ({
                   : ""
               }`}
               onClick={() => handleRightSelect(rightIndex)}
+              id={`${isRightDisabled(rightIndex) ? " " : ""}`}
             >
               {word}
             </div>

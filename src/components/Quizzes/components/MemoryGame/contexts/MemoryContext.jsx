@@ -18,7 +18,7 @@ const initialState = {
   matchedImageModal: false,
   gameOver: false,
   handleGameOver: () => {},
-  timeLeft: 60,
+  timeLeft: 45,
   matchedName: "",
   handleCardItemClick: () => {},
   disabledCards: false,
@@ -106,7 +106,7 @@ const MemoryProvider = ({ children }) => {
    */
   const startGame = () => {
     setGameOver(false);
-    setTimeLeft(60);
+    setTimeLeft(45);
     shuffleCards();
     setScore(0);
     setRound(1);
@@ -235,12 +235,12 @@ const MemoryProvider = ({ children }) => {
   const onTimerEnd = () => {
     if (round < 3) {
       setGameOver(false);
-      setTimeLeft(60);
+      setTimeLeft(45);
       shuffleCards();
       setScore(0);
       setTurn(0);
       setRound((prevvalue) => prevvalue + 1);
-      setTimeLeft(60);
+      setTimeLeft(45);
     } else {
       setGameOver(true);
       setTimeLeft(0);

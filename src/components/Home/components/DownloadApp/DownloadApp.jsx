@@ -19,10 +19,10 @@ const DownloadApp = () => {
             </p>
           </div>
           <div className="btn_container">
-            <a href="#">
+            <a href="https://apps.apple.com/fr/app/afrilangues-officiel/id1511912820">
               <img src={app_store} alt="" />
             </a>
-            <a href="#">
+            <a href="https://play.google.com/store/apps/details?id=com.afrilangues.app">
               <img src={play_store} alt="" />
             </a>
           </div>

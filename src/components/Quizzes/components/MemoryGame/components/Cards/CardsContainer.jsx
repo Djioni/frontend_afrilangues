@@ -42,12 +42,12 @@ const CardsContainer = () => {
   if (gameOver) {
     const MySwal = withReactContent(Swal);
     MySwal.fire({
-      background: "#FFC436",
+      background: "#eaeaea",
       color: "#191D88 ",
-      title: "Game Over!",
-      text: `You have used all rounds, Try Again`,
+      title: "La partie est terminée !",
+      text: `u as épuisé toutes tes chances.`,
       icon: "error",
-      confirmButtonText: "Play Again",
+      confirmButtonText: "Rejouer",
       allowOutsideClick: false,
       allowEscapeKey: false,
       allowEnterKey: false,

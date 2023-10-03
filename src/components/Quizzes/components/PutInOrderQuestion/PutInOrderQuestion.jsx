@@ -53,7 +53,7 @@
 
 // export default PutInOrderQuestion;
 
-import React from "react";
+import React, { useState } from "react";
 import "./PutInOrderQuestion.css";
 
 const PutInOrderQuestion = ({
@@ -63,16 +63,20 @@ const PutInOrderQuestion = ({
   setAnswerCorrect,
   wordOrder,
   handleWordClick,
+  putWordBg,
 }) => {
   const isWordSelected = (word) => wordOrder.includes(word);
 
+  // selected
   return (
     <div className="put_in_order_question">
       <div className={`sentence ${wordOrder.length === 0 ? "active" : ""}`}>
         {wordOrder.map((word, index) => (
           <span
             key={index}
-            className={`word ${isWordSelected(word) ? "selected" : ""}`}
+            className={`word ${isWordSelected(word) ? "" : ""}
+            ${putWordBg ? "add-word-bg" : ""}
+            `}
             onClick={() => handleWordClick(word)}
           >
             {word}

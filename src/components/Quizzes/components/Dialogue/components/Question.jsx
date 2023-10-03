@@ -16,14 +16,14 @@ const Question = ({
     if (inputs === 1) {
       return (
         <div
-          className={`w-100 d-flex ${
+          className={`w-100 dia-q  d-flex ${
             iconRight
               ? "flex-row justify-content-between"
               : "flex-row-reverse justify-content-end"
           } align-items-center py-4 px-2 rounded-2 shadow-lg question my-2`}
         >
           {inputFirst && (
-            <div className="d-flex align-items-center justify-content-start gap-1">
+            <div className="d-flex  align-items-center justify-content-start gap-1">
               <input
                 name={input1Name}
                 value={state[input1Name]}
@@ -34,7 +34,7 @@ const Question = ({
             </div>
           )}
           {!inputFirst && !inputMiddle && (
-            <div className="d-flex align-items-center justify-content-start gap-1">
+            <div className="d-flex  align-items-center justify-content-start gap-1">
               <p>{text1}</p>
               <input
                 name={input1Name}
@@ -62,7 +62,7 @@ const Question = ({
     } else if (inputs === 2) {
       return (
         <div
-          className={`w-100 d-flex ${
+          className={`dia-q w-100 d-flex ${
             iconRight
               ? "flex-row justify-content-between"
               : "flex-row-reverse justify-content-end"

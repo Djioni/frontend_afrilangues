@@ -31,7 +31,10 @@ const ListenRepeatQuestion = ({
           Your browser does not support the audio element.
         </audio>
 
-        <div className="audio_box_icon" onClick={togglePlay}>
+        <div
+          className="audio_box_icon d-flex justify-content-center"
+          onClick={togglePlay}
+        >
           <img src={speaker_icon} alt="" />
         </div>
       </div>

@@ -23,6 +23,8 @@ import Process from "./components/LearningDashboard/components/Process";
 import Game from "./components/Quizzes/components/MemoryGame/Game";
 import TestParams from "./components/test/TestParams";
 import Dialogue from "./components/Quizzes/components/Dialogue/Dialogue";
+import ForgetPasswd from "./components/ForgetPasswd";
+import Exercise from "./components/LearningDashboard/components/Exercise";
 
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
@@ -74,7 +76,7 @@ export default function Layout() {
   const currentTime = new Date();
   useEffect(() => {
     // expires time
-    const expireTime = new Date(currentTime.getTime() + 60000 * 60);
+    const expireTime = new Date(currentTime.getTime() + 60000 * 1440);
     // console.log(new Date(currentTime.getTime() + 180000));
     // This effect will run whenever 'isLearningDashboardOpen' changes or location.pathname changes.
 
@@ -85,10 +87,11 @@ export default function Layout() {
       Cookies.set("token", userToken, { expires: expireTime });
       Cookies.set("id", userID, { expires: expireTime });
     } else {
-      localStorage.clear();
+      // localStorage.clear();
       // console.log("data not found!");
       Cookies.set("token", "");
       Cookies.set("id", "");
+      localStorage.clear();
     }
 
     if (
@@ -114,15 +117,24 @@ export default function Layout() {
       <Routes>
         {/* public routes */}
 
-        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to={userToken && usertID ? "/dashboard" : "/home"}
+              replace
+            />
+          }
+        />
 
         <Route path="/home" element={<Home />} />
 
         {/* auth routes */}
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/languages" element={<Languages />} />
-        <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth/register" element={<Languages />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgetpassword" element={<ForgetPasswd />} />
 
         {/* dashboard routes */}
         <Route path="/dashboard" element={<LearningDashboard />} />
@@ -155,6 +167,14 @@ export default function Layout() {
           element={
             <div className="container">
               <LessonSection />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/lessons/section/exercise/"
+          element={
+            <div className="">
+              <Exercise />
             </div>
           }
         ></Route>

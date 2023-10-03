@@ -8,7 +8,7 @@ import { BiPhoneCall, BiLockAlt } from "react-icons/bi";
 import ErrorModal from "../ErrorModal";
 import { NavLink, useNavigate } from "react-router-dom";
 import TextInput from "../TextInput";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -18,9 +18,10 @@ import Loading from "../Loading";
 import Cookies from "js-cookie";
 import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
 import "../../App.css";
+import { GetLanguageAction } from "../Languages/services/actions/LanguageAction";
 const Register = () => {
   const { language } = useSelector((state) => state.language);
-
+  const displathLanguage = useDispatch();
   const ragistationStatus = "ok";
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -30,12 +31,7 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState(
     "Tous les champs doivent etre remples"
   );
-  const languageValidator = () => {
-    if (!language) {
-      navigate("/auth/languages");
-    }
-  };
-  languageValidator();
+
   // redirect dashboard secton (end)
   //user data
   const userToken = Cookies.get("token");
@@ -205,6 +201,11 @@ const Register = () => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      displathLanguage(GetLanguageAction(""));
+    };
+  }, []);
   return (
     <div>
       {isPageLoading ? (

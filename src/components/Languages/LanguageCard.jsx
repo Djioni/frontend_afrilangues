@@ -3,10 +3,7 @@ import { NavLink } from "react-router-dom";
 
 function LanguageCard({ logo, members }) {
   return (
-    <NavLink
-      to="/register"
-      className="w-100 d-flex flex-column align-items-center justify-content-start gap-4 text-decoration-none language-card"
-    >
+    <NavLink className="w-100 d-flex flex-column align-items-center justify-content-start gap-4 text-decoration-none language-card">
       <div
         className="position-relative rounded-circle "
         style={{ height: "120px", width: "120px" }}

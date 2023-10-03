@@ -27,7 +27,7 @@ const Home = () => {
     <div style={{ overflowX: "hidden" }}>
       <Navigation />
       <Banner />
-      <CoursePlan />
+      {/* <CoursePlan /> */}
       <ReferenceAfricanLanguage />
       <DownloadApp />
       <Pricing />

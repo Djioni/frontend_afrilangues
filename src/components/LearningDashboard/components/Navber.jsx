@@ -8,7 +8,11 @@ import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Navber() {
+  const userToken = Cookies.get("token");
+  const ID = Cookies.get("id");
+
   // souonds
+
   const [wrongSound] = useState(
     new Howl({
       src: ["/sounds/wrong.mp3"],
@@ -109,6 +113,10 @@ export default function Navber() {
       navigate("/home");
     }, 2000);
   };
+
+  const handleLogoClick = () => {
+    console.log("hello");
+  };
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     document.addEventListener("scroll", handleScroll);
@@ -123,13 +131,23 @@ export default function Navber() {
     <div ref={outerContainerRef} className="navber">
       <div className="container    py-1 ">
         <div className="row ">
-          <div className="col-1">
-            <NavLink to={"/home"}>
+          <div className="col-3 col-md-1">
+            <div
+              className=""
+              style={{ cursor: "pointer", zIndex: "21" }}
+              onClick={() => {
+                if (userToken && ID) {
+                  navigate("/dashboard");
+                } else {
+                  navigate("/home");
+                }
+              }}
+            >
               {" "}
               <img className="logo" src="/assets/logo.svg" alt="Logo" />
-            </NavLink>
+            </div>
           </div>
-          <div className="col-11 justify-content-end justify-content-xl-center d-flex   ">
+          <div className="col-9 col-md-11 justify-content-end justify-content-xl-center d-flex   ">
             <ul className="nav-list">
               <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/"> MES COURS</a>
@@ -155,7 +173,7 @@ export default function Navber() {
                     <img
                       src="assets/flags/france.svg"
                       className="flag"
-                      alt="kigi"
+                      alt="f"
                     />
                     <span className="mx-2">
                       <svg

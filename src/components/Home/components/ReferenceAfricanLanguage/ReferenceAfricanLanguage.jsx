@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import demo from "../../../../assets/ref-african-lan-img.png";
 import "./ReferenceAfricanLanguage.css";
 
@@ -20,7 +21,9 @@ const ReferenceAfricanLanguage = () => {
 
         <div className="content_container">
           <img src={demo} alt="" className="img-fluid" />
-          <button>JE M’INSCRIS MAINTENANT</button>
+          <NavLink to={"/auth/register"}>
+            <button>JE M’INSCRIS MAINTENANT</button>
+          </NavLink>
         </div>
       </div>
     </div>

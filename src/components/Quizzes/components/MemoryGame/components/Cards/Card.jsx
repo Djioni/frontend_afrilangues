@@ -11,7 +11,7 @@ const Card = ({ card, onClick, disabled }) => {
 
   return (
     <div id="mgame-card">
-      <div className="card w-100 position-relative rounded-4 border-0 bg-transparent ">
+      <div className="card mgame-card-box w-100 position-relative rounded-4 border-0 bg-transparent ">
         <div className={className}>
           <img
             className="front w-100 object-fit-cover rounded-4"

@@ -16,6 +16,8 @@ import Game from "./components/Quizzes/components/MemoryGame/Game";
 import { store } from "./store";
 import { MemoryGameDataAction } from "./components/Quizzes/components/MemoryGame/services/actions/MemoryGameDataAction";
 import CoursePlan from "./components/Home/components/plan-section/CoursePlan";
+import axios from "axios";
+import { API_URL } from "./api";
 
 const App = () => {
   const authData = useSelector((state) => state.auth);
@@ -60,11 +62,17 @@ const App = () => {
   ];
   console.log("hello i am from app");
 
+  //
+  useEffect(() => {}, []);
+
+  //
+
   return (
     <BrowserRouter>
       <Layout />
       {/* <Home /> */}
       {/* <CoursePlan /> */}
+      {/* <Quizzes /> */}
     </BrowserRouter>
   );
 };
