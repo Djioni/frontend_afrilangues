@@ -1,7 +1,7 @@
 import { API_URL } from "../../../../api";
 
-export const ListenRepeat = (QAdata, userID) => {
-  if (QAdata && userID) {
+export const ListenRepeat = (QAdata, userID, exType) => {
+  if (QAdata && userID && exType) {
     // listen and repeat
 
     const quizQuestion = [
@@ -46,6 +46,13 @@ export const ListenRepeat = (QAdata, userID) => {
       };
     });
 
-    return [{ id: userID, lessonTitle: "lesson", questions: transformedData }];
+    return [
+      {
+        id: userID,
+        quiztype: exType,
+        lessonTitle: "lesson",
+        questions: transformedData,
+      },
+    ];
   }
 };

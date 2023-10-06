@@ -1,5 +1,5 @@
-export const FormatPutInOrder = (QAdata, QuizID) => {
-  if (QAdata && QuizID) {
+export const FormatPutInOrder = (QAdata, QuizID, exType) => {
+  if (QAdata && QuizID && exType) {
     const jsonString = [
       {
         order: 0,
@@ -107,6 +107,13 @@ export const FormatPutInOrder = (QAdata, QuizID) => {
       };
     });
 
-    return [{ id: QuizID, lessonTitle: "lesson", questions: convertedData }];
+    return [
+      {
+        id: QuizID,
+        quiztype: exType,
+        lessonTitle: "lesson",
+        questions: convertedData,
+      },
+    ];
   }
 };

@@ -1,7 +1,7 @@
-export const FormatDialogueData = (QAdata, QuizID) => {
+export const FormatDialogueData = (QAdata, QuizID, exType) => {
   //
 
-  if (QAdata && QuizID) {
+  if (QAdata && QuizID && exType) {
     const jsonData = {
       id: "6503729c41bd45770962a19e",
       title: "Complete the dialog",
@@ -175,6 +175,7 @@ export const FormatDialogueData = (QAdata, QuizID) => {
 
     return [
       {
+        quiztype: exType,
         quizid: QuizID,
         question: "Question1",
 

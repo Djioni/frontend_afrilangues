@@ -1,6 +1,6 @@
 import { API_URL } from "../../../../api";
 
-export const TestFunction = (QAdata, userID) => {
+export const TestFunction = (QAdata, userID, exType) => {
   console.log("qadata", QAdata);
   const quizQuestion1 = [
     {
@@ -163,7 +163,7 @@ export const TestFunction = (QAdata, userID) => {
 
   const quizQuestion = QAdata;
   const quizData = [];
-  if (quizQuestion && userID) {
+  if (quizQuestion && userID && exType) {
     // Text Options
     const textOptions = quizQuestion.map((value) => {
       if (
@@ -324,6 +324,13 @@ export const TestFunction = (QAdata, userID) => {
       });
     }
 
-    return [{ id: userID, lessonTitle: "lesson", questions: quizOrderData }];
+    return [
+      {
+        id: userID,
+        quiztype: exType,
+        lessonTitle: "lesson",
+        questions: quizOrderData,
+      },
+    ];
   }
 };

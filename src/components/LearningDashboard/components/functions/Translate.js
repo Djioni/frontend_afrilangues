@@ -1,4 +1,4 @@
-export const Translate = (QAdata, userID) => {
+export const Translate = (QAdata, userID, exType) => {
   const quizQuestion = [
     {
       order: 0,
@@ -74,7 +74,12 @@ export const Translate = (QAdata, userID) => {
     }));
 
     return [
-      { id: userID, lessonTitle: "lesson", questions: convertedQuestions },
+      {
+        id: userID,
+        quiztype: exType,
+        lessonTitle: "lesson",
+        questions: convertedQuestions,
+      },
     ];
   }
 };

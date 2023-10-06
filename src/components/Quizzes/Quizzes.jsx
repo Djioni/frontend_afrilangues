@@ -380,6 +380,7 @@ const Quizzes = () => {
     // });
     navigate(-1);
   };
+  console.log("quizdata", quizData);
 
   const handleNext = () => {
     setRightMultipleAnswer("");

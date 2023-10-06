@@ -1,5 +1,5 @@
-export const FormatMatchTheWordsData = (QAdata, QuizID) => {
-  if (QAdata && QuizID) {
+export const FormatMatchTheWordsData = (QAdata, QuizID, exType) => {
+  if (QAdata && QuizID && exType) {
     const data = [
       {
         order: 1,
@@ -111,6 +111,13 @@ export const FormatMatchTheWordsData = (QAdata, QuizID) => {
       },
     ];
 
-    return [{ id: QuizID, lessonTitle: "lesson", questions: convertedData }];
+    return [
+      {
+        id: QuizID,
+        quiztype: exType,
+        lessonTitle: "lesson",
+        questions: convertedData,
+      },
+    ];
   }
 };
