@@ -594,6 +594,10 @@ const Home = () => {
           );
           console.log("ass", assessment.data);
           if (assessment.data.status === "RIGHT") {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             setClassBoxClass("");
             if (activeQuestion.questions.length === currentQuestionID) {
               // setActiveQuestionIndex(activeQuestionIndex + 1);
@@ -625,6 +629,10 @@ const Home = () => {
             setAnswerCorrect(true);
             setIsLoading(false);
           } else {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             setClassBoxClass("");
             setAnswerCorrect(false);
 
@@ -708,7 +716,7 @@ const Home = () => {
     console.log("render");
   };
   const handleKeyWord = (item) => {
-    if (currentQuestionID < 20) {
+    if (currentQuestionID < activeQuestion.questions.length + 1) {
       const currentQuestionObject = activeQuestion.questions.filter(
         (value) => value.id === currentQuestionID
       )[0];
@@ -763,6 +771,334 @@ const Home = () => {
 
         return currentQuestionInputs; // Return the updated state
       });
+      const handleSubmitK = async () => {
+        const inputActive = () => {
+          const prevInputs = qInputs;
+          const currentQuestionInputs = { ...prevInputs };
+          const inputName = `blank${currentBlankIndex}`;
+          const inputName1 = `blank${currentBlankIndex - 1}`;
+
+          console.log(
+            "current input",
+            currentQuestionInputs[inputName1],
+            "current value",
+            item
+          );
+
+          // Check if the keyword is in the input
+          console.log("current inputp index,");
+          if (
+            currentQuestionInputs[inputName1] === item &&
+            currentQuestionObject.inputs === 2
+          ) {
+            if (currentBlankIndex >= twoInputsByKey + 1) {
+              console.log("okay hello i am hceking");
+              currentQuestionInputs[inputName1] = "";
+              currentQuestionInputs[inputName1 + 1] = "";
+              console.log("curent index", currentBlankIndex);
+              setCurrentBlankIndex((prev) => prev - 1);
+            }
+            // Remove the keyword from the input
+
+            console.log(
+              "current input",
+              currentQuestionInputs[inputName1],
+              "current value",
+              item
+            );
+            // setCurrentBlankIndex((prev) => Math.min(prev + 1, 5));
+          }
+          if (currentQuestionObject.inputs === 2) {
+            console.log("2 input found");
+            // Add the keyword to the input
+            currentQuestionInputs[inputName] = item;
+            setCurrentBlankIndex((prev) =>
+              Math.min(prev + 1, twoInputsByKey + 1)
+            );
+            incrementProgressBar();
+          } else {
+            currentQuestionInputs[inputName] = item;
+            incrementProgressBar();
+          }
+
+          return currentQuestionInputs; // Return the updated state
+        };
+        console.log("inputactive", inputActive());
+
+        if (currentQuestionID < activeQuestion.questions.length + 1) {
+          const input = inputActive();
+          setQInputs(input);
+          console.log("value:", input);
+          // Get the current question's keywords, input values, and question data
+          const currentQuestionObject = activeQuestion.questions.filter(
+            (value) => value.id === currentQuestionID
+          )[0];
+
+          console.log("curentquestion", currentQuestionID);
+
+          console.log(activeQuestion.questions.length);
+          console.log(activeQuestion);
+          let currentInput = {};
+          console.log(currentQuestionObject);
+          // check input box
+          if (currentQuestionObject.inputs === 1) {
+            currentQuestionOrder = currentQuestionObject.order;
+            console.log("input1");
+            let currentInput =
+              input[`blank${currentQuestionID + doubleInputNumber}`];
+            console.log("currant input", input);
+            //update id
+            if (currentInput) {
+              // setCurrentQuestionID((prev) => prev + 1);
+              console.log(currentQuestionID);
+              // extract current question object
+              if (currentQuestionObject.inputMiddle) {
+                console.log(
+                  "input fast found!",
+                  `${
+                    currentQuestionObject.text1
+                      ? currentQuestionObject.text1
+                      : ""
+                  } ... ${
+                    currentQuestionObject.text2
+                      ? currentQuestionObject.text2
+                      : ""
+                  }`
+                );
+                sentence = `${
+                  currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
+                } ... ${
+                  currentQuestionObject.text2 ? currentQuestionObject.text2 : ""
+                }`;
+                // content
+                content = `${
+                  currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
+                } ${input[`blank${currentQuestionID + doubleInputNumber}`]} ${
+                  currentQuestionObject.text2 ? currentQuestionObject.text2 : ""
+                }`;
+              }
+              if (currentQuestionObject.inputFirst) {
+                console.log(
+                  "middle input found!",
+                  `... ${
+                    currentQuestionObject.text1
+                      ? currentQuestionObject.text1
+                      : ""
+                  }`
+                );
+                sentence = `... ${
+                  currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
+                }`;
+                //content
+                content = `${
+                  input[`blank${currentQuestionID + doubleInputNumber}`]
+                } ${
+                  currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
+                }`;
+              }
+            }
+          }
+
+          const currentInput2 =
+            input[`blank${currentQuestionID + doubleInputNumber + 1}`];
+          if (currentQuestionObject.inputs === 2) {
+            currentQuestionOrder = currentQuestionObject.order;
+            let currentInput =
+              input[`blank${currentQuestionID + doubleInputNumber}`];
+
+            console.log("input2");
+
+            console.log("doubleinput", doubleInputNumber);
+
+            // update id
+            if (currentInput && currentInput2) {
+              console.log("input1:", currentInput, "input22:", currentInput2);
+              // setCurrentQuestionID((prev) => prev + 1);
+              console.log(currentQuestionID);
+              // setDoubleInputNumber((prev) => prev + 1);
+              //
+              console.log(
+                "2 input found:",
+                `... ${
+                  currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
+                } ... ${
+                  currentQuestionObject.text2 ? currentQuestionObject.text2 : ""
+                }
+                `
+              );
+              sentence = `... ${
+                currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
+              } ... ${
+                currentQuestionObject.text2 ? currentQuestionObject.text2 : ""
+              }`;
+              // content
+              content = `${currentInput} ${
+                currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
+              } ${currentInput2} ${
+                currentQuestionObject.text2 ? currentQuestionObject.text2 : ""
+              }
+              `;
+            }
+          }
+          // assessment start //
+          const quizID = quizData[0].quizid;
+          const userID = Cookies.get("id") ? JSON.parse(Cookies.get("id")) : "";
+          const userToken = Cookies.get("token")
+            ? JSON.parse(Cookies.get("token"))
+            : "";
+          console.log("sentence", sentence);
+          console.log("content", content);
+          console.log("id", quizID);
+          /// implement
+          if (sentence && content) {
+            setIsLoading(true);
+            // assessment schma
+            const AssessmentSchma = {
+              userId: userID,
+              exerciseId: quizID,
+              type: "DIALOGUE",
+              sentence: sentence,
+              order: currentQuestionOrder,
+              answerLetter: [
+                {
+                  content: content.trim(),
+                },
+              ],
+            };
+
+            console.log(userID, userToken);
+            const config = {
+              headers: {
+                Authorization: `${AUTH_NAME} ${userToken}`,
+              },
+            };
+
+            // axios request
+            try {
+              const assessment = await axios.post(
+                `${API_URL}/assessment/`,
+                AssessmentSchma,
+                config
+              );
+              console.log("ass", assessment.data);
+              if (assessment.data.status === "RIGHT") {
+                setClassBoxClass("");
+                if (activeQuestion.questions.length === currentQuestionID) {
+                  // setActiveQuestionIndex(activeQuestionIndex + 1);
+                  // setIsContinueOpen(true);
+                  setIsFinish(true);
+                }
+                //
+                else {
+                  console.log("no more question");
+                }
+                setWrongCounter(1);
+
+                // update input
+                if (currentInput && currentInput2) {
+                  setTwoInputByKey((prev) => Math.min(prev + 1, 20));
+                  setCurrentQuestionID((prev) => Math.min(prev + 1, 20));
+                  setCurrentBlankIndex((prev) => Math.min(prev + 1, 20));
+                  incrementProgressBar();
+
+                  setDoubleInputNumber((prev) => Math.min(prev + 1, 20));
+                } else {
+                  setTwoInputByKey((prev) => Math.min(prev + 1, 20));
+                  setCurrentBlankIndex((prev) => Math.min(prev + 1, 20));
+
+                  setCurrentQuestionID((prev) => Math.min(prev + 1, 20));
+                }
+                // update input end
+                successSound.play();
+                setAnswerCorrect(true);
+                setIsLoading(false);
+              } else {
+                setClassBoxClass("");
+                setAnswerCorrect(false);
+
+                setWrongCounter((prev) => prev + 1);
+
+                if (wrongCounter >= 3) {
+                  setClassBoxClass("verification_box_add");
+
+                  if (activeQuestion.questions.length === currentQuestionID) {
+                    // setActiveQuestionIndex(activeQuestionIndex + 1);
+                    // setIsContinueOpen(true);
+                    setIsFinish(true);
+                  }
+                  //
+                  else {
+                    console.log("no more question");
+                  }
+                  setRightSentence(assessment.data.answerValidation[0].content);
+                  setIsRightShowBoxOpen("");
+                  setIsRightShowCloseOpen("");
+                  setIsFooterOpen("quiz_footer_hide");
+                  setWrongCounter(1);
+                  successSound.play();
+                  console.log("okay for showing next ");
+                  console.log(
+                    "right answer:",
+                    assessment.data.answerValidation[0].content
+                  );
+                  // update input
+                  if (currentInput && currentInput2) {
+                    setTwoInputByKey((prev) => Math.min(prev + 1, 20));
+                    setCurrentQuestionID((prev) => Math.min(prev + 1, 20));
+                    setCurrentBlankIndex((prev) => Math.min(prev + 1, 20));
+                    incrementProgressBar();
+
+                    setDoubleInputNumber((prev) => Math.min(prev + 1, 20));
+                  } else {
+                    setTwoInputByKey((prev) => Math.min(prev + 1, 20));
+                    setCurrentBlankIndex((prev) => Math.min(prev + 1, 20));
+
+                    setCurrentQuestionID((prev) => Math.min(prev + 1, 20));
+                  }
+                  // update input end
+                }
+                wrongSound.play();
+                setIsLoading(false);
+
+                setRightMultipleAnswer(
+                  assessment.data.answerValidation[0].content
+                );
+              }
+            } catch (error) {
+              console.log(error.message);
+              if (error.message === "Request failed with status code 401") {
+                navigate("/auth/login");
+                localStorage.clear();
+                Cookies.set("token");
+                Cookies.set("id");
+              }
+            }
+          }
+          // assessment end //
+
+          //
+          if (
+            currentBlankIndex === 5 &&
+            activeQuestionIndex <= questionsData.length
+          ) {
+            // You can also add further validation or scoring logic here
+            // Move to the next question if available
+            // setActiveQuestionIndex(activeQuestionIndex + 1);
+            console.log("question not found");
+          }
+          console.log(activeQuestion.questions.length < currentQuestionID + 1);
+        } else {
+          console.log("more question not found!");
+          navigate(-1);
+        }
+        // check end
+        const inputKeyword = [];
+        const [cInputs, setCInputs] = useState([]);
+        const [keyCounter, setKeyCounter] = useState(1);
+        console.log("render");
+      };
+
+      handleSubmitK();
     }
   };
   const handleNext = () => {
@@ -787,7 +1123,7 @@ const Home = () => {
   };
   const handleFinish = () => {
     console.log("finish");
-    navigate("/lessons/section");
+    navigate(-1);
   };
   const HandleWrongClose = () => {
     setClassBoxClass("");
@@ -957,7 +1293,7 @@ const Home = () => {
                       .questionText === undefined ||
                     quizData[currentLesson].questions[currentQuestion]
                       .format === "wordsMatching" ? (
-                      <p>Ecoutez et completez ce dialogue </p>
+                      <p>{quizData[0] ? quizData[0].title : ""} </p>
                     ) : (
                       <span>
                         {

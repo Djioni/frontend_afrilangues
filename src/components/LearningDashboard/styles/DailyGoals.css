@@ -155,3 +155,28 @@
     width: 200px;
   }
 }
+@media only screen and (max-width: 767px) {
+  #d-goals .progress {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  #d-goals .ranking .r-box {
+    margin-top: 30px;
+  }
+  #d-goals .ranking button {
+    padding: 0;
+  }
+  #d-goals .ranking .col-4 .btn-m {
+    text-align: center;
+
+    display: grid !important;
+    justify-content: center !important;
+    align-items: center;
+    padding: 0 10px !important;
+  }
+}
+#d-goals .ranking .col-4 .btn-m span {
+  margin-top: 3px;
+}

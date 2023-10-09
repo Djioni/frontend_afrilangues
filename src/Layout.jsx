@@ -142,11 +142,12 @@ export default function Layout() {
           path="/process"
           element={
             <div className="container">
-              <section
-                className="sec-m-process "
-                style={{ marginTop: "120px" }}
-              >
-                <Process />
+              <section className=" ">
+                <div>
+                  <Process />
+                </div>
+
+                <br />
               </section>
             </div>
           }

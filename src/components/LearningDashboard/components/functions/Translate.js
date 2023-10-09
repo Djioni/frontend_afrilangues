@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 export const Translate = (QAdata, userID, exType) => {
+=======
+export const Translate = (QAdata, userID, type, title) => {
+>>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
   const quizQuestion = [
     {
       order: 0,
@@ -62,11 +66,12 @@ export const Translate = (QAdata, userID, exType) => {
 
   // Override QAdata and userID if needed
 
-  if (QAdata && userID) {
+  if (QAdata && userID && title) {
     QAdata.sort((a, b) => a.order - b.order);
 
     // Translate the questions
     const convertedQuestions = QAdata.map((question) => ({
+      questionText: title,
       format: "translatingWords",
       word: question.sentence,
       correctTranslation: question.answers[0].content,

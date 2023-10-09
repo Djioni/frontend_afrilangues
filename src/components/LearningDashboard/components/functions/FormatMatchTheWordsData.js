@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 export const FormatMatchTheWordsData = (QAdata, QuizID, exType) => {
   if (QAdata && QuizID && exType) {
+=======
+export const FormatMatchTheWordsData = (QAdata, QuizID, type, title) => {
+  if (QAdata && QuizID && type && title) {
+    QAdata.sort((a, b) => a.order - b.order);
+>>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
     const data = [
       {
         order: 1,
@@ -85,7 +91,7 @@ export const FormatMatchTheWordsData = (QAdata, QuizID, exType) => {
 
     // Extract unique answers from the data
     const uniqueAnswers = Array.from(
-      new Set(data.map((item) => item.answers[0].content))
+      new Set(QAdata.map((item) => item.answers[0].content))
     );
 
     // Shuffle the unique answers randomly
@@ -103,9 +109,9 @@ export const FormatMatchTheWordsData = (QAdata, QuizID, exType) => {
       {
         questionText: "Match the words with their meanings:",
         format: "wordsMatching",
-        leftWords: data.map((item) => item.sentence),
+        leftWords: QAdata.map((item) => item.sentence),
         rightWords: shuffledAnswers,
-        correctMatches: data.map((item) =>
+        correctMatches: QAdata.map((item) =>
           shuffledAnswers.indexOf(item.answers[0].content)
         ),
       },
@@ -114,7 +120,12 @@ export const FormatMatchTheWordsData = (QAdata, QuizID, exType) => {
     return [
       {
         id: QuizID,
+<<<<<<< HEAD
         quiztype: exType,
+=======
+        title: title,
+        type: type,
+>>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
         lessonTitle: "lesson",
         questions: convertedData,
       },

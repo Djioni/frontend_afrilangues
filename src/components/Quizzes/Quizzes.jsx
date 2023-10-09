@@ -368,6 +368,8 @@ const Quizzes = () => {
   const handleAnswerSelect = (answer) => {
     setSelectedAnswer(answer);
     setIsVerified(true);
+
+    console.log("hello word");
   };
 
   // HANDLE ALERT
@@ -477,7 +479,7 @@ const Quizzes = () => {
         const AssessmentSchma = {
           userId: userID,
           exerciseId: currentQuizID,
-          type: "MULTIPLE_CHOICE",
+          type: quizData[0].type,
           sentence: sentence,
           order: 1,
           answerLetter: [
@@ -503,11 +505,19 @@ const Quizzes = () => {
           );
           console.log("ass", assessment.data);
           if (assessment.data.status === "RIGHT") {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             successSound.play();
             setIsLoading(false);
             isCorrect = true;
             setShowVerifyButton(false);
           } else {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             wrongSound.play();
             setIsLoading(false);
             isCorrect = false;
@@ -601,7 +611,7 @@ const Quizzes = () => {
       );
       console.log("right left and right", leftindex, rightindex);
 
-      //
+      // verify selected word
       console.log("selected p", selectedLeftIndex, selectedRightIndex);
       const currentLeftWords = currentQuestionData.leftWords[selectedLeftIndex];
       const currentRightWords =
@@ -681,7 +691,7 @@ const Quizzes = () => {
         const AssessmentSchma = {
           userId: userID,
           exerciseId: currentQuizID,
-          type: "LISTEN",
+          type: quizData[0].type,
           sentence: sentence,
           order: 1,
           answerLetter: [
@@ -707,6 +717,10 @@ const Quizzes = () => {
           );
           console.log("ass", assessment.data);
           if (assessment.data.status === "RIGHT") {
+            // point store
+            const points = assessment.data.answerValidation[0].isNumberPoint;
+            console.log("userpoints", points);
+            console.log;
             successSound.play();
             setIsLoading(false);
             setDisableLeftIndex(rightindex);
@@ -810,11 +824,19 @@ const Quizzes = () => {
           );
           console.log("ass", assessment.data);
           if (assessment.data.status === "RIGHT") {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             successSound.play();
             setIsLoading(false);
             isCorrect = true;
             setShowVerifyButton(false);
           } else {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             wrongSound.play();
 
             setIsLoading(false);
@@ -880,7 +902,7 @@ const Quizzes = () => {
         const AssessmentSchma = {
           userId: userID,
           exerciseId: currentQuizID,
-          type: "ORDERED",
+          type: quizData[0].type,
           sentence: sentence,
           order: 1,
           answerLetter: [
@@ -906,11 +928,19 @@ const Quizzes = () => {
           );
           console.log("ass", assessment.data);
           if (assessment.data.status === "RIGHT") {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             successSound.play();
             setIsLoading(false);
             isCorrect = true;
             setShowVerifyButton(false);
           } else {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             wrongSound.play();
             setIsLoading(false);
             isCorrect = false;
@@ -982,7 +1012,7 @@ const Quizzes = () => {
         const AssessmentSchma = {
           userId: userID,
           exerciseId: currentQuizID,
-          type: "BASIC_QCM",
+          type: "TRANSLATE",
           sentence: sentence,
           order: 0,
           answerLetter: [
@@ -1008,11 +1038,19 @@ const Quizzes = () => {
           );
           console.log("ass", assessment.data);
           if (assessment.data.status === "RIGHT") {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             successSound.play();
             setIsLoading(false);
             isCorrect = true;
             setShowVerifyButton(false);
           } else {
+            // point store
+            const points = assessment.data.isNumberPoint;
+            console.log("userpoints", points);
+            localStorage.setItem("exercisePoints", JSON.stringify(points));
             wrongSound.play();
             setIsLoading(false);
             isCorrect = false;
@@ -1073,7 +1111,239 @@ const Quizzes = () => {
     // Update selectedWordMatchingAnswer
     // setSelectedWordMatchingAnswer(selectedPairs);
   };
+  let [storeLeftIndex, setStoreLeftIndex] = useState([]);
+  let [storeRightIndex, setStoreRightIndex] = useState([]);
+  const handleVerifyWords = async (leftIndex, rightIndex) => {
+    setShowVerifyButton(false);
 
+    // Get the data of the current question
+    const currentQuestionData =
+      quizData[currentLesson].questions[currentQuestion];
+
+    // Initialize a variable to track if the answer is correct
+    let isCorrect = false;
+    let isEveryWordMatch;
+    // Check if all words are matched to determine completion status
+    const correctMatches = currentQuestionData.correctMatches;
+    console.log("currentMath", correctMatches);
+    const allWordsMatched =
+      selectedWordMatchingAnswer.length ===
+      currentQuestionData.correctMatches.length;
+    console.log("selected world match answer", selectedWordMatchingAnswer);
+
+    const newdata = selectedWordMatchingAnswer.filter((value) => value.allow);
+    console.log("truedata", newdata);
+
+    // Check if all matches are correct
+    const leftindex = [];
+    const rightindex = [];
+    // wrong
+    const wrongleftindex = [];
+    const wrongrightindex = [];
+    let selectedLeftIndex = NaN;
+    let selectedRightIndex = NaN;
+    const allMatchesCorrect = selectedWordMatchingAnswer.every(
+      ({ left, right }) => {
+        selectedLeftIndex = left;
+        selectedRightIndex = right;
+        if (currentQuestionData.correctMatches[left] === right) {
+          // setAnswerCorrect(true);
+
+          // successSound.play();
+          // setTimeout(() => {
+          //   setAnswerCorrect(null);
+          // }, 3000);
+
+          console.log(`Current match: Left: ${left}, Right: ${right}`);
+          leftindex.push(left);
+          rightindex.push(right);
+
+          return currentQuestionData.correctMatches[left] === right;
+        } else {
+          // setAnswerCorrect(false);
+          // wrongSound.play();
+          // setTimeout(() => {
+          //   setAnswerCorrect(null);
+          // }, 3000);
+
+          console.log(` wrong Current match: Left: ${left}, Right: ${right}`);
+          wrongleftindex.push(left);
+          wrongrightindex.push(right);
+        }
+      }
+    );
+    console.log("right left and right", leftindex, rightindex);
+
+    //
+    console.log("selected p", selectedLeftIndex, selectedRightIndex);
+    const currentLeftWords = currentQuestionData.leftWords[leftIndex];
+    const currentRightWords = currentQuestionData.rightWords[rightIndex];
+    // ASSESSEMENT START
+    // assessment start
+    // Hide and show the verify button
+
+    const currentQuizID = quizData[0].id;
+    const userID = Cookies.get("id") ? JSON.parse(Cookies.get("id")) : "";
+    const userToken = Cookies.get("id") ? JSON.parse(Cookies.get("token")) : "";
+    const sentence = currentLeftWords;
+    console.log("fdf", selectedAnswer);
+    const content = currentRightWords;
+    console.log("content", currentQuizID);
+
+    const DataMatch = () => {
+      console.log("currant wrod", currentLeftWords, currentRightWords);
+      //
+      //wrong
+      setWrongLeftIndex(wrongleftindex);
+      setWrongRightIndex(wrongrightindex);
+
+      console.log("wrongleft", wrongleftindex[0]);
+      console.log("wrongright", wrongrightindex);
+      if (wrongLeftIndex[0] === 0 || wrongLeftIndex[0]) {
+        console.log("selection incurrent");
+      }
+      // left and right word start
+
+      console.log(allMatchesCorrect);
+
+      if (allMatchesCorrect || !allMatchesCorrect) {
+        isEveryWordMatch = null;
+      }
+
+      if (allMatchesCorrect) {
+        // setCorrentWordMatch(true);
+        // successSound.play();
+        // console.log("data", allMatchesCorrect);
+        // toast.success("Correct Answer!", {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        // });
+      } else {
+        // setCorrentWordMatch(false);
+        // wrongSound.play();
+        // toast.error("Wrong Answer!", {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        // });
+      }
+
+      // setIsWordMatchingComplete(allWordsMatched);
+      setShowVerifyButton(true);
+      handleClick();
+    };
+    if (true) {
+      DataMatch();
+      setIsLoading(true);
+
+      // assessment schma
+      const AssessmentSchma = {
+        userId: userID,
+        exerciseId: currentQuizID,
+        type: quizData[0].type,
+        sentence: sentence,
+        order: 1,
+        answerLetter: [
+          {
+            content: content,
+          },
+        ],
+      };
+
+      console.log(userID, userToken);
+      const config = {
+        headers: {
+          Authorization: `${AUTH_NAME} ${userToken}`,
+        },
+      };
+
+      // axios request
+      try {
+        const assessment = await axios.post(
+          `${API_URL}/assessment/`,
+          AssessmentSchma,
+          config
+        );
+        console.log("ass", assessment.data);
+        if (assessment.data.status === "RIGHT") {
+          // point store
+          const points = assessment.data.isNumberPoint;
+          console.log("userpoints", points);
+          localStorage.setItem("exercisePoints", JSON.stringify(points));
+
+          successSound.play();
+          setIsLoading(false);
+          storeRightIndex.push(rightIndex);
+          storeLeftIndex.push(leftIndex);
+          setDisableLeftIndex(storeRightIndex);
+          setDisableRightIndex(storeLeftIndex);
+          setAnswerCorrect(true);
+          // Set the state to indicate whether all words are matched
+          setIsWordMatchingComplete(allWordsMatched && allMatchesCorrect);
+
+          // Check if all word matching is correct
+          if (allWordsMatched && allMatchesCorrect) {
+            // Calculate the total number of questions completed across all lessons
+            const totalQuestionsCompleted =
+              progress +
+              currentLessonData.questions.length -
+              currentQuestion +
+              (currentLessonData.questions.length === 1 ? 0 : 1);
+
+            // Update the progress state
+            isCorrect = true;
+            setProgress(totalQuestionsCompleted);
+            isEveryWordMatch = true;
+          }
+          // // Hide the verify button
+          setShowVerifyButton(allWordsMatched === false ? true : false);
+          handleClick();
+        } else {
+          // point store
+          const points = assessment.data.isNumberPoint;
+          console.log("userpoints", points);
+          localStorage.setItem("exercisePoints", JSON.stringify(points));
+          wrongSound.play();
+          setIsLoading(false);
+          setAnswerCorrect(false);
+
+          console.log(
+            "right answer:",
+            assessment.data.answerValidation[0].content
+          );
+          setRightMultipleAnswer(assessment.data.answerValidation[0].content);
+        }
+      } catch (error) {
+        console.log(error.message);
+        if (error.message === "Request failed with status code 401") {
+          Cookies.set("token", "");
+          Cookies.set("id", "");
+          localStorage.clear();
+          navigate("/auth/login");
+        }
+
+        if (error.message === "Request failed with status code 500") {
+          setIsLoading(false);
+        }
+      }
+    }
+    // assessment end
+    // ASSESSEMNT END
+    if (currentQuestionData.format === "wordsMatching") {
+      return "";
+    }
+  };
   const handleContinue = () => {
     if (currentQuestion < currentLessonData.questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
@@ -1189,7 +1459,6 @@ const Quizzes = () => {
         />
       );
     } else if (currentQuestionData.format === "wordsMatching") {
-      console.log("clicked");
       return (
         <MatchWordsQuestion
           // leftWords={currentQuestionData.leftWords}
@@ -1199,7 +1468,7 @@ const Quizzes = () => {
           // onAnswerSelect={handleAnswerSelect}
           // currentQuestionData={currentQuestionData}
           // onVerify={handleVerify}
-
+          handleVerify={handleVerifyWords}
           leftWords={
             quizData[currentLesson].questions[currentQuestion].leftWords
           }
@@ -1298,9 +1567,7 @@ const Quizzes = () => {
                               ].questionText === undefined ||
                               quizData[currentLesson].questions[currentQuestion]
                                 .format === "wordsMatching" ? (
-                                <p>
-                                  Sélectionnez <span>“la femme”</span>{" "}
-                                </p>
+                                <p>{quizData[0] ? quizData[0].title : ""}</p>
                               ) : (
                                 <span>
                                   {
@@ -1345,7 +1612,9 @@ const Quizzes = () => {
                         )}
                       </div>
 
-                      {showVerifyButton && !isWordMatchingComplete ? (
+                      {showVerifyButton &&
+                      !isWordMatchingComplete &&
+                      !quizData[0].formatListen ? (
                         <button
                           className="verify_button"
                           onClick={handleVerify}
@@ -1373,6 +1642,7 @@ const Quizzes = () => {
                             setAnswerCorrect(null);
                             setSelectedTranslation("");
                             setPutWordBG(false);
+                            setSelectedAnswer(null);
                           }}
                         >
                           {currentQuestion <

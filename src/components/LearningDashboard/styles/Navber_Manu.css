@@ -177,7 +177,7 @@
     transform: translate(20px, -20px);
   }
   #toggle-btn {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 2px 2px;
     cursor: pointer;
     width: 60px;
@@ -206,7 +206,7 @@
   font-size: 40px !important;
 }
 #toggle-btn {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 2px 2px;
   cursor: pointer;
   width: 60px;
@@ -254,7 +254,7 @@
     font-weight: 600 !important;
   }
   #toggle-btn {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 2px 2px;
     cursor: pointer;
     width: 50px;
@@ -275,7 +275,7 @@
     transform: translate(10px, -9px);
   }
   #toggle-btn {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 2px 2px;
     cursor: pointer;
     width: 50px;

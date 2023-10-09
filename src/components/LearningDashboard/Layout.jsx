@@ -24,18 +24,24 @@ export default function Layout() {
             <div className="row mt-4   ">
               <div className="col-6 col-xl-8 d-flex justify-content-center position-relative">
                 <section className="sec-lessions d-flex justify-content-center">
-                  <div className="col-card">
+                  <div className="col-card ">
                     <Topics />
+                    <br />
                   </div>
                 </section>
               </div>
 
-              <div className="col-6 col-xl-4 d-flex justify-content-end">
-                <section className="sec-process ">
-                  <div className="col-card">
-                    <Process />
+              <div className="col-6 col-xl-4 d-flex justify-content-end pb-3">
+                <section id="sec-lessions" className="sec-process w-100">
+                  <div className="col-card ">
+                    <div className="">
+                      <Process />
+                      {/* fdf */}
+                    </div>
                   </div>
                 </section>
+                <br />
+                <br />
               </div>
             </div>
           </div>

@@ -13,13 +13,41 @@ const MatchWordsQuestion = ({
   disableLeftIndex,
   wrongRightIndex,
   wrongLeftIndex,
+  handleVerify,
 }) => {
   console.log("leftindex", wrongLeftIndex); // disableLeftIndex will be like [0,1] and more
   console.log("rightindex", wrongRightIndex); // disableRightIndex will be like [0,1] and more
-
+  console.log("disabler", disableRightIndex);
   const isLeftDisabled = (leftIndex) => disableLeftIndex.includes(leftIndex);
   const isRightDisabled = (rightIndex) =>
     disableRightIndex.includes(rightIndex);
+
+  const [leftOption, setLeftOption] = useState("");
+  const [rightOption, setRightOption] = useState("");
+  let leftop = "";
+  let rightop = "";
+  const handleOptionLeft = (value, indexleft) => {
+    leftop = indexleft;
+  };
+  const handleOptionRight = (value, inlexright) => {
+    rightop = inlexright;
+  };
+  const [leftIndex, setLeftIndex] = useState(null);
+  const handleOption = (word) => {
+    setLeftIndex(leftop);
+    console.log("clidked", leftIndex, rightop);
+    console.log("words");
+    if (
+      (leftIndex === 0 && rightop === 0) ||
+      (leftIndex && rightop) ||
+      (leftIndex == 0 && rightop) ||
+      (rightop === 0 && leftIndex)
+    ) {
+      handleVerify(leftIndex, rightop);
+      leftop = "";
+      rightop = "";
+    }
+  };
 
   const isRightWrongOption = (rightIndex) =>
     wrongRightIndex.includes(rightIndex);
@@ -27,7 +55,7 @@ const MatchWordsQuestion = ({
   const isLeftWrongOption = (rightIndex) => wrongLeftIndex.includes(rightIndex);
 
   const handlePairSelect = (leftIndex, rightIndex, e) => {
-    console.log("event", e.classList);
+    console.log("left", leftIndex);
     if (isLeftDisabled(leftIndex)) {
       // If the left option is disabled, do nothing
       return;
@@ -38,6 +66,7 @@ const MatchWordsQuestion = ({
     );
 
     if (existingPairIndex !== -1) {
+      console.log("fdfdf", leftIndex);
       // If the option is already selected, deselect it
       setSelectedWordMatchingAnswer((prevSelectedPairs) => {
         const updatedSelectedPairs = [...prevSelectedPairs];
@@ -48,13 +77,19 @@ const MatchWordsQuestion = ({
           const rightPairIndex = updatedSelectedPairs.findIndex(
             (pair) => pair.right === rightIndex
           );
+
           if (rightPairIndex !== -1) {
             updatedSelectedPairs.splice(rightPairIndex, 1);
+          }
+          if (rightPairIndex == -1) {
+            console.log("paire updated..............");
+          } else {
           }
         }
 
         // Remove the left option from the selected pairs
         updatedSelectedPairs.splice(existingPairIndex, 1);
+        console.log("selected paires", updatedSelectedPairs);
         return updatedSelectedPairs;
       });
     } else {
@@ -104,7 +139,7 @@ const MatchWordsQuestion = ({
             <div
               key={leftIndex}
               className={`word_option ${
-                isLeftDisabled(leftIndex) ? "disabled correntoption" : "" // Add a disabled class for styling
+                isLeftDisabled(leftIndex) ? "disabled correntoption " : "" // Add a disabled class for styling
               }
         ${isLeftWrongOption(leftIndex) ? " " : ""}
         ${
@@ -112,13 +147,16 @@ const MatchWordsQuestion = ({
             ? "selected"
             : ""
         } `}
-              onClick={(e) =>
+              onClick={(e) => {
+                handleOptionLeft(word, leftIndex);
+                handleOption();
+
                 handlePairSelect(
                   leftIndex,
                   selectedWordMatchingAnswer.length,
                   e
-                )
-              }
+                );
+              }}
             >
               {word}
             </div>
@@ -129,7 +167,7 @@ const MatchWordsQuestion = ({
             <div
               key={rightIndex}
               className={`word_option ${
-                isRightDisabled(rightIndex) ? " correntoption" : "" // Add a disabled class for styling
+                isRightDisabled(rightIndex) ? "correntoption" : "" // Add a disabled class for styling
               }${isRightWrongOption(rightIndex) ? " " : ""} ${
                 selectedWordMatchingAnswer.some(
                   (pair) => pair.right === rightIndex
@@ -137,7 +175,11 @@ const MatchWordsQuestion = ({
                   ? "selected "
                   : ""
               }`}
-              onClick={() => handleRightSelect(rightIndex)}
+              onClick={() => {
+                handleOptionRight(word, rightIndex);
+                handleOption();
+                handleRightSelect(rightIndex);
+              }}
               id={`${isRightDisabled(rightIndex) ? " " : ""}`}
             >
               {word}

@@ -8,6 +8,7 @@ import user_4 from "../../../../assets/user-4.png";
 import Slider from "react-slick";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import "./Testimonials.css";
+import { FaUserGraduate } from "react-icons/fa";
 
 const Testimonials = () => {
   const sliderRef = useRef(null);
@@ -59,13 +60,14 @@ const Testimonials = () => {
       <div className="testimonials_container container">
         <div className="heading_container">
           <h2>
-            Use<span>rs</span> <span>Testi</span>monials
+            {/* Use<span>rs</span> <span>Testi</span>monials */}
+            {/* LEU<span>RS</span> AVI<span>S</span> <span>COM</span>PTENT */}
+            LEURS <span>AVIS</span> COMPTENT
           </h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur. Vitae viverra ornare ornare{" "}
-            <br />
-            id non lorem egestas vel. Lacus varius auctor sit vitae <br />{" "}
-            purus.
+            Pour continuer à nous améliorer et vous permettre d'avoir une idée
+            du niveau de satisfaction de nos apprenants, voici ce que certains
+            pensent de nous et de nos formations
           </p>
         </div>
 
@@ -77,17 +79,22 @@ const Testimonials = () => {
                   <img src={quote_img} alt="" />
                 </div>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et
+                  Interlocuteur réactif et cours particuliers de très bonne
+                  qualité pour apprendre le Mooré, je recommande Afrilangues!
                 </p>
               </div>
 
               <div className="divider"></div>
 
               <div className="bottom">
-                <img className="img" src={user_1} alt="" />
-                <p className="name">Isabelle O'Conner</p>
-                <p className="employee">LA at Robin</p>
+                <div className="img">
+                  <FaUserGraduate
+                    className="icon"
+                    style={{ height: "35px", width: "35px" }}
+                  />
+                </div>
+                <p className="name">Alexis Roy</p>
+                {/* <p className="employee">Alexis Roy</p> */}
               </div>
             </div>
 
@@ -97,17 +104,24 @@ const Testimonials = () => {
                   <img src={quote_2_img} alt="" />
                 </div>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et
+                  Cours de Bambara de très bonne qualité. Les cours sont
+                  vraiment bien et adaptés au rythme de chacun. Idrissa est un
+                  professeur au top. J’ai beaucoup appris à ses côtés. Un grand
+                  merci pour tous 🙏🏾.
                 </p>
               </div>
 
               <div className="divider"></div>
 
               <div className="bottom">
-                <img className="img" src={user_2} alt="" />
-                <p className="name">Isabelle O'Conner</p>
-                <p className="employee">LA at Robin</p>
+                <div className="img">
+                  <FaUserGraduate
+                    className="icon"
+                    style={{ height: "35px", width: "35px" }}
+                  />
+                </div>
+                <p className="name">Néné Sacko</p>
+                {/* <p className="employee">LA at Robin</p> */}
               </div>
             </div>
 
@@ -117,17 +131,23 @@ const Testimonials = () => {
                   <img src={quote_2_img} alt="" />
                 </div>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et
+                  Je suis satisfait des cours que j'ai effectué avec
+                  Afrilangues. Compétents, professionnels, simple d'utilisation
+                  merci encore.
                 </p>
               </div>
 
               <div className="divider"></div>
 
               <div className="bottom">
-                <img className="img" src={user_3} alt="" />
-                <p className="name">Isabelle O'Conner</p>
-                <p className="employee">LA at Robin</p>
+                <div className="img">
+                  <FaUserGraduate
+                    className="icon"
+                    style={{ height: "35px", width: "35px" }}
+                  />
+                </div>{" "}
+                <p className="name">Hayaya</p>
+                {/* <p className="employee">LA at Robin</p> */}
               </div>
             </div>
 
@@ -137,97 +157,24 @@ const Testimonials = () => {
                   <img src={quote_2_img} alt="" />
                 </div>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et
+                  Je trouve ces publications parfaitement adaptées pour
+                  découvrir ou se familiariser avec les pays d'Afrique. Pour les
+                  enfants qui ne connaissent pas la terre de leurs ancêtres
+                  c'est très bien adaptés. Même adultes ont y apprend beaucoup !
                 </p>
               </div>
 
               <div className="divider"></div>
 
               <div className="bottom">
-                <img className="img" src={user_4} alt="" />
-                <p className="name">Isabelle O'Conner</p>
-                <p className="employee">LA at Robin</p>
-              </div>
-            </div>
-
-            <div className="testimonials_card">
-              <div className="top">
-                <div>
-                  <img src={quote_img} alt="" />
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et
-                </p>
-              </div>
-
-              <div className="divider"></div>
-
-              <div className="bottom">
-                <img className="img" src={user_1} alt="" />
-                <p className="name">Isabelle O'Conner</p>
-                <p className="employee">LA at Robin</p>
-              </div>
-            </div>
-
-            <div className="testimonials_card_2">
-              <div className="top">
-                <div>
-                  <img src={quote_2_img} alt="" />
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et
-                </p>
-              </div>
-
-              <div className="divider"></div>
-
-              <div className="bottom">
-                <img className="img" src={user_2} alt="" />
-                <p className="name">Isabelle O'Conner</p>
-                <p className="employee">LA at Robin</p>
-              </div>
-            </div>
-
-            <div className="testimonials_card">
-              <div className="top">
-                <div>
-                  <img src={quote_2_img} alt="" />
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et
-                </p>
-              </div>
-
-              <div className="divider"></div>
-
-              <div className="bottom">
-                <img className="img" src={user_3} alt="" />
-                <p className="name">Isabelle O'Conner</p>
-                <p className="employee">LA at Robin</p>
-              </div>
-            </div>
-
-            <div className="testimonials_card_2">
-              <div className="top">
-                <div>
-                  <img src={quote_2_img} alt="" />
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et
-                </p>
-              </div>
-
-              <div className="divider"></div>
-
-              <div className="bottom">
-                <img className="img" src={user_4} alt="" />
-                <p className="name">Isabelle O'Conner</p>
-                <p className="employee">LA at Robin</p>
+                <div className="img">
+                  <FaUserGraduate
+                    className="icon"
+                    style={{ height: "35px", width: "35px" }}
+                  />
+                </div>{" "}
+                <p className="name">L.URS</p>
+                {/* <p className="employee">LA at Robin</p> */}
               </div>
             </div>
           </Slider>

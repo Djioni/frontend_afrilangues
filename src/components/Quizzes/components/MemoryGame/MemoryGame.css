@@ -163,7 +163,13 @@
   .mgame-card {
     height: 150px !important;
   }
+  .mgame-card .flipped {
+    height: 150px !important;
+  }
   .mgame-card-box {
+    height: 150px !important;
+  }
+  .front.w-100.object-fit-cover.rounded-4 {
     height: 150px !important;
   }
   .game-score {

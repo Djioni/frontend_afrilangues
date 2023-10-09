@@ -70,6 +70,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Layout />
+      {/* <LearningDashboard /> */}
       {/* <Home /> */}
       {/* <CoursePlan /> */}
       {/* <Quizzes /> */}

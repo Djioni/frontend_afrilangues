@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 export const FormatPutInOrder = (QAdata, QuizID, exType) => {
   if (QAdata && QuizID && exType) {
+=======
+export const FormatPutInOrder = (QAdata, QuizID, type, title) => {
+  if (QAdata && QuizID && type && title) {
+    QAdata.sort((a, b) => a.order - b.order);
+>>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
     const jsonString = [
       {
         order: 0,
@@ -97,10 +103,11 @@ export const FormatPutInOrder = (QAdata, QuizID, exType) => {
       },
     ];
 
-    const convertedData = jsonString.map((item) => {
+    const convertedData = QAdata.map((item) => {
       return {
         order: item.order,
-        questionText: "Put Words in Order:",
+        type: type,
+        questionText: title,
         format: "putInOrder",
         sentence: item.answers.map((answer) => answer.content),
         correctOrder: item.sentence,
@@ -110,7 +117,11 @@ export const FormatPutInOrder = (QAdata, QuizID, exType) => {
     return [
       {
         id: QuizID,
+<<<<<<< HEAD
         quiztype: exType,
+=======
+        type: type,
+>>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
         lessonTitle: "lesson",
         questions: convertedData,
       },

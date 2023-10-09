@@ -64,6 +64,7 @@ export default function Exercise() {
           console.log("dataf", result.data);
 
           if (result.data[0]) {
+            console.log(result.data[0]);
             setIsPageLoading(false);
             setCurrentExercise(result.data[0]);
 
@@ -78,7 +79,9 @@ export default function Exercise() {
 
               // MULTIPLE_CHOICE
               if (
-                currentQuiz.type === "MULTIPLE_CHOICE" ||
+                currentQuiz.type === "SINGLE_CHOICE_QUESTION_TEXT_FORMAT" ||
+                currentQuiz.type === "SINGLE_CHOICE_QUESTION_IMAGE_FORMAT" ||
+                currentQuiz.type === "SINGLE_CHOICE_QUESTION_AUDIO_FORMAT" ||
                 currentQuiz.type === "BASIC_QCM" ||
                 currentQuiz.type === "IMAGE_QCM" ||
                 currentQuiz.type === "AUDIO_QCM"
@@ -105,9 +108,14 @@ export default function Exercise() {
                   localStorage.setItem(
                     "currentQuiz",
                     JSON.stringify(
-                      TestFunction(quizQuestionsUpdated, currentQuiz.id)
+                      TestFunction(
+                        quizQuestionsUpdated,
+                        currentQuiz.id,
+                        currentQuiz.type
+                      )
                     )
                   );
+                  console.log("quiz types", currentQuiz.type);
                   dispatch(QuizValidationAction(true));
 
                   //   navigate("/lessons/section/quiz");
@@ -126,7 +134,9 @@ export default function Exercise() {
                   const listenData = ListenRepeat(
                     filteredObjects[filteredObjects.length - 1]
                       .exerciseAndAnswers,
-                    currentQuiz.id
+                    currentQuiz.id,
+                    currentQuiz.type,
+                    currentQuiz.title
                   );
                   localStorage.setItem(
                     "currentQuiz",
@@ -142,15 +152,25 @@ export default function Exercise() {
               }
 
               // listen and repeat
-              if (currentQuiz.type === "ASSOCIATE") {
+              if (currentQuiz.type === "MATCH") {
+                const wordMatchData1 =
+                  filteredObjects[filteredObjects.length - 1]
+                    .exerciseAndAnswers;
+
                 const wordMatchData =
                   filteredObjects[filteredObjects.length - 1]
                     .exerciseAndAnswers;
+
                 console.log("wrod", wordMatchData);
                 localStorage.setItem(
                   "currentQuiz",
                   JSON.stringify(
-                    FormatMatchTheWordsData(wordMatchData, currentQuiz.id)
+                    FormatMatchTheWordsData(
+                      wordMatchData,
+                      currentQuiz.id,
+                      currentQuiz.type,
+                      currentQuiz.title
+                    )
                   )
                 );
 
@@ -171,8 +191,16 @@ export default function Exercise() {
 
                 localStorage.setItem(
                   "currentQuiz",
-                  JSON.stringify(Translate(translateData, currentQuiz.id))
+                  JSON.stringify(
+                    Translate(
+                      translateData,
+                      currentQuiz.id,
+                      currentQuiz.type,
+                      currentQuiz.title
+                    )
+                  )
                 );
+                console.log("title", currentQuiz.title);
 
                 // hide navber and navigate
                 dispatch(QuizValidationAction(true));
@@ -194,18 +222,29 @@ export default function Exercise() {
                 // navigate("/lessons/section/quiz/game");
                 dispatch(QuizValidationAction(true));
               }
-              if (currentQuiz.type === "ORDERED") {
+              if (currentQuiz.type === "PUT_IN_ORDER") {
                 localStorage.removeItem("content");
 
                 const putInOrderData =
                   filteredObjects[filteredObjects.length - 1]
                     .exerciseAndAnswers;
 
-                console.log(FormatPutInOrder(putInOrderData, currentQuiz.id));
+                console.log(
+                  FormatPutInOrder(
+                    putInOrderData,
+                    currentQuiz.id,
+                    currentQuiz.title
+                  )
+                );
                 localStorage.setItem(
                   "currentQuiz",
                   JSON.stringify(
-                    FormatPutInOrder(putInOrderData, currentQuiz.id)
+                    FormatPutInOrder(
+                      putInOrderData,
+                      currentQuiz.id,
+                      currentQuiz.type,
+                      currentQuiz.title
+                    )
                   )
                 );
 
@@ -219,11 +258,21 @@ export default function Exercise() {
                 const dialoguedata =
                   filteredObjects[filteredObjects.length - 1];
 
-                console.log(FormatDialogueData(dialoguedata, currentQuiz.id));
+                console.log(
+                  FormatDialogueData(
+                    dialoguedata,
+                    currentQuiz.id,
+                    currentQuiz.type
+                  )
+                );
                 localStorage.setItem(
                   "currentQuiz",
                   JSON.stringify(
-                    FormatDialogueData(dialoguedata, currentQuiz.id)
+                    FormatDialogueData(
+                      dialoguedata,
+                      currentQuiz.id,
+                      currentQuiz.title
+                    )
                   )
                 );
                 // hide navber and navigate
@@ -280,13 +329,16 @@ export default function Exercise() {
     navigate(-1);
   };
   if (
+    currentExercise.type === "SINGLE_CHOICE_QUESTION_TEXT_FORMAT" ||
+    currentExercise.type === "SINGLE_CHOICE_QUESTION_IMAGE_FORMAT" ||
+    currentExercise.type === "SINGLE_CHOICE_QUESTION_AUDIO_FORMAT" ||
     currentExercise.type === "MULTIPLE_CHOICE" ||
     currentExercise.type === "BASIC_QCM" ||
     currentExercise.type === "IMAGE_QCM" ||
     currentExercise.type === "AUDIO_QCM" ||
-    currentExercise.type === "ORDERED" ||
+    currentExercise.type === "PUT_IN_ORDER" ||
     currentExercise.type === "TRANSLATE" ||
-    currentExercise.type === "ASSOCIATE" ||
+    currentExercise.type === "MATCH" ||
     currentExercise.type === "LISTEN"
   ) {
     return (

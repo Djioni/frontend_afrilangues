@@ -1,0 +1,205 @@
+#newsl {
+  height: 100vh;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* Semi-transparent background for the blur effect */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 22;
+  backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+  display: grid;
+  align-items: center;
+}
+
+#newsl .newl-card {
+  width: 470px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+#newsl .newl-card .email-card {
+  /* border-top-right-radius: 20px;
+  border-top-left-radius: 20px; */
+  background-color: ;
+  padding: 0px 0;
+  background: linear-gradient(
+    to top right,
+    #e97e48,
+    #df5411
+  ); /* Replace 'red' and 'blue' with your desired colors */
+}
+
+#newsl .newl-card .email-card .box {
+  position: relative;
+}
+#newsl .newl-card .email-card .nl-close {
+  position: absolute;
+  right: -7px;
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  top: -7px;
+}
+
+#newsl .newl-card .email-card .nl-close .icon {
+  padding: 0px;
+  font-size: 25px;
+  font-weight: bolder;
+  border: 0;
+  color: #c94503;
+}
+#newsl .newl-card .box {
+}
+#newsl .newl-card .box .email-body {
+  padding: 20px 0;
+  background-color: red !important;
+  height: auto;
+  background: linear-gradient(
+    to bottom,
+    white,
+    #daeaf7
+  ); /* Replace #ff0000 and #00ff00 with your desired colors */
+  /* border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px; */
+  border-right: 4px solid white;
+  border-left: 4px solid white;
+  border-bottom: 3px solid white;
+  display: grid;
+  align-items: center;
+}
+
+#newsl .newl-card .box .email-body .header {
+  font-size: 40px;
+  color: #c94503;
+}
+
+#newsl .newl-card .box .email-body p {
+  font-size: 12px;
+  padding: 0 10px;
+  text-align: center;
+  color: #c0c1c3;
+}
+
+#newsl .newl-card .box .email-body input {
+  height: 35px;
+  border-radius: 20px;
+  padding: 0 20px;
+  color: #c94503 !important;
+  width: 80%;
+}
+#newsl .newl-card .box .email-body .form {
+  margin-top: 20px;
+}
+
+#newsl .newl-card .box .email-body input::placeholder {
+  font-size: 13px;
+  text-align: center;
+  color: #c94503;
+}
+#newsl .newl-card .box .email-body button {
+  background: linear-gradient(
+    to right,
+    #df5411,
+    #e97e48
+  ); /* Replace #ff0000 and #00ff00 with your desired colors */
+  padding: 2px 20px;
+
+  font-size: 19px;
+  border-radius: 50px;
+  color: white;
+  border-top: 6px solid #df5411;
+  border-bottom: 6px solid #e97e48;
+  border-left: 6px solid #df5411;
+  border-right: 6px solid #e97e48;
+  transition: all 0.1s ease; /* Add a smooth transition effect */
+}
+#newsl .newl-card .box .email-body button .icon {
+  margin-left: 4px;
+}
+#newsl .newl-card .box .email-body button:hover {
+  border-top: 6px solid #df5411;
+  border-bottom: 6px solid #e97e48;
+  border-left: 6px solid #df5411;
+  border-right: 6px solid #e97e48;
+  background: linear-gradient(
+    to left,
+    #df5411,
+    #e97e48
+  ); /* Replace #ff0000 and #00ff00 with your desired colors */
+  padding: 2px 20px;
+}
+
+@media screen and (max-width: 767px) {
+  #newsl .newl-card .box .email-body button {
+    font-size: 13px;
+  }
+  #newsl .newl-card {
+    width: 85%;
+    top: 40px;
+    align-items: center;
+    display: grid;
+    margin-top: -52px;
+  }
+  #newsl .newl-card .box .email-body input {
+    width: 90%;
+  }
+  #newsl .newl-card .box .email-body input::placeholder {
+    width: 90%;
+    color: #d19e84;
+  }
+  #newsl .newl-card .box .email-body .header {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 35px;
+    color: #c94503;
+  }
+
+  #newsl .newl-card .email-card {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    background-color: ;
+    padding: 0px 0;
+    background: linear-gradient(
+      to top right,
+      #e97e48,
+      #df5411
+    ); /* Replace 'red' and 'blue' with your desired colors */
+  }
+  #newsl .newl-card .box .email-body {
+    height: auto;
+    padding: 10px 0;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  #newsl .newl-card .email-card .nl-close {
+    position: absolute;
+    right: -5px;
+    width: 35px;
+    height: 35px;
+    background-color: white;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    top: -8px;
+  }
+  #newsl .newl-card .email-card img {
+    height: 120px;
+  }
+}

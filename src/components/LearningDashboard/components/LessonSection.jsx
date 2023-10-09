@@ -8,6 +8,18 @@ import Loading from "../../Loading";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorModal from "../../ErrorModal";
 
+const OverflowText = ({ text, maxLength }) => {
+  // Check if the text length exceeds the maxLength
+  if (text.length > maxLength) {
+    // If it does, truncate the text
+    const truncatedText = text.slice(0, maxLength) + "...";
+    return <p className="text-truncate">{truncatedText}</p>;
+  }
+
+  // If the text doesn't exceed the maxLength, display it as is
+  return <p>{text}</p>;
+};
+
 export default function LearnGrettingLession() {
   // get current section date from session storage
 
@@ -85,6 +97,7 @@ export default function LearnGrettingLession() {
 
           if (result.data[0]) {
             setCurrentLessonSection(result.data);
+            console.log(result.data);
             setIsPageLoading(false);
           } else {
             setSectionNotFound(true);
@@ -139,21 +152,49 @@ export default function LearnGrettingLession() {
                     key={result.id}
                   >
                     <div>
-                      <div className="card truncate">
-                        <div className="d-flex justify-content-center">
-                          <div className="inner-icon">
-                            <img
-                              src={`${API_URL}/mediaObject/download/${result.image}`}
-                              alt=""
-                            />
+                      {result.image ? (
+                        <div className="card truncate">
+                          <div className="d-flex justify-content-center">
+                            <div
+                              className="inner-icon mt-2"
+                              style={{
+                                height: "80px",
+                                width: "80px",
+                                border: "0",
+                              }}
+                            >
+                              <img
+                                className="w-100 h-100"
+                                src={`${API_URL}/mediaObject/download/${result.image}`}
+                                alt=""
+                              />
+                            </div>
+                          </div>
+                          <div className="d-grid justify-content-center">
+                            <h2 className="text-wrap text-center">
+                              <OverflowText
+                                text={result.title}
+                                maxLength={19}
+                              ></OverflowText>
+                            </h2>
                           </div>
                         </div>
-                        <div className="d-flex justify-content-center">
-                          <h2 className="text-wrap text-center">
-                            {result.title}
-                          </h2>
+                      ) : (
+                        <div
+                          className="card truncate"
+                          style={{ display: "grid", justifyContent: "center" }}
+                        >
+                          <div className="d-flex justify-content-center"></div>
+                          <div className="d-grid justify-content-center">
+                            <h2 className="text-wrap text-center pb-3">
+                              <OverflowText
+                                text={result.title}
+                                maxLength={19}
+                              ></OverflowText>
+                            </h2>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 ))}

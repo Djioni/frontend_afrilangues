@@ -105,15 +105,10 @@ export default function Topics() {
     // Rest of your code...
     // find me (end)
     //completed lessions
-    changeLessonState(lessonIncrement(53));
 
-    // bonus points
-    changeLessonState(bonusPointIncrement(9));
+    // bonus points curur
+    // changeLessonState(bonusPointIncrement(9));
   }, []);
-
-  const toggleModal = () => {
-    setShowModal((prevValue) => !prevValue);
-  };
 
   //handle topics
 
@@ -136,241 +131,47 @@ export default function Topics() {
       }
     }
   };
-
+  const toggleModal = () => {
+    setShowModal((prevValue) => !prevValue);
+  };
   return (
     <div>
       {isPageLoading ? (
-        <div style={{ marginTop: "200px" }}>
+        <div style={{ marginTop: "200px", paddingBottom: "200px" }}>
           <Loading page={true} message={"S'il vous plaît, attendez!"} />
         </div>
       ) : (
-        <div id="fullpath">
-          <div>
-            <div className="lsvg-1">
-              <div
-                className={"lession-link"}
-                onClick={() => handleTheme(userTheme[0] ? userTheme[0].id : "")}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[0]
-                        ? `${API_URL}/mediaObject/download/${userTheme[0].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2>{userTheme[0] ? userTheme[0].name : ""}</h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="lsvg-2">
-              <div
-                onClick={() => handleTheme(userTheme[1] ? userTheme[1].id : "")}
-                className={"lession-link"}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[1]
-                        ? `${API_URL}/mediaObject/download/${userTheme[1].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2 className="">
-                      {userTheme[1] ? userTheme[1].name : ""}
-                    </h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="lsvg-3">
-              <div
-                onClick={() => handleTheme(userTheme[2] ? userTheme[2].id : "")}
-                className={"lession-link"}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[2]
-                        ? `${API_URL}/mediaObject/download/${userTheme[2].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2>{userTheme[2] ? userTheme[2].name : ""}</h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="lsvg-4">
-              <div
-                onClick={() => handleTheme(userTheme[3] ? userTheme[3].id : "")}
-                className={"lession-link"}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[3]
-                        ? `${API_URL}/mediaObject/download/${userTheme[3].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2>{userTheme[3] ? userTheme[3].name : ""}</h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="lsvg-5">
-              <div
-                onClick={() => handleTheme(userTheme[4] ? userTheme[4].id : "")}
-                className={"lession-link"}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[4]
-                        ? `${API_URL}/mediaObject/download/${userTheme[4].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2>{userTheme[4] ? userTheme[4].name : ""}</h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="lsvg-6">
-              <div
-                onClick={() => handleTheme(userTheme[5] ? userTheme[5].id : "")}
-                className={"lession-link"}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[5]
-                        ? `${API_URL}/mediaObject/download/${userTheme[5].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2>{userTheme[5] ? userTheme[5].name : ""}</h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="lsvg-7">
-              <div
-                onClick={() => handleTheme(userTheme[6] ? userTheme[6].id : "")}
-                className={"lession-link"}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[6]
-                        ? `${API_URL}/mediaObject/download/${userTheme[6].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2>{userTheme[6] ? userTheme[6].name : ""}</h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="lsvg-8">
-              <div
-                onClick={() => handleTheme(userTheme[7] ? userTheme[7].id : "")}
-                className={"lession-link"}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[7]
-                        ? `${API_URL}/mediaObject/download/${userTheme[7].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2>{userTheme[7] ? userTheme[7].name : ""}</h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="lsvg-9">
-              <div
-                onClick={() => handleTheme(userTheme[8] ? userTheme[8].id : "")}
-                className={"lession-link"}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[8]
-                        ? `${API_URL}/mediaObject/download/${userTheme[8].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2>{userTheme[8] ? userTheme[8].name : ""}</h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="lsvg-10">
-              <div
-                onClick={() => handleTheme(userTheme[8] ? userTheme[8].id : "")}
-                className={"lession-link"}
-              >
-                <div className="div">
-                  <img
-                    className="w-100 h-100"
-                    src={`${
-                      userTheme[8]
-                        ? `${API_URL}/mediaObject/download/${userTheme[8].image}`
-                        : "/assets/lock1.png"
-                    }`}
-                    alt=""
-                  />
-                  <span className="cmt">
-                    <h2>{userTheme[8] ? userTheme[8].name : ""}</h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              onClick={() => handleTheme("moreTopic1")}
-              className={" lession-link-e"}
-            >
-              <div className="lsvg-11">
-                <div className={""}>
-                  <div className="div">
-                    <span className="cmt">
-                      <div></div>
-                    </span>
+        <div id="">
+          <div id="gt">
+            <div>
+              <div className="row  px-md-5">
+                {userTheme.map((result) => (
+                  <div
+                    key={result.id}
+                    className="col-12 col-md-6 col-lg-6 col-xl-6"
+                  >
+                    <div
+                      className="mt-5 card-box w-100 text-center align-self-center"
+                      onClick={() => handleTheme(result.id)}
+                    >
+                      <div className="card">
+                        <img
+                          className="card-img-top"
+                          src={`${API_URL}/mediaObject/download/${result.image}`}
+                          alt="Card image cap"
+                        />
+                        <div className="card-body">
+                          <div className="d-flex justify-content-center">
+                            <h2>{result.name}</h2>
+                          </div>
+                          <div className="d-flex justify-content-center">
+                            <span>{"Commencer la leçon"}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

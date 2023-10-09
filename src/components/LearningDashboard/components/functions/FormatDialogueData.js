@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 export const FormatDialogueData = (QAdata, QuizID, exType) => {
   //
 
   if (QAdata && QuizID && exType) {
+=======
+export const FormatDialogueData = (QAdata, QuizID, title) => {
+  //
+
+  if (QAdata && QuizID && title) {
+>>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
     const jsonData = {
       id: "6503729c41bd45770962a19e",
       title: "Complete the dialog",
@@ -178,6 +185,7 @@ export const FormatDialogueData = (QAdata, QuizID, exType) => {
         quiztype: exType,
         quizid: QuizID,
         question: "Question1",
+        title: title,
 
         keywords: jsonData.exerciseWords.sort(() => Math.random() - 0.5),
         audio: "/audio/q1.mp3",

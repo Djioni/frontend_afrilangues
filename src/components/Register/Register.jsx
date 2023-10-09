@@ -166,7 +166,7 @@ const Register = () => {
               setTimeout(() => {
                 //direact login page
                 navigate("/auth/login");
-              }, 4000);
+              }, 2000);
             }
           })
           .catch((error) => {
@@ -310,7 +310,18 @@ const Register = () => {
                 type="submit"
                 className="mainGradient border-0 py-2 rounded-3 text-white language-btn"
               >
-                Créer un compte
+                Créer un compte{" "}
+                {isLoading && (
+                  <div className="px-1 d-inline-block">
+                    <div
+                      class="spinner-border spinner-border-sm"
+                      style={{ height: "15px", width: "15px" }}
+                      role="status"
+                    >
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                )}
               </button>
 
               <NavLink
@@ -356,8 +367,6 @@ const Register = () => {
             theme="light"
           />
           {/* Same as */}
-          <ToastContainer />
-          {isLoading && <Loading message="S'il vous plaît, attendez" />}
         </div>
       )}
     </div>

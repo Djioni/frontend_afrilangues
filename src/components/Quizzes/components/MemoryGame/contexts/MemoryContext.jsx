@@ -180,8 +180,16 @@ const MemoryProvider = ({ children }) => {
             .post(`${API_URL}/assessment/`, AssessmentSchma, config)
             .then((assessment) => {
               if (assessment.data.status === "RIGHT") {
+                // point store
+                const points = assessment.data.isNumberPoint;
+                console.log("userpoints", points);
+                localStorage.setItem("exercisePoints", JSON.stringify(points));
                 console.log(assessment);
               } else {
+                // point store
+                const points = assessment.data.isNumberPoint;
+                console.log("userpoints", points);
+                localStorage.setItem("exercisePoints", JSON.stringify(points));
                 console.log(
                   "right answer:",
                   assessment.data.answerValidation[0].content

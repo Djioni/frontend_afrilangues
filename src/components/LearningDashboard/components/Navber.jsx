@@ -94,6 +94,7 @@ export default function Navber() {
   };
 
   const handleLogout = () => {
+    localStorage.clear();
     successSound.play();
     toast.success("Déconnexion réussie!👌", {
       position: "top-right",
@@ -152,14 +153,12 @@ export default function Navber() {
               <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/"> MES COURS</a>
               </li>
-              <li className="d-inline-block d-none d-xl-inline-block">
-                <a href="/"> RÉVISION</a>
-              </li>
+
               <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/"> DICTIONNAIRE</a>
               </li>
               <li className="d-inline-block d-none d-xl-inline-block">
-                <a href="/">AIDECOURS EN DIRECT</a>
+                <a href="/">COURS EN DIRECT</a>
               </li>
               <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/">TARIFS</a>

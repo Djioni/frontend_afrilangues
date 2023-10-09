@@ -1,6 +1,10 @@
 import { API_URL } from "../../../../api";
 
+<<<<<<< HEAD
 export const TestFunction = (QAdata, userID, exType) => {
+=======
+export const TestFunction = (QAdata, userID, type) => {
+>>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
   console.log("qadata", QAdata);
   const quizQuestion1 = [
     {
@@ -162,8 +166,14 @@ export const TestFunction = (QAdata, userID, exType) => {
   ];
 
   const quizQuestion = QAdata;
+
   const quizData = [];
+<<<<<<< HEAD
   if (quizQuestion && userID && exType) {
+=======
+  if (quizQuestion && userID && type) {
+    quizQuestion.sort((a, b) => a.order - b.order);
+>>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
     // Text Options
     const textOptions = quizQuestion.map((value) => {
       if (
@@ -327,7 +337,11 @@ export const TestFunction = (QAdata, userID, exType) => {
     return [
       {
         id: userID,
+<<<<<<< HEAD
         quiztype: exType,
+=======
+        type: type,
+>>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
         lessonTitle: "lesson",
         questions: quizOrderData,
       },

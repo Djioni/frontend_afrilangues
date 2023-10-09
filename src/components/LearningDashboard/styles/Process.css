@@ -1,7 +1,7 @@
 #process {
   padding: 20px 30px;
   border-radius: 44px;
-  width: 100%;
+
   margin-top: 50px;
   position: relative;
 }
@@ -41,7 +41,7 @@
   line-height: normal;
 }
 #process-p {
-  margin-top: 80px;
+  margin-top: 105px;
 }
 
 #process-p .p-svg {
@@ -78,7 +78,7 @@
   #process {
     padding: 20px 30px;
     border-radius: 44px;
-    width: 400px;
+
     margin-top: 55px;
   }
   #process-p {
@@ -90,8 +90,28 @@
   #process {
     padding: 10px 10px;
     border-radius: 44px;
-    width: 100% !important;
+
     margin-top: 45px;
     position: relative;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  #process {
+    padding: 0px 0px;
+    border-radius: 44px;
+    padding: 10px 10px;
+
+    margin-top: 45px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  #process {
+    padding: 0px 0px;
+    border-radius: 44px;
+    padding: 10px 10px;
+    max-width: 300px;
+    margin-top: 45px;
   }
 }

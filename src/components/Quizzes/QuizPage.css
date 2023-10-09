@@ -304,15 +304,17 @@
   margin-top: 60px;
   gap: 60px;
 }
-
+.quiz_container .listen_repeat_container .listen_repeat_options .option {
+  cursor: default;
+}
 .quiz_container .listen_repeat_container .listen_repeat_options .option:hover {
   transition: background-color 0.3s;
 }
 
 .quiz_container .listen_repeat_container .listen_repeat_options .option:hover {
-  background-color: #df5411;
-  color: white;
-  border-color: #df5411;
+  background-color: #eaeaea !important;
+  color: black !important;
+  border-color: unset !important;
 }
 
 /* MEDIA QUERY FOR RESPONSIVENESS */
@@ -502,6 +504,7 @@
     text-align: start !important;
     height: 100%;
     display: grid;
+    overflow-y: scroll;
     width: 100%;
   }
   .audio_multiple_choice_question .option {

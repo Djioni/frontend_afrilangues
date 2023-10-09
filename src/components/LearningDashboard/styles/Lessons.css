@@ -1,12 +1,9 @@
 /* ; */
 #fullpath {
-  width: 450px;
-  height: 3000px;
-  background-repeat: no-repeat;
-  background: url(/assets/groupline.png);
   position: relative;
   margin-top: 130px;
   background-repeat: no-repeat;
+  padding-bottom: 130px;
 }
 
 .lession-link div h2 {
@@ -388,16 +385,6 @@
   }
   #fullpath svg {
     width: 8px;
-  }
-  #fullpath {
-    width: 255px;
-    height: 3000px;
-    background-repeat: no-repeat;
-    margin-top: 200px;
-    position: relative;
-    background-size: 100%;
-    margin-top: 80px;
-    background-repeat: no-repeat;
   }
 }
 

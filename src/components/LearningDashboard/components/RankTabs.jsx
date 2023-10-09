@@ -161,21 +161,35 @@ export default function RankTabs() {
   };
   return (
     <div className="ranking">
-      <h3>Classement de la semaine EN BAMBARA</h3>
+      <h3>Classement : </h3>
       <div className="r-box">
         <div>
-          <div className="btn-tab">
-            <span className={activeD} onClick={DailyRank}>
-              <button className="">Mois</button>
-            </span>
+          <div className="row px-md-2">
+            <div className="col-4">
+              <div>
+                <span className={activeD} onClick={DailyRank}>
+                  <button className="w-100">Mois</button>
+                </span>
+              </div>
+            </div>
+            <div className="col-4">
+              <div>
+                {" "}
+                <span onClick={WeeklyRank} className={activeW}>
+                  <button className="btn-m d-grid justify-content-center  w-100">
+                    <span className="">semaine</span>
+                  </button>
+                </span>
+              </div>
+            </div>
 
-            <span onClick={WeeklyRank} className={activeW}>
-              <button className="  ">semaine</button>
-            </span>
-
-            <span onClick={MonthlyRank} className={activeM}>
-              <button className="">Jours</button>
-            </span>
+            <div className="col-4 ">
+              <div className="w-100">
+                <span onClick={MonthlyRank} className={activeM}>
+                  <button className="w-100">Jours</button>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
         <div>

@@ -16,6 +16,7 @@ import {
 } from "./components/index";
 import { useDispatch } from "react-redux";
 import { CurrentPathAction } from "../LearningDashboard/services/actions/CurrentPathAction";
+import NewsLetter from "./components/newsletter/NewsLetter";
 
 const Home = () => {
   const disPatch = useDispatch();
@@ -30,12 +31,15 @@ const Home = () => {
       {/* <CoursePlan /> */}
       <ReferenceAfricanLanguage />
       <DownloadApp />
-      <Pricing />
+      <br />
+      <br />
+      {/* <Pricing /> */}
       <Testimonials />
       <FrequentlyQuestions />
       <Media />
-      <Subscribe />
+      {/* <Subscribe /> */}
       <Footer />
+      <NewsLetter />
     </div>
   );
 };

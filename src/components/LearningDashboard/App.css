@@ -33,13 +33,15 @@ body {
   width: 98%;
   border-radius: 30px;
   position: absolute;
-  height: 2400px;
+  height: 1340px;
   display: flex;
   justify-content: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .sec-m-process {
-  background-color: white;
+  /* background-color: white; */
 
   width: 100%;
   display: flex;
@@ -109,7 +111,7 @@ body {
     width: 98%;
     border-radius: 30px;
     position: absolute;
-    height: 2380px;
+    height: 100px;
     display: flex;
     justify-content: center;
   }

@@ -35,9 +35,9 @@ export default function Manu(props) {
               <a href={"/dashboard"}> MES COURS</a>
             </li>
             <hr />
-            <li className="">
+            {/* <li className="">
               <a href="/"> RÉVISION</a>
-            </li>
+            </li> */}
             <hr />
             <li className=" ">
               <a href="/"> DICTIONNAIRE</a>

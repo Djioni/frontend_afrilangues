@@ -60,7 +60,7 @@ const Banner = () => {
               <div id="button-container">
                 <div className="btn_container">
                   <div>
-                    <NavLink to={"/dashboard"}>
+                    <NavLink to={"/auth/login"}>
                       <button className="bg-black text-white">
                         Essayez maintenant
                       </button>

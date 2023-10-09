@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ProcessPercent() {
   return (
-    <div id="process-p">
+    <div id="process-p" className="">
       <div>
         <div className="d-flex justify-content-center p-svg ">
           <img src="/assets/ppmiddle.svg" alt="" />
