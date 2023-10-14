@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-export const Translate = (QAdata, userID, exType) => {
-=======
 export const Translate = (QAdata, userID, type, title) => {
->>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
   const quizQuestion = [
     {
       order: 0,
@@ -81,7 +77,7 @@ export const Translate = (QAdata, userID, type, title) => {
     return [
       {
         id: userID,
-        quiztype: exType,
+        quiztype: type,
         lessonTitle: "lesson",
         questions: convertedQuestions,
       },

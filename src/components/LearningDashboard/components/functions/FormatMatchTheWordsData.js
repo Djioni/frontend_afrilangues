@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-export const FormatMatchTheWordsData = (QAdata, QuizID, exType) => {
-  if (QAdata && QuizID && exType) {
-=======
 export const FormatMatchTheWordsData = (QAdata, QuizID, type, title) => {
   if (QAdata && QuizID && type && title) {
     QAdata.sort((a, b) => a.order - b.order);
->>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
     const data = [
       {
         order: 1,
@@ -120,12 +115,8 @@ export const FormatMatchTheWordsData = (QAdata, QuizID, type, title) => {
     return [
       {
         id: QuizID,
-<<<<<<< HEAD
-        quiztype: exType,
-=======
         title: title,
         type: type,
->>>>>>> 2b320164e835b9b8d2fa95c0fc3e932da484332f
         lessonTitle: "lesson",
         questions: convertedData,
       },
