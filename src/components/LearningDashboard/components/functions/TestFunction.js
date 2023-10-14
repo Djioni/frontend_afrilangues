@@ -1,6 +1,6 @@
 import { API_URL } from "../../../../api";
 
-export const TestFunction = (QAdata, userID, type) => {
+export const TestFunction = (QAdata, userID, type, title) => {
   console.log("qadata", QAdata);
   const quizQuestion1 = [
     {
@@ -164,8 +164,10 @@ export const TestFunction = (QAdata, userID, type) => {
   const quizQuestion = QAdata;
 
   const quizData = [];
-  if (quizQuestion && userID && type) {
+  if (quizQuestion && userID && type && title) {
     quizQuestion.sort((a, b) => a.order - b.order);
+
+    console.log("-----------------", QAdata);
     // Text Options
     const textOptions = quizQuestion.map((value) => {
       if (
@@ -194,7 +196,7 @@ export const TestFunction = (QAdata, userID, type) => {
       }
     });
 
-    // text options
+    // // text options
     const ImageOptions = quizQuestion.map((value) => {
       if (
         value.answers.some(
@@ -210,110 +212,166 @@ export const TestFunction = (QAdata, userID, type) => {
       }
     });
 
-    // // audio option filtering start
-    const audioOptionsFilter = audioOptions.map((value) => {
-      if (value) {
-        //
-        // order text and id
-        const audiodata = value.answers.map((answer) => ({
-          text: answer.content,
-          audioURL:
-            answer.mediaResponse &&
-            `${API_URL}/mediaObject/download/${answer.mediaResponse.media}`,
-        }));
+    if (type === "SINGLE_CHOICE_QUESTION_AUDIO_FORMAT") {
+      // // audio option filtering start
+      const audioOptionsFilter = audioOptions.map((value) => {
+        if (value) {
+          //
+          // order text and id
+          const audiodata = value.answers.map((answer) => ({
+            text: answer.content,
+            audioURL:
+              answer.mediaResponse &&
+              `${API_URL}/mediaObject/download/${answer.mediaResponse.media}`,
+          }));
 
-        //
-        const option = value.answers.map((answer) => answer.content);
-        const correctAnswerIndex = value.answers.findIndex(
-          (answer) => answer.correct
-        );
+          //
+          const option = value.answers.map((answer) => answer.content);
+          const correctAnswerIndex = value.answers.findIndex(
+            (answer) => answer.correct
+          );
 
-        // console.log(option);
-        // console.log(correctAnswerIndex);
-        return {
-          order: value.order,
-          questionText: value.sentence,
-          audioOptions: audiodata,
-          correctAnswerIndex: correctAnswerIndex,
-          format: "multipleChoice",
-        };
-      }
-    });
-    // remove falsy data
-    audioOptionsFilter.forEach((value) => {
-      if (typeof value === "object" && value !== null) {
-        quizData.push(value);
-      }
-    });
-    // audio option filtering end
+          // console.log(option);
+          // console.log(correctAnswerIndex);
+          return {
+            sentence: { text: value.sentence, audio: value.mediaQuestion },
+            type: type,
+
+            order: value.order,
+            questionText: value.sentence,
+            audioOptions: audiodata,
+            correctAnswerIndex: correctAnswerIndex,
+            format: "multipleChoice",
+          };
+        }
+      });
+      // remove falsy data
+      audioOptionsFilter.forEach((value) => {
+        if (typeof value === "object" && value !== null) {
+          quizData.push(value);
+        }
+      });
+      // audio option filtering end
+    }
 
     // image option filtering start
-    const imageOptionsFilter = ImageOptions.map((value) => {
-      if (value) {
-        // order text and id
-        const audiodata = value.answers.map((answer) => ({
-          text: answer.content,
-          imageURL:
-            answer.mediaResponse &&
-            `${API_URL}/mediaObject/download/${answer.mediaResponse.media}`,
-        }));
-
-        //
-
-        const option = value.answers.map((answer) => answer.content);
-        const correctAnswerIndex = value.answers.findIndex(
-          (answer) => answer.correct
+    if (type === "SINGLE_CHOICE_QUESTION_IMAGE_FORMAT") {
+      //
+      const transformedData = quizQuestion.map((item) => {
+        // Find the image media with type 'image/png' or 'image/jpeg'
+        const imageMedia = item.mediaQuestion.find(
+          (media) => media.type === "image/png" || media.type === "image/jpeg"
+        );
+        const audioMedia = item.mediaQuestion.find(
+          (media) => media.type === "audio/mpeg"
         );
 
-        // console.log(option);
-        // console.log(correctAnswerIndex);
+        // Get the content of the first answer in the answers array
+        const firstAnswer = item.answers.filter(
+          (value) => value.correct == true
+        );
+
+        console.log(
+          "first anser----------------- ",
+          item.answers.filter((value) => value.correct == true)
+        );
+
+        // Create a new object with the desired structure
         return {
-          order: value.order,
-          questionText: value.sentence,
-          imageOptions: audiodata,
-          correctAnswerIndex: correctAnswerIndex,
-          format: "multipleChoice",
+          text: firstAnswer[0] ? firstAnswer[0].content : "",
+          image: imageMedia
+            ? { media: imageMedia.media, type: imageMedia.type }
+            : null,
+          audio: audioMedia
+            ? { media: audioMedia.media, type: audioMedia.type }
+            : null,
         };
-      }
-    });
-    imageOptionsFilter.forEach((value) => {
-      if (typeof value === "object" && value !== null) {
-        quizData.push(value);
-      }
-    });
+      });
+
+      //
+      const imageOptionsFilter = quizQuestion.map((value) => {
+        if (value) {
+          // order text and id
+          const audiodata = value.answers.map((answer) => ({
+            text: answer.content,
+            imageURL:
+              answer.mediaResponse &&
+              `${API_URL}/mediaObject/download/${answer.mediaResponse.media}`,
+          }));
+
+          //
+
+          const option = value.answers.map((answer) => answer.content);
+          const correctAnswerIndex = value.answers.findIndex(
+            (answer) => answer.correct
+          );
+
+          // console.log(option);
+          // console.log(correctAnswerIndex);
+          return {
+            sentence: {
+              text: value.sentence,
+              audio: value.mediaQuestion.filter(
+                (data) => data.type === "audio/mpeg"
+              ),
+              image: value.mediaQuestion.filter(
+                (data) =>
+                  data.type === "image/jpeg" || data.type === "image/png"
+              ),
+            },
+            order: value.order,
+            questionText: title,
+            imageOptions: audiodata,
+            correctAnswerIndex: correctAnswerIndex,
+            format: "multipleChoice",
+            option: transformedData,
+          };
+        }
+      });
+      imageOptionsFilter.forEach((value) => {
+        if (typeof value === "object" && value !== null) {
+          quizData.push(value);
+        }
+      });
+    }
 
     // image option filtering end
 
-    // // audio option filtering start
-    const textOptionsFilter = textOptions.map((value) => {
-      if (value) {
-        //
-        // order text and id
-        const audiodata = value.answers.map((answer) => answer.content);
+    // // text option filtering start
 
-        //
-        const option = value.answers.map((answer) => answer.content);
-        const correctAnswerIndex = value.answers.findIndex(
-          (answer) => answer.correct
-        );
+    if (type === "SINGLE_CHOICE_QUESTION_TEXT_FORMAT") {
+      const textOptionsFilter = quizQuestion.map((value) => {
+        if (value) {
+          //
+          // order text and id
+          const audiodata = value.answers.map((answer) => answer.content);
 
-        // console.log(option);
-        // console.log(correctAnswerIndex);
-        return {
-          order: value.order,
-          questionText: value.sentence,
-          options: audiodata,
-          correctAnswerIndex: correctAnswerIndex,
-          format: "multipleChoice",
-        };
-      }
-    });
-    // remove falsy data
-    textOptionsFilter.forEach((value) => {
-      if (typeof value === "object" && value !== null) {
-        quizData.push(value);
-      }
-    });
+          //
+          const option = value.answers.map((answer) => answer.content);
+          const correctAnswerIndex = value.answers.findIndex(
+            (answer) => answer.correct
+          );
+
+          // console.log(option);
+          // console.log(correctAnswerIndex);
+          return {
+            sentence: { text: value.sentence, audio: value.mediaQuestion },
+            order: value.order,
+            questionText: title,
+            options: audiodata,
+            correctAnswerIndex: correctAnswerIndex,
+            format: "multipleChoice",
+          };
+        }
+      });
+      // remove falsy data
+      textOptionsFilter.forEach((value) => {
+        if (typeof value === "object" && value !== null) {
+          quizData.push(value);
+        }
+      });
+    }
+
     // text option filtering end
     // console.log(quizData);
     let quizOrderData = [];

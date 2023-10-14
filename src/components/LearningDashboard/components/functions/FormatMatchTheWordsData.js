@@ -102,6 +102,12 @@ export const FormatMatchTheWordsData = (QAdata, QuizID, type, title) => {
     // Create the converted data
     const convertedData = [
       {
+        leftAudio: QAdata.map((item) => {
+          return {
+            text: item.sentence,
+            audio: item.mediaQuestion,
+          };
+        }),
         questionText: "Match the words with their meanings:",
         format: "wordsMatching",
         leftWords: QAdata.map((item) => item.sentence),

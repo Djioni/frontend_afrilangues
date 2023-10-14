@@ -96,14 +96,6 @@ export default function Exercise() {
                   )
                 );
 
-                quizQuestionsUpdated.forEach((question) => {
-                  question.mediaQuestion = question.mediaQuestion[0];
-                  question.answers.forEach((answer) => {
-                    if (answer.mediaResponse) {
-                      answer.mediaResponse = answer.mediaResponse[0];
-                    }
-                  });
-                });
                 try {
                   localStorage.setItem(
                     "currentQuiz",
@@ -111,7 +103,8 @@ export default function Exercise() {
                       TestFunction(
                         quizQuestionsUpdated,
                         currentQuiz.id,
-                        currentQuiz.type
+                        currentQuiz.type,
+                        currentQuiz.title
                       )
                     )
                   );

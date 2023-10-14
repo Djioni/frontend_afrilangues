@@ -101,10 +101,15 @@
   cursor: default;
 }
 #d-goals .rank-1 {
-  width: 350px;
+  /* width: 350px; */
   color: #592113;
 }
 
+.ranking .r-box .row button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #d-goals .rf-btn {
   border-top-right-radius: 7px !important;
   border-bottom-right-radius: 7px !important;
@@ -141,6 +146,20 @@
 
 #d-goals .ranking .number {
   background-color: #df5411;
+}
+@media only screen and (max-width: 1399px) {
+  #d-goals .rank-1 button {
+    margin-top: 30px;
+    border-radius: 0;
+    width: 180px;
+    padding: 5px 15px;
+    color: #592113;
+    font-family: "Montserrat", "sans-serif";
+    font-size: 15.449px;
+    font-style: normal;
+    font-weight: 400;
+    cursor: pointer;
+  }
 }
 
 @media only screen and (max-width: 767px) {
@@ -179,4 +198,19 @@
 }
 #d-goals .ranking .col-4 .btn-m span {
   margin-top: 3px;
+}
+
+@media only screen and (max-width: 450px) {
+  #d-goals .rank-1 button {
+    margin-top: 30px;
+    border-radius: 0;
+    width: 160px;
+    padding: 5px 15px;
+    color: #592113;
+    font-family: "Montserrat", "sans-serif";
+    font-size: 15.449px;
+    font-style: normal;
+    font-weight: 400;
+    cursor: pointer;
+  }
 }

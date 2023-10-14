@@ -1,9 +1,0 @@
-Merge branch 'main' of https://github.com/msbhh-ms/afi.v2
-
-# Conflicts:
-#	src/components/LearningDashboard/components/functions/FormatDialogueData.js
-#	src/components/LearningDashboard/components/functions/FormatMatchTheWordsData.js
-#	src/components/LearningDashboard/components/functions/FormatPutInOrder.js
-#	src/components/LearningDashboard/components/functions/ListenRepeat.js
-#	src/components/LearningDashboard/components/functions/TestFunction.js
-#	src/components/LearningDashboard/components/functions/Translate.js

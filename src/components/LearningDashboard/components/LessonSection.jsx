@@ -172,10 +172,7 @@ export default function LearnGrettingLession() {
                           </div>
                           <div className="d-grid justify-content-center">
                             <h2 className="text-wrap text-center">
-                              <OverflowText
-                                text={result.title}
-                                maxLength={19}
-                              ></OverflowText>
+                              {result.title}
                             </h2>
                           </div>
                         </div>
@@ -187,10 +184,7 @@ export default function LearnGrettingLession() {
                           <div className="d-flex justify-content-center"></div>
                           <div className="d-grid justify-content-center">
                             <h2 className="text-wrap text-center pb-3">
-                              <OverflowText
-                                text={result.title}
-                                maxLength={19}
-                              ></OverflowText>
+                              {result.title}
                             </h2>
                           </div>
                         </div>

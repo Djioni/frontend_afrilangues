@@ -175,7 +175,6 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
 
     return [
       {
-        quiztype: exType,
         quizid: QuizID,
         question: "Question1",
         title: title,

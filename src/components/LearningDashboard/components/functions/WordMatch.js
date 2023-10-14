@@ -1,4 +1,4 @@
-export const MatchWord = (QAdata, quiz) => {
+export const MatchWord = (QAdata) => {
   if (QAdata) {
     const quizQuestion = [
       {

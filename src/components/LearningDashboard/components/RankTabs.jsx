@@ -176,7 +176,7 @@ export default function RankTabs() {
               <div>
                 {" "}
                 <span onClick={WeeklyRank} className={activeW}>
-                  <button className="btn-m d-grid justify-content-center  w-100">
+                  <button className=" d-grid justify-content-center  w-100">
                     <span className="">semaine</span>
                   </button>
                 </span>

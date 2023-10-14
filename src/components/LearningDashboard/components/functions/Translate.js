@@ -75,12 +75,7 @@ export const Translate = (QAdata, userID, type, title) => {
     }));
 
     return [
-      {
-        id: userID,
-        quiztype: type,
-        lessonTitle: "lesson",
-        questions: convertedQuestions,
-      },
+      { id: userID, lessonTitle: "lesson", questions: convertedQuestions },
     ];
   }
 };

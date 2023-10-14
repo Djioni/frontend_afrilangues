@@ -87,31 +87,17 @@
 }
 
 @media only screen and (max-width: 767px) {
-  #process {
-    padding: 10px 10px;
-    border-radius: 44px;
-
-    margin-top: 45px;
-    position: relative;
-  }
 }
 
 @media only screen and (max-width: 576px) {
   #process {
-    padding: 0px 0px;
     border-radius: 44px;
-    padding: 10px 10px;
-
-    margin-top: 45px;
   }
 }
 
 @media only screen and (max-width: 450px) {
   #process {
-    padding: 0px 0px;
     border-radius: 44px;
-    padding: 10px 10px;
-    max-width: 300px;
-    margin-top: 45px;
+    max-width: 330px;
   }
 }

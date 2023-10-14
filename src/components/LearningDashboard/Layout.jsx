@@ -22,8 +22,8 @@ export default function Layout() {
         <div className=" container">
           <div className="d-none d-xl-block">
             <div className="row mt-4   ">
-              <div className="col-6 col-xl-8 d-flex justify-content-center position-relative">
-                <section className="sec-lessions d-flex justify-content-center">
+              <div className="col-6 col-lg-7 col-xl-8 d-flex justify-content-center position-relative">
+                <section className="sec-lessions d-flex w-100  justify-content-center">
                   <div className="col-card ">
                     <Topics />
                     <br />
@@ -31,7 +31,7 @@ export default function Layout() {
                 </section>
               </div>
 
-              <div className="col-6 col-xl-4 d-flex justify-content-end pb-3">
+              <div className="col-6 col-lg-5 col-xl-4 d-flex justify-content-end pb-3">
                 <section id="sec-lessions" className="sec-process w-100">
                   <div className="col-card ">
                     <div className="">
@@ -67,7 +67,7 @@ export default function Layout() {
                 <Route
                   path="/"
                   element={
-                    <section className="sec-m-process">
+                    <section className="sec-m-lessons">
                       <Topics />
                     </section>
                   }

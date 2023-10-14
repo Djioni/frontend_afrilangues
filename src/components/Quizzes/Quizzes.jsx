@@ -382,7 +382,6 @@ const Quizzes = () => {
     // });
     navigate(-1);
   };
-  console.log("quizdata", quizData);
 
   const handleNext = () => {
     setRightMultipleAnswer("");
@@ -460,7 +459,7 @@ const Quizzes = () => {
       const userToken = Cookies.get("id")
         ? JSON.parse(Cookies.get("token"))
         : "";
-      const sentence = currentQuestionData.questionText;
+      const sentence = currentQuestionData.sentence.text;
       console.log("fdf", selectedAnswer);
       const content =
         currentQuestionData.options?.filter(
@@ -1113,6 +1112,7 @@ const Quizzes = () => {
   };
   let [storeLeftIndex, setStoreLeftIndex] = useState([]);
   let [storeRightIndex, setStoreRightIndex] = useState([]);
+  const [currentMathWordLength, setCurrentMatchWordLength] = useState(1);
   const handleVerifyWords = async (leftIndex, rightIndex) => {
     setShowVerifyButton(false);
 
@@ -1277,6 +1277,21 @@ const Quizzes = () => {
         );
         console.log("ass", assessment.data);
         if (assessment.data.status === "RIGHT") {
+          setCurrentMatchWordLength((prev) => prev + 1);
+
+          // condition with check current mathword length
+          if (currentQuestionData.leftWords.length <= currentMathWordLength) {
+            setCurrentMatchWordLength(1);
+            setIsWordMatchingComplete(true);
+            setShowVerifyButton(false);
+            console.log(
+              "current question dat________________",
+              currentQuestionData.leftWords,
+              "currentlenght",
+              currentMathWordLength
+            );
+          }
+
           // point store
           const points = assessment.data.isNumberPoint;
           console.log("userpoints", points);
@@ -1290,10 +1305,36 @@ const Quizzes = () => {
           setDisableRightIndex(storeLeftIndex);
           setAnswerCorrect(true);
           // Set the state to indicate whether all words are matched
-          setIsWordMatchingComplete(allWordsMatched && allMatchesCorrect);
+
+          console.log(
+            "set is watch matching",
+            allWordsMatched && allMatchesCorrect
+          );
 
           // Check if all word matching is correct
-          if (allWordsMatched && allMatchesCorrect) {
+          if (true) {
+            // process
+            const CurrentProcess = (currentnumber, totalnumber) => {
+              const singleProcess = 1 / totalnumber;
+              let totalnumber1 = 0;
+              for (let i = 1; i <= currentnumber; i++) {
+                totalnumber1 += singleProcess;
+              }
+              return totalnumber1;
+            };
+            console.log(
+              CurrentProcess(
+                currentMathWordLength,
+                currentQuestionData.leftWords.length
+              )
+            );
+            setProgress(
+              CurrentProcess(
+                currentMathWordLength,
+                currentQuestionData.leftWords.length
+              )
+            );
+            console.log("all matched true man........");
             // Calculate the total number of questions completed across all lessons
             const totalQuestionsCompleted =
               progress +
@@ -1303,7 +1344,7 @@ const Quizzes = () => {
 
             // Update the progress state
             isCorrect = true;
-            setProgress(totalQuestionsCompleted);
+
             isEveryWordMatch = true;
           }
           // // Hide the verify button
@@ -1340,8 +1381,24 @@ const Quizzes = () => {
     }
     // assessment end
     // ASSESSEMNT END
+    // // Update progress and answer correctness state
     if (currentQuestionData.format === "wordsMatching") {
       return "";
+    } else {
+      if (isCorrect) {
+        setProgress(progress + 1);
+        setAnswerCorrect(true);
+      } else if (correntWordMatch === true) {
+        setAnswerCorrect(true);
+      } else if (correntWordMatch === false) {
+        setAnswerCorrect(false);
+      } else if (isEveryWordMatch === null) {
+        setAnswerCorrect(null);
+      } else if (isEveryWordMatch) {
+        setAnswerCorrect(true);
+      } else {
+        setAnswerCorrect(false);
+      }
     }
   };
   const handleContinue = () => {
@@ -1375,8 +1432,9 @@ const Quizzes = () => {
       if (currentQuestionData.imageOptions) {
         return (
           <ImageMultipleChoiceQuestion
+            sentence={currentQuestionData.sentence}
             rightMultipleAnswer={rightMultipleAnswer}
-            options={currentQuestionData.imageOptions}
+            options={currentQuestionData.option}
             selectedAnswer={selectedAnswer}
             onAnswerSelect={handleAnswerSelect}
           />
@@ -1395,6 +1453,7 @@ const Quizzes = () => {
           <MultipleChoiceQuestion
             rightMultipleAnswer={rightMultipleAnswer}
             options={currentQuestionData.options}
+            sentence={currentQuestionData.sentence}
             selectedAnswer={selectedAnswer}
             onAnswerSelect={handleAnswerSelect}
           />
@@ -1474,6 +1533,9 @@ const Quizzes = () => {
           }
           rightWords={
             quizData[currentLesson].questions[currentQuestion].rightWords
+          }
+          leftAudio={
+            quizData[currentLesson].questions[currentQuestion].leftAudio
           }
           onAnswerSelect={handleAnswerSelect}
           selectedWordMatchingAnswer={selectedWordMatchingAnswer}
