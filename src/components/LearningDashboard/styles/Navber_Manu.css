@@ -46,42 +46,70 @@
   display: inline-block;
 }
 
-.profile {
+.profile_icon_li {
   position: relative;
   cursor: pointer;
 }
-.profile .profile-manu {
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-  border: 1px solid #fff;
-  color: #1e1e1e;
+
+.profile_dropdown {
   position: absolute;
-  top: 60px;
-  right: 70px;
-  border-radius: 5px;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  width: 320px;
+  height: 0px;
   overflow: hidden;
-  width: 0;
-  height: 0;
-  z-index: +2;
-  transition: transform ease-in-out 0.5s;
-  transform: scale(1.2); /* Scale up on hover */
+  transform: translateX(-20px);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* padding: 20px 20px; */
+}
+.profile_dropdown_add {
+  height: 200px;
+  padding: 20px 20px;
 }
 
-.profile .profile-toggle {
-  width: 170px;
-  height: auto;
-  padding: 15px 2px;
-  transition: transform ease-in-out 0.5s;
-  transform: scale(1.2); /* Scale up on hover */
+.profile_dropdown ul li {
+  margin: 0;
+  padding: 0;
+  font-weight: normal !important;
+  cursor: pointer;
 }
 
-.profile .profile-manu .link {
-  color: black !important;
-  padding: 2px 2px;
-  font-size: 13px;
+.profile_dropdown ul li .icon {
+  background-color: #e5e5e5;
+  border-radius: 50%;
+  padding: 2px;
+}
+.profile_dropdown ul li .icon img {
+  height: 25px;
+}
+.profile_dropdown ul li .arrow {
+  font-size: 22px;
+  transition: transform 0.5s;
+}
+.profile_dropdown ul li:hover .arrow {
+  transform: translateX(5px);
+}
+.profile_dropdown ul li:hover {
+  font-weight: 600 !important;
+}
+.profile_dropdown .user .img {
+  width: 45px;
+  height: 45px;
+  background-color: #df5411;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: white;
 }
 
+.profile_dropdown .user .name {
+  font-size: 18px;
+  margin-left: 5px;
+  margin: 12px;
+}
 /* lang */
 .lang {
   position: relative;
@@ -319,4 +347,24 @@
   color: #eef4ed;
   font-size: 40px;
   cursor: pointer;
+}
+
+@media only screen and (min-width: 421px) {
+  .profile_dropdown_phone {
+    display: none !important;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .profile_dropdown_md {
+    display: none !important;
+  }
+  .profile_dropdown {
+    top: 80px;
+    width: 95%;
+    margin: 0 auto;
+    transform: translateX(-2.5%);
+  }
+  .profile_dropdown ul li .icon {
+    margin-right: 5px;
+  }
 }

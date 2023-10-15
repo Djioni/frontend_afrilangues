@@ -23,8 +23,13 @@ import Process from "./components/LearningDashboard/components/Process";
 import Game from "./components/Quizzes/components/MemoryGame/Game";
 import TestParams from "./components/test/TestParams";
 import Dialogue from "./components/Quizzes/components/Dialogue/Dialogue";
-import ForgetPasswd from "./components/ForgetPasswd";
+import ForgetPasswd from "./components/forgerPassword/ForgetPasswd";
 import Exercise from "./components/LearningDashboard/components/Exercise";
+import NewPassword from "./components/forgerPassword/NewPassword";
+import Profile from "./components/Profile/Profile";
+import MonProfil from "./components/Profile/Components/MonProfil";
+import EditMonProfil from "./components/Profile/Components/EditMonProfil";
+import Propos from "./components/Profile/Components/Propos";
 
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
@@ -98,6 +103,8 @@ export default function Layout() {
       !location.pathname.includes("home") &&
       !location.pathname.includes("auth") &&
       !location.pathname.includes("register") &&
+      !location.pathname.includes("forgetpassword") &&
+      !location.pathname.includes("reset") &&
       !quizValidate
     ) {
       setIsDashBoardOpen(true);
@@ -135,7 +142,25 @@ export default function Layout() {
         <Route path="/auth/register" element={<Languages />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgetpassword" element={<ForgetPasswd />} />
+        <Route path="/password/reset/:passToken" element={<NewPassword />} />
+        {/* profile */}
+        <Route path="/user/profile" element={<Profile />} />
 
+        <Route path="/monProfil" element={<MonProfil />} />
+        <Route path="/editMonProfil" element={<EditMonProfil />} />
+        <Route
+          path="/propos"
+          element={
+            <div>
+              <div
+                className="w-100 h-100 d-flex flex-column justify-content-center  align-items-center rounded-4 "
+                style={{ minHeight: "100vh", background: "#F6F6F6" }}
+              >
+                <Propos />
+              </div>
+            </div>
+          }
+        />
         {/* dashboard routes */}
         <Route path="/dashboard" element={<LearningDashboard />} />
         <Route

@@ -9,6 +9,7 @@ const TextInput = ({
   name,
   required = true,
   style = "input",
+  autoComplete = "on", // Add the autoComplete prop with a default value
 }) => {
   return (
     <div className={`rounded-3 bg-white px-4 ${style}`}>
@@ -16,7 +17,7 @@ const TextInput = ({
       <input
         type={type}
         value={value}
-        autoComplete="off"
+        autoComplete={autoComplete} // Use the autoComplete prop here
         name={name}
         onChange={setValue}
         className="w-100 h-100 bg-transparent border-none px-3"

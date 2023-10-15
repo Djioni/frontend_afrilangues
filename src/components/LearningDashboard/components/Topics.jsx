@@ -57,6 +57,9 @@ export default function Topics() {
 
               JSON.stringify(response.data.language[0].id)
             );
+            console.log("userdata", response.data);
+
+            localStorage.setItem("userdata", JSON.stringify(response.data));
             const theme = await axios.get(
               `${API_URL}/theme/language/${response.data.language[0].id}`,
               config

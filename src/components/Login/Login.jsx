@@ -200,7 +200,7 @@ const Login = () => {
                   value={inputs.email}
                   setValue={handleInputs}
                   type="text"
-                  placeholder="Username"
+                  placeholder="Votre e-mail ou nom d'utilisateur"
                   icon={<HiOutlineMail className="input-icon" />}
                   required={false}
                 />

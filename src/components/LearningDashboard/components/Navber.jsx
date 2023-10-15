@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import { FiUsers } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
+import { AiOutlineLogout } from "react-icons/ai";
 import { Howl } from "howler";
 import "../styles/Navber_Manu.css";
 import Manu from "./Manu";
@@ -46,13 +49,11 @@ export default function Navber() {
   //
   const profileClickHandler = () => {
     console.log("profile card");
-    if (langToggle === "lang-toggle") {
-      setLangToggle("");
-    }
-    if (profileToggle === "profile-toggle") {
+
+    if (profileToggle === "profile_dropdown_add") {
       setProfileToggle("");
     } else {
-      setProfileToggle("profile-toggle");
+      setProfileToggle("profile_dropdown_add");
     }
   };
   //
@@ -95,6 +96,8 @@ export default function Navber() {
 
   const handleLogout = () => {
     localStorage.clear();
+    Cookies.set("token", "");
+    Cookies.set("id", "");
     successSound.play();
     toast.success("Déconnexion réussie!👌", {
       position: "top-right",
@@ -128,6 +131,14 @@ export default function Navber() {
     };
   }, []);
 
+  const userData = localStorage.getItem("userdata");
+  let fullName = "";
+
+  if (userData) {
+    const user = JSON.parse(userData);
+    fullName = `${user.firstName.toUpperCase()} ${user.lastName.toUpperCase()}`;
+  }
+
   return (
     <div ref={outerContainerRef} className="navber">
       <div className="container    py-1 ">
@@ -148,7 +159,7 @@ export default function Navber() {
               <img className="logo" src="/assets/logo.svg" alt="Logo" />
             </div>
           </div>
-          <div className="col-9 col-md-11 justify-content-end justify-content-xl-center d-flex   ">
+          <div className="col-9 col-md-11 justify-content-end justify-content-xl-end d-flex   ">
             <ul className="nav-list">
               <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/"> MES COURS</a>
@@ -190,7 +201,7 @@ export default function Navber() {
                     </span>
                   </div>
                   <div className={`lang-manu  text-center  ${langToggle}`}>
-                    <div className="">
+                    {/* <div className="">
                       <NavLink className={"link"} onClick={handleEnglish}>
                         ENGLISH (ENG)
                       </NavLink>
@@ -199,11 +210,11 @@ export default function Navber() {
                       <NavLink className={"link"} onClick={handleFrench}>
                         FRANÇAIS (FR)
                       </NavLink>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </li>
-              <li className="d-inline-block  d-xl-inline-block">
+              <li className="d-inline-block  d-xl-inline-block profile_icon_li">
                 <div className="profile ">
                   <span onClick={profileClickHandler}>
                     <span>
@@ -233,34 +244,55 @@ export default function Navber() {
                   </span>
 
                   <div
-                    className={`profile-manu  text-center  ${profileToggle}`}
+                    className={`profile_dropdown profile_dropdown_md  text-cente r  ${profileToggle}`}
                   >
-                    <div className="">
-                      <NavLink
-                        to="/dashboard"
-                        className="text-white link d-inline-block d-xl-none"
-                        onClick={profileClickHandler}
-                      >
-                        TABLEAU DE BORD
-                      </NavLink>
+                    <div className="user d-flex">
+                      <div>
+                        <div className="img">
+                          <div>
+                            <FiUsers />
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        {" "}
+                        <h2 className="name">{fullName}</h2>
+                      </div>
                     </div>
-                    <div>
-                      <NavLink
-                        className={"link d-inline-block d-xl-none"}
-                        to={"/process"}
-                        onClick={profileClickHandler}
+                    <hr />
+                    <ul>
+                      <li
+                        className="text-center  w-100 d-flex justify-content-between"
+                        onClick={() => {
+                          navigate("/user/profile");
+                          profileClickHandler();
+                        }}
                       >
-                        PROGRESSION
-                      </NavLink>
-                    </div>
-                    <div onClick={handleLogout}>
-                      <NavLink
-                        className={"link "}
-                        onClick={profileClickHandler}
+                        <div className="">
+                          <span className="icon">
+                            <img src="/assets/profile.png" alt="" />
+                          </span>
+                          PROFIL
+                        </div>
+                        <div className="arrow">{">"}</div>
+                      </li>
+                      <li
+                        className="text-center  w-100 d-flex justify-content-between"
+                        style={{ marginTop: 10 }}
+                        onClick={() => {
+                          handleLogout();
+                          profileClickHandler();
+                        }}
                       >
-                        SE DÉCONNECTER
-                      </NavLink>
-                    </div>
+                        <div className="">
+                          <span className="icon">
+                            <img src="/assets/logout.png" alt="" />
+                          </span>
+                          SE DÉCONNECTER
+                        </div>
+                        <div className="arrow">{">"}</div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </li>
@@ -277,6 +309,56 @@ export default function Navber() {
             </ul>
           </div>
         </div>
+      </div>
+
+      {/* for phone */}
+      <div
+        className={`profile_dropdown profile_dropdown_phone   text-cente r  ${profileToggle}`}
+      >
+        <div className="user d-flex">
+          <div>
+            <div className="img">
+              <div>
+                <FiUsers />
+              </div>
+            </div>
+          </div>
+          <div>
+            {" "}
+            <h2 className="name">{fullName}</h2>
+          </div>
+        </div>
+        <hr />
+        <ul>
+          <li
+            className="text-center  w-100 d-flex justify-content-between"
+            onClick={() => {
+              navigate("/user/profile");
+              profileClickHandler();
+            }}
+          >
+            <div className="">
+              <span className="icon">
+                <img src="/assets/profile.png" alt="" />
+              </span>
+              PROFIL
+            </div>
+            <div className="arrow">{">"}</div>
+          </li>
+          <li
+            className="text-center  w-100 d-flex justify-content-between"
+            style={{ marginTop: 10 }}
+            onClick={handleLogout}
+          >
+            <div className="">
+              <span className="icon">
+                <img src="/assets/logout.png" alt="" />
+              </span>
+              SE DÉCONNECTER
+            </div>
+            <div className="arrow">{">"}</div>
+          </li>
+        </ul>
       </div>
       <div className={`manu-toggle ${toggle} manu-ber`}>
         <Manu onToggleData={onToggleData} />
