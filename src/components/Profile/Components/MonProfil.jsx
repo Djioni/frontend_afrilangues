@@ -14,6 +14,7 @@ const mainDivisionStyle = {
   backgroundColor: "#fff",
   borderRadius: "11px",
   border: "0.5px solid orange",
+  marginTop: "100px",
 };
 
 const profileBoxStyle = {
@@ -33,7 +34,7 @@ const avatarStyle = {
 };
 
 const nameStyle = {
-  fontSize: "33px",
+  fontSize: "25px",
   margin: "10px 5px",
   color: "#fe4500",
   fontWeight: "700",

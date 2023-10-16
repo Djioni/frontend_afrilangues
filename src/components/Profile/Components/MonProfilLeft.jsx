@@ -79,7 +79,7 @@ function MonProfilLeft({ toggleFormVisibility }) {
   return (
     <div
       id="profile"
-      className="container d-flex justify-content-center align-items-center"
+      className="container d-flex containerStyle justify-content-center align-items-center"
       style={containerStyle}
     >
       <div className="card" style={mainDivisionStyle}>

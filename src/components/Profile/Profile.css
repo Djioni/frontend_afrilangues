@@ -49,12 +49,25 @@
 }
 
 /* Media query for screens with a maximum width of 768px */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   /* Add styles to handle scrolling for the left column on small screens */
   #profile .left-column {
     overflow-y: auto;
   }
   #profile .card {
     /* display: none; */
+  }
+  #profile .containerStyle {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+  .editMonProfilStyle input {
+    width: 100% !important;
+  }
+  .editMonProfilStyle .col-lg-7 {
+    margin-left: 0px !important;
+  }
+  .editMonProfilStyle {
+    border: none !important;
   }
 }

@@ -26,8 +26,8 @@ function Compte() {
     textAlign: "center",
     color: "white",
     fontWeight: 700,
-    padding: "12px 4px",
-    width: "100px",
+    padding: "12px 20px",
+
     borderRadius: "10px",
   };
   const iconStyle = {
@@ -37,7 +37,7 @@ function Compte() {
   };
 
   return (
-    <Container>
+    <Container style={{ marginTop: "100px" }}>
       <div id="profile" style={divStyle}>
         <div style={{ textAlign: "center", margin: "auto" }}>
           <h5 style={headingStyle}>Mon compte</h5>
@@ -97,10 +97,10 @@ function Compte() {
             background: "linear-gradient(to right, #dfb401, #df011f)",
             color: "white",
             border: "none",
-            width: "400px",
+
             fontWeight: "500",
             fontSize: "20px",
-            padding: "10px 0",
+            padding: "10px 30px",
           }}
         >
           Déconnexion

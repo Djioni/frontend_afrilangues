@@ -169,7 +169,11 @@ function EditMonProfil() {
   };
 
   return (
-    <Container id="profile" style={editMonProfilStyle}>
+    <Container
+      id="profile"
+      className="editMonProfilStyle"
+      style={editMonProfilStyle}
+    >
       <Row>
         <Col lg={5} style={leftColStyle}>
           <MonProfilLeft toggleFormVisibility={toggleFormVisibility} />
