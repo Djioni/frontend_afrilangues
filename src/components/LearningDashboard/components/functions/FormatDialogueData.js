@@ -80,8 +80,10 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
     };
     let transformedData = [];
     let totalInputNumber = 0;
+    const QAdataExercise = QAdata.exerciseAndAnswers;
+    QAdataExercise.sort((a, b) => a.order - b.order);
 
-    QAdata.exerciseAndAnswers.forEach((exercise, index) => {
+    QAdataExercise.forEach((exercise, index) => {
       if (totalInputNumber >= 20) {
         return;
       }
@@ -89,7 +91,18 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
       totalInputNumber++;
       console.log(totalInputNumber);
 
-      const content = exercise.sentence;
+      const content = exercise.answers[0].content;
+
+      const FormatSentence = () => {
+        const sentence = exercise.sentence;
+        const questionWords = exercise.questionWords;
+        let modifiedSentence = sentence;
+        questionWords.forEach((questionWord) => {
+          modifiedSentence = modifiedSentence.replace("...", questionWord);
+        });
+        return modifiedSentence;
+      };
+
       const removeSpace = content.replace(/\s+/g, " ");
 
       const contentArray = removeSpace.split(" ");
@@ -112,6 +125,7 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
             inputFirst: true,
             input1Name: `blank${totalInputNumber}`,
             text1: textValue[0] ? textValue[0] : "",
+            sentence: FormatSentence(),
           });
         } else {
           console.log("middle input");
@@ -126,6 +140,7 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
               input1Name: `blank${totalInputNumber}`,
               text1: textValue[0],
               text2: textValue[1],
+              sentence: FormatSentence(),
             });
           } else {
             console.log("middle input text1");
@@ -137,6 +152,7 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
               inputMiddle: true,
               input1Name: `blank${totalInputNumber}`,
               text1: textValue[0],
+              sentence: FormatSentence(),
             });
           }
         }
@@ -155,6 +171,7 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
             input2Name: `blank${totalInputNumber + 1}`,
             text1: textValue[0],
             text2: textValue[1],
+            sentence: FormatSentence(),
           });
           totalInputNumber++;
         } else {
@@ -167,19 +184,27 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
             input1Name: `blank${totalInputNumber}`,
             input2Name: `blank${totalInputNumber + 1}`,
             text1: textValue[0],
+            sentence: FormatSentence(),
           });
           totalInputNumber++;
         }
       }
     });
 
+    const allWords = QAdata.exerciseAndAnswers.reduce((words, item) => {
+      // Iterate through the answers and collect words
+      item.answers.forEach((answer) => {
+        words.push(...answer.words);
+      });
+      return words;
+    }, []);
     return [
       {
         quizid: QuizID,
         question: "Question1",
         title: title,
 
-        keywords: jsonData.exerciseWords.sort(() => Math.random() - 0.5),
+        keywords: allWords.sort(() => Math.random() - 0.5),
         audio: "/audio/q1.mp3",
         iconRight: true,
         inputs: 20,

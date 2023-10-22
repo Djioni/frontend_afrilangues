@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { NavLink, useNavigate } from "react-router-dom"; // Assuming you have React Router for navigation
+import {
+  HiOutlineMail,
+  HiOutlineLockClosed,
+  HiOutlineEye,
+  HiOutlineEyeOff,
+} from "react-icons/hi";
+import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-import { HiOutlineMail } from "react-icons/hi";
+import "./Login.css";
 import { HiMiniLockClosed } from "react-icons/hi2";
 import ErrorModal from "../ErrorModal";
 import TextInput from "../TextInput";
@@ -28,6 +35,13 @@ const Login = () => {
   const { token, id } = useSelector((state) => state.auth);
   const currentPath = useSelector((state) => state.currentPath);
 
+  //
+
+  const [showPassword, setShowPassword] = useState(true); // State to control password visibility
+  const [passwordInputType, setPasswordInputType] = useState("password"); // Initial input type is password
+  const [showEmail, setShowEmail] = useState(true); // State to control email/username visibility
+  const [emailInputType, setEmailInputType] = useState("text"); // Initial input type is text
+
   // redirect dashboard secton (end)
   //user data
   console.log("curr", currentPath);
@@ -53,11 +67,7 @@ const Login = () => {
       setIsPageLoding(false);
     }
   };
-  useEffect(() => {
-    RedirectDashboard();
 
-    return () => {};
-  }, []);
   // redirect dashboard section (end)
 
   // souonds
@@ -76,10 +86,10 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const toggleModal = () => {
-    setShowModal((prevValue) => !prevValue);
-  };
+
   const handleInputs = (e) => {
+    setIsFormFilled(true);
+    console.log("hello word");
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
   };
@@ -92,6 +102,13 @@ const Login = () => {
       setIsFormFilled(false);
     }
   }, [email, password]);
+  useEffect(() => {
+    if (email !== "" && password !== "") {
+      setIsFormFilled(true);
+    } else {
+      setIsFormFilled(false);
+    }
+  }, []);
   const handleSubmit = (e) => {
     console.log({ email, password });
     e.preventDefault();
@@ -170,6 +187,20 @@ const Login = () => {
       // send request section(end)
     }
   };
+  // Function to toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+    setPasswordInputType(showPassword ? "text" : "password");
+  };
+
+  // Function to toggle email/username visibility
+  const toggleEmailVisibility = () => {
+    setShowEmail(!showEmail);
+    setEmailInputType(showEmail ? "text" : "password");
+  };
+  const toggleModal = () => {
+    setShowModal((prevValue) => !prevValue);
+  };
   return (
     <div>
       {isPageLoading ? (
@@ -195,24 +226,55 @@ const Login = () => {
                 </div>
               </div>
               <div className="w-100 d-flex flex-column align-items-center justify-content-center gap-2 mb-4">
-                <TextInput
-                  name="email"
-                  value={inputs.email}
-                  setValue={handleInputs}
-                  type="text"
-                  placeholder="Votre e-mail ou nom d'utilisateur"
-                  icon={<HiOutlineMail className="input-icon" />}
-                  required={false}
-                />
-                <TextInput
-                  name="password"
-                  value={inputs.password}
-                  setValue={handleInputs}
-                  type="password"
-                  placeholder="Mot de passe"
-                  icon={<HiMiniLockClosed className="input-icon" />}
-                  required={false}
-                />
+                <div className="eye_box">
+                  <TextInput
+                    name="email"
+                    value={inputs.email}
+                    setValue={handleInputs}
+                    type={emailInputType} // Dynamically set input type
+                    placeholder="Votre e-mail ou nom d'utilisateur"
+                    icon={<HiOutlineMail className="input-icon" />}
+                    required={false}
+                    // Add an eye icon to toggle email/username visibility
+                    suffix={
+                      <span
+                        className="password-toggle-icon"
+                        onClick={toggleEmailVisibility}
+                      >
+                        {showEmail ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                      </span>
+                    }
+                  />
+                  {/* <div className="eye_icon">
+                    <span
+                      className="password-toggle-icon "
+                      onClick={toggleEmailVisibility}
+                    >
+                      {showEmail ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                    </span>
+                  </div> */}
+                </div>
+
+                <div className="eye_box">
+                  <TextInput
+                    name="password"
+                    value={inputs.password}
+                    setValue={handleInputs}
+                    type={passwordInputType} // Dynamically set input type
+                    placeholder="Mot de passe"
+                    icon={<HiOutlineLockClosed className="input-icon" />}
+                    required={false}
+                    // Add an eye icon to toggle password visibility
+                  />
+                  <div className="eye_icon">
+                    <span
+                      className="password-toggle-icon"
+                      onClick={togglePasswordVisibility}
+                    >
+                      {showPassword ? <AiOutlineEyeInvisible /> : <AiFillEye />}
+                    </span>
+                  </div>
+                </div>
               </div>
 
               <button
@@ -263,7 +325,7 @@ const Login = () => {
           {showModal && (
             <ErrorModal
               open={showModal}
-              error="Tous les champs doivent etre remples"
+              error="Veuillez remplir tous les champs.              "
               actionText={"Continuer"}
               setOpen={toggleModal}
             />

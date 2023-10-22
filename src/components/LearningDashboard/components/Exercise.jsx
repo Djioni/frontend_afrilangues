@@ -75,7 +75,17 @@ export default function Exercise() {
             const filteredObjects = result.data;
 
             if (filteredObjects[0]) {
-              const currentQuiz = filteredObjects[filteredObjects.length - 1];
+              const currentQuiz = filteredObjects[0];
+              // set all current exercise
+              localStorage.setItem(
+                "currentAllExercises",
+                JSON.stringify(filteredObjects)
+              );
+              // set current exercise question length
+              localStorage.setItem(
+                "currentExerciseQuestionLength",
+                JSON.stringify(1)
+              );
 
               // MULTIPLE_CHOICE
               if (
@@ -90,10 +100,7 @@ export default function Exercise() {
                 /// remove content
                 localStorage.removeItem("content");
                 const quizQuestionsUpdated = JSON.parse(
-                  JSON.stringify(
-                    filteredObjects[filteredObjects.length - 1]
-                      .exerciseAndAnswers
-                  )
+                  JSON.stringify(filteredObjects[0].exerciseAndAnswers)
                 );
 
                 try {
@@ -108,6 +115,10 @@ export default function Exercise() {
                       )
                     )
                   );
+                  console.log("all data....", filteredObjects);
+
+                  /// test
+
                   console.log("quiz types", currentQuiz.type);
                   dispatch(QuizValidationAction(true));
 
@@ -125,8 +136,7 @@ export default function Exercise() {
                 try {
                   // store data
                   const listenData = ListenRepeat(
-                    filteredObjects[filteredObjects.length - 1]
-                      .exerciseAndAnswers,
+                    filteredObjects[0].exerciseAndAnswers,
                     currentQuiz.id,
                     currentQuiz.type,
                     currentQuiz.title
@@ -146,13 +156,9 @@ export default function Exercise() {
 
               // listen and repeat
               if (currentQuiz.type === "MATCH") {
-                const wordMatchData1 =
-                  filteredObjects[filteredObjects.length - 1]
-                    .exerciseAndAnswers;
+                const wordMatchData1 = filteredObjects[0].exerciseAndAnswers;
 
-                const wordMatchData =
-                  filteredObjects[filteredObjects.length - 1]
-                    .exerciseAndAnswers;
+                const wordMatchData = filteredObjects[0].exerciseAndAnswers;
 
                 console.log("wrod", wordMatchData);
                 localStorage.setItem(
@@ -176,9 +182,7 @@ export default function Exercise() {
               if (currentQuiz.type === "TRANSLATE") {
                 localStorage.removeItem("content");
 
-                const translateData =
-                  filteredObjects[filteredObjects.length - 1]
-                    .exerciseAndAnswers;
+                const translateData = filteredObjects[0].exerciseAndAnswers;
 
                 console.log("data:", translateData);
 
@@ -200,9 +204,7 @@ export default function Exercise() {
                 // navigate("/lessons/section/quiz");
               }
               if (currentQuiz.type === "MEMORY") {
-                const memoryGameData =
-                  filteredObjects[filteredObjects.length - 1]
-                    .exerciseAndAnswers;
+                const memoryGameData = filteredObjects[0].exerciseAndAnswers;
                 console.log(
                   "memory game found!",
                   MemoryGameData(memoryGameData)
@@ -218,9 +220,7 @@ export default function Exercise() {
               if (currentQuiz.type === "PUT_IN_ORDER") {
                 localStorage.removeItem("content");
 
-                const putInOrderData =
-                  filteredObjects[filteredObjects.length - 1]
-                    .exerciseAndAnswers;
+                const putInOrderData = filteredObjects[0].exerciseAndAnswers;
 
                 console.log(
                   FormatPutInOrder(
@@ -248,8 +248,7 @@ export default function Exercise() {
               if (currentQuiz.type === "DIALOGUE") {
                 localStorage.removeItem("content");
 
-                const dialoguedata =
-                  filteredObjects[filteredObjects.length - 1];
+                const dialoguedata = filteredObjects[0];
 
                 console.log(
                   FormatDialogueData(

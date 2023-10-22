@@ -9,9 +9,13 @@ const ImageMultipleChoiceQuestion = ({
   sentence,
 }) => {
   const [option, setOption] = useState([]);
-
+  const [counter, setCount] = useState(0);
   useEffect(() => {
-    const matchingObject = options.find((item) => item.text === sentence.text);
+    console.log("fdfdf", option);
+    setCount((prev) => prev + 1);
+    const matchingObject = options.find(
+      (item) => item.text === options[counter].text
+    );
 
     if (matchingObject) {
       const matchingIndex = options.indexOf(matchingObject);
@@ -51,7 +55,7 @@ const ImageMultipleChoiceQuestion = ({
       <div>
         <h2 className="text-center image_multiple_choice_question_sentence">
           {" "}
-          Select "{sentence.text}"
+          {sentence.text}
         </h2>
       </div>
       <div className="image_multiple_choice_q row ">

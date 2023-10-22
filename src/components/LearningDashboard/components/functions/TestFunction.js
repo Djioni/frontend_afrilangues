@@ -234,7 +234,7 @@ export const TestFunction = (QAdata, userID, type, title) => {
           // console.log(option);
           // console.log(correctAnswerIndex);
           return {
-            sentence: { text: value.sentence, audio: value.mediaQuestion },
+            sentence: { text: value.sentence },
             type: type,
 
             order: value.order,

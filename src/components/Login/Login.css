@@ -1,0 +1,13 @@
+.eye_box {
+  position: relative;
+}
+
+.eye_icon span {
+  font-size: 22px;
+}
+.eye_icon {
+  position: absolute;
+  top: 16%;
+  right: 5px;
+  cursor: pointer;
+}

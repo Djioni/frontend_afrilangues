@@ -40,6 +40,11 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { API_URL, AUTH_NAME } from "../../api";
 import axios from "axios";
+import { TestFunction } from "../LearningDashboard/components/functions/TestFunction";
+import { FormatPutInOrder } from "../LearningDashboard/components/functions/FormatPutInOrder";
+import { FormatDialogueData } from "../LearningDashboard/components/functions/FormatDialogueData";
+import { FormatMatchTheWordsData } from "../LearningDashboard/components/functions/FormatMatchTheWordsData";
+import Dialogue from "./components/Dialogue/Dialogue";
 // lesson quiz
 
 let quizData1 = [
@@ -272,6 +277,7 @@ const Quizzes = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [rightMultipleAnswer, setRightMultipleAnswer] = useState("");
   const [successAlert, setSuccessAlert] = useState(null);
+  const [isDialogExercise, setIsDialogeExercise] = useState(false);
   // quizData = quizData[0];
   const content = JSON.parse(localStorage.getItem("content"));
   const navigate = useNavigate();
@@ -370,17 +376,6 @@ const Quizzes = () => {
     setIsVerified(true);
 
     console.log("hello word");
-  };
-
-  // HANDLE ALERT
-  const handleDelete = () => {
-    // Swal.fire({
-    //   title: "Success!",
-    //   text: "Quiz completed successfully.",
-    //   icon: "success",
-    //   confirmButtonText: "OK",
-    // });
-    navigate(-1);
   };
 
   const handleNext = () => {
@@ -1420,6 +1415,208 @@ const Quizzes = () => {
     // setSelectedPairs([]);
   };
 
+  // HANDLE ALERT
+  const handleDelete = () => {
+    // Swal.fire({
+    //   title: "Success!",
+    //   text: "Quiz completed successfully.",
+    //   icon: "success",
+    //   confirmButtonText: "OK",
+    // });
+
+    // navigate("/lessons/section/exercise/?id=65312fdc5584c1110faeb164fdf");
+    setIsPageLoading(true);
+    if (
+      localStorage.getItem("currentAllExercises") &&
+      localStorage.getItem("currentExerciseQuestionLength")
+    ) {
+      const currentExerciseQuestionLength = JSON.parse(
+        localStorage.getItem("currentExerciseQuestionLength")
+      );
+      const currentAllExercises = JSON.parse(
+        localStorage.getItem("currentAllExercises")
+      );
+      console.log(
+        "data found...........",
+        currentAllExercises[currentExerciseQuestionLength]
+      );
+      if (currentAllExercises.length > currentExerciseQuestionLength) {
+        setShowVerifyButton(true);
+        const currentQuiz = currentAllExercises[currentExerciseQuestionLength];
+
+        // data validate
+
+        // MULTIPLE_CHOICE
+        if (
+          currentQuiz.type === "SINGLE_CHOICE_QUESTION_TEXT_FORMAT" ||
+          currentQuiz.type === "SINGLE_CHOICE_QUESTION_IMAGE_FORMAT" ||
+          currentQuiz.type === "SINGLE_CHOICE_QUESTION_AUDIO_FORMAT" ||
+          currentQuiz.type === "BASIC_QCM" ||
+          currentQuiz.type === "IMAGE_QCM" ||
+          currentQuiz.type === "AUDIO_QCM"
+        ) {
+          console.log("this is quiz");
+          /// remove content
+          localStorage.removeItem("content");
+          try {
+            localStorage.setItem(
+              "currentQuiz",
+              JSON.stringify(
+                TestFunction(
+                  currentQuiz.exerciseAndAnswers,
+                  currentQuiz.id,
+                  currentQuiz.type,
+                  currentQuiz.title
+                )
+              )
+            );
+
+            /// test
+            dispatch(QuizValidationAction(true));
+
+            //   navigate("/lessons/section/quiz");
+          } catch (error) {
+            console.log("data not valid");
+          }
+        }
+
+        // listen and repeat
+        if (currentQuiz.type === "LISTEN") {
+          /// remove content
+          localStorage.removeItem("content");
+
+          try {
+            // store data
+            const listenData = ListenRepeat(
+              currentQuiz.exerciseAndAnswers,
+              currentQuiz.id,
+              currentQuiz.type,
+              currentQuiz.title
+            );
+            localStorage.setItem("currentQuiz", JSON.stringify(listenData));
+
+            // hide navber and navigate
+            dispatch(QuizValidationAction(true));
+            //   navigate("/lessons/section/quiz");
+          } catch (error) {
+            console.log("data not valid");
+          }
+        }
+
+        // listen and repeat
+        if (currentQuiz.type === "MATCH") {
+          localStorage.setItem(
+            "currentQuiz",
+            JSON.stringify(
+              FormatMatchTheWordsData(
+                currentQuiz.exerciseAndAnswers,
+                currentQuiz.id,
+                currentQuiz.type,
+                currentQuiz.title
+              )
+            )
+          );
+
+          // hide navber and navigate
+          dispatch(QuizValidationAction(true));
+          // navigate("/lessons/section/quiz");
+        }
+
+        // translate
+        if (currentQuiz.type === "TRANSLATE") {
+          localStorage.removeItem("content");
+
+          localStorage.setItem(
+            "currentQuiz",
+            JSON.stringify(
+              Translate(
+                currentQuiz.exerciseAndAnswers,
+                currentQuiz.id,
+                currentQuiz.type,
+                currentQuiz.title
+              )
+            )
+          );
+          console.log("title", currentQuiz.title);
+
+          // hide navber and navigate
+          dispatch(QuizValidationAction(true));
+          // navigate("/lessons/section/quiz");
+        }
+        if (currentQuiz.type === "MEMORY") {
+          localStorage.setItem(
+            "memoryGame",
+            JSON.stringify(
+              MemoryGameData(currentQuiz.exerciseAndAnswers, currentQuiz.id)
+            )
+          );
+
+          // navigate("/lessons/section/quiz/game");
+          dispatch(QuizValidationAction(true));
+        }
+        if (currentQuiz.type === "PUT_IN_ORDER") {
+          localStorage.removeItem("content");
+
+          localStorage.setItem(
+            "currentQuiz",
+            JSON.stringify(
+              FormatPutInOrder(
+                currentQuiz.exerciseAndAnswers,
+                currentQuiz.id,
+                currentQuiz.type,
+                currentQuiz.title
+              )
+            )
+          );
+
+          // hide navber and navigate
+          dispatch(QuizValidationAction(true));
+          // navigate("/lessons/section/quiz");
+        }
+
+        if (currentQuiz.type === "DIALOGUE") {
+          localStorage.removeItem("content");
+
+          const dialoguedata = currentQuiz;
+
+          console.log(
+            FormatDialogueData(dialoguedata, currentQuiz.id, currentQuiz.type)
+          );
+          localStorage.setItem(
+            "currentQuiz",
+            JSON.stringify(
+              FormatDialogueData(
+                dialoguedata,
+                currentQuiz.id,
+                currentQuiz.title
+              )
+            )
+          );
+
+          // hide navber and navigate
+          dispatch(QuizValidationAction(true));
+          // navigate("/lessons/section/quiz/dialogue");
+        }
+
+        // data validate
+        setProgress(0);
+        setQuizCompleted(false);
+        setTimeout(() => {
+          if (currentQuiz.type === "DIALOGUE") {
+            setIsDialogeExercise(true);
+          }
+          setIsPageLoading(false);
+        }, 300);
+        setCurrentQuestion(0);
+        localStorage.setItem(
+          "currentExerciseQuestionLength",
+          JSON.stringify(currentExerciseQuestionLength + 1)
+        );
+      } else {
+        navigate(-1);
+      }
+    }
+  };
   const renderQuestionFormat = () => {
     const currentQuestionData =
       quizData[currentLesson].questions[currentQuestion];
@@ -1555,194 +1752,205 @@ const Quizzes = () => {
     }
   };
 
-  return (
-    <div>
-      {isPageLoading ? (
-        <Loading page={true} message={"S'il vous plaît, attendez!"} />
-      ) : (
-        <div>
-          {isQuizOpen ? (
-            <div className=" text-quiz-box" style={{ marginTop: "180px" }}>
-              <h5>{content}</h5>
-            </div>
-          ) : (
-            <div className={`quiz_container`}>
-              {/* QUIZ HEADER */}
-              <div className="quiz_header">
-                <button
-                  className="close_btn"
-                  onClick={() => {
-                    navigate(-1);
-                  }}
-                >
-                  <img src={close_icon} alt="" className="img-fluid" />
-                </button>
-                <QuizProgressBar
-                  progress={progress}
-                  totalQuestions={quizData.reduce(
-                    (total, lesson) => total + lesson.questions.length,
-                    0
-                  )}
-                />
-                <button className="setting_btn">
-                  <IoSettingsOutline />
-                </button>
+  if (isDialogExercise) {
+    return <Dialogue />;
+  } else {
+    return (
+      <div>
+        {isPageLoading ? (
+          <Loading
+            full={true}
+            page={true}
+            message={"S'il vous plaît, attendez!"}
+          />
+        ) : (
+          <div>
+            {isQuizOpen ? (
+              <div className=" text-quiz-box" style={{ marginTop: "180px" }}>
+                <h5>{content}</h5>
               </div>
+            ) : (
+              <div className={`quiz_container`}>
+                {/* QUIZ HEADER */}
+                <div className="quiz_header">
+                  <button
+                    className="close_btn"
+                    onClick={() => {
+                      navigate(-1);
+                    }}
+                  >
+                    <img src={close_icon} alt="" className="img-fluid" />
+                  </button>
+                  <QuizProgressBar
+                    progress={progress}
+                    totalQuestions={quizData.reduce(
+                      (total, lesson) => total + lesson.questions.length,
+                      0
+                    )}
+                  />
+                  <button className="setting_btn">
+                    <IoSettingsOutline />
+                  </button>
+                </div>
 
-              {quizCompleted ? (
-                <div className="test-finished-message">Test Finished!</div>
-              ) : (
-                <>
-                  {/* QUIZ BODY */}
-                  <div className="quiz_body">
-                    {/* <Lesson
+                {quizCompleted ? (
+                  <div className="test-finished-message">Test Finished!</div>
+                ) : (
+                  <>
+                    {/* QUIZ BODY */}
+                    <div className="quiz_body">
+                      {/* <Lesson
               lessonData={quizData[currentLesson]}
               currentQuestion={currentQuestion}
             /> */}
-                    {renderQuestionFormat()}
-                  </div>
+                      {renderQuestionFormat()}
+                    </div>
 
-                  {/* QUIZ FOOTER */}
-                  <div
-                    className={`quiz_footer ${removeSmPadding} ${
-                      answerCorrect === true || successAlert === true
-                        ? "correct"
-                        : answerCorrect === false
-                        ? "wrong"
-                        : ""
-                    }`}
-                  >
-                    <div className="container verification_box">
-                      <div className="quiz_avatar_box">
-                        {answerCorrect === null ? (
-                          <>
-                            <div className="avatar_img_cont">
-                              <img
-                                src={quiz_avatar}
-                                alt=""
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="quiz_avatar_ques">
-                              {quizData[currentLesson].questions[
-                                currentQuestion
-                              ].questionText === undefined ||
-                              quizData[currentLesson].questions[currentQuestion]
-                                .format === "wordsMatching" ? (
-                                <p>{quizData[0] ? quizData[0].title : ""}</p>
-                              ) : (
-                                <span>
-                                  {
-                                    quizData[currentLesson].questions[
-                                      currentQuestion
-                                    ].questionText
-                                  }
-                                </span>
-                              )}
-                            </div>
-                          </>
-                        ) : answerCorrect || successAlert ? (
-                          <>
-                            <div className="avatar_img_cont">
-                              <img
-                                src={quiz_avatar_2}
-                                alt=""
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="quiz_avatar_ques">
-                              <div className="cong_text">
-                                Bravo ! C'est la bonne réponse !
+                    {/* QUIZ FOOTER */}
+                    <div
+                      className={`quiz_footer ${removeSmPadding} ${
+                        answerCorrect === true || successAlert === true
+                          ? "correct"
+                          : answerCorrect === false
+                          ? "wrong"
+                          : ""
+                      }`}
+                    >
+                      <div className="container verification_box">
+                        <div className="quiz_avatar_box">
+                          {answerCorrect === null ? (
+                            <>
+                              <div className="avatar_img_cont">
+                                <img
+                                  src={quiz_avatar}
+                                  alt=""
+                                  className="img-fluid"
+                                />
                               </div>
-                            </div>
-                          </>
+                              <div className="quiz_avatar_ques">
+                                {quizData[currentLesson].questions[
+                                  currentQuestion
+                                ].questionText === undefined ||
+                                quizData[currentLesson].questions[
+                                  currentQuestion
+                                ].format === "wordsMatching" ? (
+                                  <p>{quizData[0] ? quizData[0].title : ""}</p>
+                                ) : (
+                                  <span>
+                                    {
+                                      quizData[currentLesson].questions[
+                                        currentQuestion
+                                      ].questionText
+                                    }
+                                  </span>
+                                )}
+                              </div>
+                            </>
+                          ) : answerCorrect || successAlert ? (
+                            <>
+                              <div className="avatar_img_cont">
+                                <img
+                                  src={quiz_avatar_2}
+                                  alt=""
+                                  className="img-fluid"
+                                />
+                              </div>
+                              <div className="quiz_avatar_ques">
+                                <div className="cong_text">
+                                  Bravo ! C'est la bonne réponse !
+                                </div>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="avatar_img_cont">
+                                <img
+                                  src={quiz_avatar_3}
+                                  alt=""
+                                  className="img-fluid"
+                                />
+                              </div>
+                              <div className="quiz_avatar_ques">
+                                <div className="wrong_text">
+                                  Oups ! Mauvaise réponse !
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </div>
+
+                        {showVerifyButton &&
+                        !isWordMatchingComplete &&
+                        !quizData[0].formatListen ? (
+                          <button
+                            className="verify_button"
+                            onClick={handleVerify}
+                          >
+                            Vérifier
+                            {isLoading && (
+                              <div className="px-1 d-inline-block">
+                                <div
+                                  class="spinner-border spinner-border-sm"
+                                  role="status"
+                                >
+                                  <span class="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+                          </button>
+                        ) : !quizCompleted ? (
+                          <button
+                            className="next_button"
+                            onClick={() => {
+                              setWordOrder([]);
+                              setRightMultipleAnswer(null);
+                              handleContinue();
+                              setPutInOrderVerifyWrongCounter(1);
+                              setAnswerCorrect(null);
+                              setSelectedTranslation("");
+                              setPutWordBG(false);
+                              setSelectedAnswer(null);
+                            }}
+                          >
+                            {currentQuestion <
+                            quizData[currentLesson].questions.length - 1
+                              ? "Continuer"
+                              : currentLesson < quizData.length - 1
+                              ? "Next Lesson"
+                              : "Continuer"}
+                          </button>
                         ) : (
-                          <>
-                            <div className="avatar_img_cont">
-                              <img
-                                src={quiz_avatar_3}
-                                alt=""
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="quiz_avatar_ques">
-                              <div className="wrong_text">
-                                Oups ! Mauvaise réponse !
-                              </div>
-                            </div>
-                          </>
+                          <div className="test-finished-message">
+                            L'exercice est fini ! Bravo!
+                          </div>
                         )}
                       </div>
-
-                      {showVerifyButton &&
-                      !isWordMatchingComplete &&
-                      !quizData[0].formatListen ? (
-                        <button
-                          className="verify_button"
-                          onClick={handleVerify}
-                        >
-                          Vérifier
-                          {isLoading && (
-                            <div className="px-1 d-inline-block">
-                              <div
-                                class="spinner-border spinner-border-sm"
-                                role="status"
-                              >
-                                <span class="visually-hidden">Loading...</span>
-                              </div>
-                            </div>
-                          )}
-                        </button>
-                      ) : !quizCompleted ? (
-                        <button
-                          className="next_button"
-                          onClick={() => {
-                            setWordOrder([]);
-                            setRightMultipleAnswer(null);
-                            handleContinue();
-                            setPutInOrderVerifyWrongCounter(1);
-                            setAnswerCorrect(null);
-                            setSelectedTranslation("");
-                            setPutWordBG(false);
-                            setSelectedAnswer(null);
-                          }}
-                        >
-                          {currentQuestion <
-                          quizData[currentLesson].questions.length - 1
-                            ? "Continue"
-                            : currentLesson < quizData.length - 1
-                            ? "Next Lesson"
-                            : "Continue"}
-                        </button>
-                      ) : (
-                        <div className="test-finished-message">
-                          L'exercice est fini ! Bravo!
-                        </div>
-                      )}
                     </div>
-                  </div>
-                  <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                  />
-                  {/* Same as */}
-                  <ToastContainer />
-                </>
-              )}
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
+                    <ToastContainer
+                      position="top-right"
+                      autoClose={5000}
+                      hideProgressBar={false}
+                      newestOnTop={false}
+                      closeOnClick
+                      rtl={false}
+                      pauseOnFocusLoss
+                      draggable
+                      pauseOnHover
+                      theme="light"
+                    />
+                    {/* Same as */}
+                    <ToastContainer />
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
 };
 
 export default Quizzes;
