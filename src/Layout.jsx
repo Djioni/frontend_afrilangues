@@ -30,6 +30,7 @@ import Profile from "./components/Profile/Profile";
 import MonProfil from "./components/Profile/Components/MonProfil";
 import EditMonProfil from "./components/Profile/Components/EditMonProfil";
 import Propos from "./components/Profile/Components/Propos";
+import OnboardingTotorials from "./components/LearningDashboard/components/onboardingTutorials/OnboardingTotorials";
 
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
@@ -163,6 +164,9 @@ export default function Layout() {
         />
         {/* dashboard routes */}
         <Route path="/dashboard" element={<LearningDashboard />} />
+
+        <Route path="/onboarding-tutorials" element={<OnboardingTotorials />} />
+
         <Route
           path="/process"
           element={

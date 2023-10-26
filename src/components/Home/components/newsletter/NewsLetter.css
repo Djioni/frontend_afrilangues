@@ -1,11 +1,12 @@
 #newsl {
   height: 100vh;
-  background-color: rgba(
+  /* background-color: rgba(
     0,
     0,
     0,
     0.1
-  ); /* Semi-transparent background for the blur effect */
+  ); Semi-transparent background for the blur effect */
+  background-color: #eaeaea;
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +31,6 @@
 #newsl .newl-card .email-card {
   /* border-top-right-radius: 20px;
   border-top-left-radius: 20px; */
-  background-color: ;
   padding: 0px 0;
   background: linear-gradient(
     to top right,
@@ -63,8 +63,7 @@
   border: 0;
   color: #c94503;
 }
-#newsl .newl-card .box {
-}
+
 #newsl .newl-card .box .email-body {
   padding: 20px 0;
   background-color: red !important;
@@ -172,7 +171,6 @@
   #newsl .newl-card .email-card {
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
-    background-color: ;
     padding: 0px 0;
     background: linear-gradient(
       to top right,

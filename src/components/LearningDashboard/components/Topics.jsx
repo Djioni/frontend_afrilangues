@@ -12,6 +12,7 @@ import { API_URL } from "../../../api";
 import { ThemeAction } from "../../services/actions/ThemeAction";
 import ErrorModal from "../../ErrorModal";
 import Loading from "../../Loading";
+import OnboardingTotorials from "./onboardingTutorials/OnboardingTotorials";
 
 export default function Topics() {
   const [showModal, setShowModal] = useState(false);

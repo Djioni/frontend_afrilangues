@@ -76,10 +76,17 @@ export default function Exercise() {
 
             if (filteredObjects[0]) {
               const currentQuiz = filteredObjects[0];
+
+              const allexercisedata = filteredObjects;
+              allexercisedata.sort((a, b) => {
+                const dateA = new Date(...a.createdAt);
+                const dateB = new Date(...b.createdAt);
+                return dateA - dateB;
+              });
               // set all current exercise
               localStorage.setItem(
                 "currentAllExercises",
-                JSON.stringify(filteredObjects)
+                JSON.stringify(allexercisedata)
               );
               // set current exercise question length
               localStorage.setItem(

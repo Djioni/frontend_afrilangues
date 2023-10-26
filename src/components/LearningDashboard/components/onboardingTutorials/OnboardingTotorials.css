@@ -1,0 +1,262 @@
+#obdtutorials {
+  height: 100vh;
+  background-color: #eaeaea; /* Semi-transparent background for the blur effect */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 22;
+  backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+#obdtutorials .newl-card {
+  width: 60vw !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  background-color: white;
+  /* height: 500px; */
+  position: relative;
+  /* overflow: hidden; */
+  min-height: 450px;
+  display: flex;
+  flex-direction: column; /* Add this to make it a vertical layout */
+  justify-content: center;
+}
+#obdtutorials .loader_box {
+  position: absolute;
+  top: 46%;
+  left: 0;
+  right: 0;
+}
+
+#obdtutorials .obdtutorials_process {
+  height: 7px;
+  background-color: #525151;
+  position: absolute;
+  top: 0px;
+  width: 100% !important;
+}
+
+#obdtutorials .obdtutorials_process_current {
+  height: 7px;
+  background-color: #ff5100;
+  position: absolute;
+  top: 0px;
+  transition: width 0.3s ease; /* Define the animation */
+}
+
+#obdtutorials .newl-card .email-card .box {
+  position: relative;
+}
+
+#obdtutorials .newl-card .email-card .nl-close {
+  position: absolute;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  background-color: #2b2b2b;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  top: 12px;
+}
+#obdtutorials .boy_section {
+  padding-bottom: 20px;
+
+  /* background-color: #c7c4c4; */
+  height: 240px;
+  overflow: hidden;
+  padding: 20px 0px;
+  margin-top: auto;
+  /* background-color: #eaeaea;
+  border: 5px solid white; */
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#obdtutorials .btn_box {
+  margin-top: auto !important;
+
+  /* background-color: red; */
+}
+#obdtutorials button {
+  padding: 13px 49px 13px 49px;
+  background-color: #df5411;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 999px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  font-weight: 600;
+  font-size: 20px;
+  min-width: fit-content;
+  margin: 0 40px 30px 40px;
+}
+
+#obdtutorials .boy_section .title {
+  padding-top: 80px;
+}
+#obdtutorials .boy_section .boy_img img {
+  height: 220px;
+}
+#obdtutorials .decs {
+  font-weight: normal !important;
+  font-size: 15px;
+  padding: 20px 70px;
+  line-height: 25px;
+}
+#obdtutorials .newl-card .email-card .nl-close .icon {
+  padding: 0px;
+  font-size: 25px;
+  font-weight: bolder;
+  border: 0;
+  color: white;
+}
+#obdtutorials .obdtutorials_body .decs .bold li {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+#obdtutorials .obdtutorials_body .decs .inline_bold li {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 767px) {
+  #obdtutorials .newl-card {
+    width: 60vw !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    background-color: white;
+    /* height: 500px; */
+    position: relative;
+    /* overflow: hidden; */
+    min-height: 380px;
+    display: flex;
+    flex-direction: column; /* Add this to make it a vertical layout */
+    justify-content: center;
+  }
+  #obdtutorials {
+    height: 100vh;
+    background-color: #eaeaea; /* Semi-transparent background for the blur effect */
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 22;
+    backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #obdtutorials .newl-card .box .email-body button {
+    font-size: 13px;
+  }
+  #obdtutorials .newl-card {
+    width: 85%;
+    top: 40px;
+    align-items: center;
+    display: grid;
+    margin-top: -52px;
+  }
+
+  #obdtutorials .newl-card .email-card {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    /* background-color: ; */
+    padding: 0px 0;
+    background: linear-gradient(
+      to top right,
+      #e97e48,
+      #df5411
+    ); /* Replace 'red' and 'blue' with your desired colors */
+  }
+
+  #obdtutorials .newl-card {
+    width: 97vw !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    background-color: white;
+    /* height: 500px; */
+    position: relative;
+    /* overflow: hidden; */
+  }
+  #obdtutorials .boy_section {
+    padding-bottom: 20px;
+
+    /* background-color: #c7c4c4; */
+    height: 240px;
+    overflow: hidden;
+    padding: 20px 0px;
+    margin-top: auto;
+    /* background-color: #eaeaea;
+    border: 5px solid white; */
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  #obdtutorials button {
+    padding: 10px 49px 10px 49px;
+    background-color: #df5411;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 999px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    font-weight: 600;
+    font-size: 18px;
+    min-width: fit-content;
+    margin: 0 10px 30px 10px;
+  }
+  #obdtutorials .decs {
+    font-weight: normal !important;
+    font-size: 15px;
+    padding: 10px 10px;
+    line-height: 25px;
+  }
+  #obdtutorials .boy_section .boy_img img {
+    height: 120px;
+  }
+  #obdtutorials .boy_section {
+    padding-bottom: 20px;
+
+    /* background-color: #c7c4c4; */
+    height: 150px;
+    overflow: hidden;
+    padding: 20px 0px;
+    margin-top: auto;
+    /* background-color: #eaeaea;
+    border: 5px solid white; */
+    width: 100%;
+    margin: 0 auto;
+  }
+  #obdtutorials .boy_section .title {
+    padding-top: 40px;
+    font-size: 15px;
+  }
+}

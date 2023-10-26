@@ -30,7 +30,7 @@ import { FormatDialogueData } from "../../../../LearningDashboard/components/fun
 import { FormatPutInOrder } from "../../../../LearningDashboard/components/functions/FormatPutInOrder";
 import Exercise from "../../../../LearningDashboard/components/Exercise";
 import Quizzes from "../../../Quizzes";
-
+import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
 const Home = () => {
   // souonds
   const [wrongSound] = useState(
@@ -460,6 +460,206 @@ const Home = () => {
   };
   const [wrongCounter, setWrongCounter] = useState(1);
   const [twoInputsByKey, setTwoInputByKey] = useState(1);
+  const GoToNextExercise = () => {
+    // Swal.fire({
+    //   title: "Success!",
+    //   text: "Quiz completed successfully.",
+    //   icon: "success",
+    //   confirmButtonText: "OK",
+    // });
+
+    // navigate("/lessons/section/exercise/?id=65312fdc5584c1110faeb164fdf");
+    setIsPageLoading(true);
+    if (
+      localStorage.getItem("currentAllExercises") &&
+      localStorage.getItem("currentExerciseQuestionLength")
+    ) {
+      const currentExerciseQuestionLength = JSON.parse(
+        localStorage.getItem("currentExerciseQuestionLength")
+      );
+      const currentAllExercises = JSON.parse(
+        localStorage.getItem("currentAllExercises")
+      );
+      console.log(
+        "data found...........",
+        currentAllExercises[currentExerciseQuestionLength]
+      );
+      if (currentAllExercises.length > currentExerciseQuestionLength) {
+        setShowVerifyButton(true);
+        const currentQuiz = currentAllExercises[currentExerciseQuestionLength];
+
+        // data validate
+
+        // MULTIPLE_CHOICE
+        if (
+          currentQuiz.type === "SINGLE_CHOICE_QUESTION_TEXT_FORMAT" ||
+          currentQuiz.type === "SINGLE_CHOICE_QUESTION_IMAGE_FORMAT" ||
+          currentQuiz.type === "SINGLE_CHOICE_QUESTION_AUDIO_FORMAT" ||
+          currentQuiz.type === "BASIC_QCM" ||
+          currentQuiz.type === "IMAGE_QCM" ||
+          currentQuiz.type === "AUDIO_QCM"
+        ) {
+          console.log("this is quiz");
+          /// remove content
+          localStorage.removeItem("content");
+          try {
+            localStorage.setItem(
+              "currentQuiz",
+              JSON.stringify(
+                TestFunction(
+                  currentQuiz.exerciseAndAnswers,
+                  currentQuiz.id,
+                  currentQuiz.type,
+                  currentQuiz.title
+                )
+              )
+            );
+            /// test
+            dispatch(QuizValidationAction(true));
+
+            //   navigate("/lessons/section/quiz");
+          } catch (error) {
+            console.log("data not valid");
+          }
+        }
+
+        // listen and repeat
+        if (currentQuiz.type === "LISTEN") {
+          /// remove content
+          localStorage.removeItem("content");
+
+          try {
+            // store data
+            const listenData = ListenRepeat(
+              currentQuiz.exerciseAndAnswers,
+              currentQuiz.id,
+              currentQuiz.type,
+              currentQuiz.title
+            );
+            localStorage.setItem("currentQuiz", JSON.stringify(listenData));
+
+            // hide navber and navigate
+            dispatch(QuizValidationAction(true));
+            //   navigate("/lessons/section/quiz");
+          } catch (error) {
+            console.log("data not valid");
+          }
+        }
+
+        // listen and repeat
+        if (currentQuiz.type === "MATCH") {
+          localStorage.setItem(
+            "currentQuiz",
+            JSON.stringify(
+              FormatMatchTheWordsData(
+                currentQuiz.exerciseAndAnswers,
+                currentQuiz.id,
+                currentQuiz.type,
+                currentQuiz.title
+              )
+            )
+          );
+
+          // hide navber and navigate
+          dispatch(QuizValidationAction(true));
+          // navigate("/lessons/section/quiz");
+        }
+
+        // translate
+        if (currentQuiz.type === "TRANSLATE") {
+          localStorage.removeItem("content");
+
+          localStorage.setItem(
+            "currentQuiz",
+            JSON.stringify(
+              Translate(
+                currentQuiz.exerciseAndAnswers,
+                currentQuiz.id,
+                currentQuiz.type,
+                currentQuiz.title
+              )
+            )
+          );
+          console.log("title", currentQuiz.title);
+
+          // hide navber and navigate
+          dispatch(QuizValidationAction(true));
+          // navigate("/lessons/section/quiz");
+        }
+        if (currentQuiz.type === "MEMORY") {
+          localStorage.setItem(
+            "memoryGame",
+            JSON.stringify(
+              MemoryGameData(currentQuiz.exerciseAndAnswers, currentQuiz.id)
+            )
+          );
+
+          // navigate("/lessons/section/quiz/game");
+          dispatch(QuizValidationAction(true));
+        }
+        if (currentQuiz.type === "PUT_IN_ORDER") {
+          localStorage.removeItem("content");
+
+          localStorage.setItem(
+            "currentQuiz",
+            JSON.stringify(
+              FormatPutInOrder(
+                currentQuiz.exerciseAndAnswers,
+                currentQuiz.id,
+                currentQuiz.type,
+                currentQuiz.title
+              )
+            )
+          );
+
+          // hide navber and navigate
+          dispatch(QuizValidationAction(true));
+          // navigate("/lessons/section/quiz");
+        }
+        if (currentQuiz.type === "DIALOGUE") {
+          localStorage.removeItem("content");
+
+          const dialoguedata = filteredObjects[0];
+
+          console.log(
+            FormatDialogueData(dialoguedata, currentQuiz.id, currentQuiz.type)
+          );
+          localStorage.setItem(
+            "currentQuiz",
+            JSON.stringify(
+              FormatDialogueData(
+                dialoguedata,
+                currentQuiz.id,
+                currentQuiz.title
+              )
+            )
+          );
+          setIsDialogExercise(true);
+          // hide navber and navigate
+          dispatch(QuizValidationAction(true));
+          // navigate("/lessons/section/quiz/dialogue");
+        }
+        const isDia = currentQuiz.type === "DIALOGUE";
+        if (isDia === false) {
+          setIsDialogExercise(false);
+        }
+
+        // data validate
+        setProgress(0);
+        setQuizCompleted(false);
+        setTimeout(() => {
+          setIsPageLoading(false);
+        }, 300);
+        setCurrentQuestion(0);
+        localStorage.setItem(
+          "currentExerciseQuestionLength",
+          JSON.stringify(currentExerciseQuestionLength + 1)
+        );
+      } else {
+        navigate(-1);
+      }
+    }
+  };
   const handleSubmit = async () => {
     if (currentQuestionID < activeQuestion.questions.length + 1) {
       const input = qInputs;
@@ -733,211 +933,6 @@ const Home = () => {
     } else {
       console.log("more question not found!");
 
-      const GoToNextExercise = () => {
-        // Swal.fire({
-        //   title: "Success!",
-        //   text: "Quiz completed successfully.",
-        //   icon: "success",
-        //   confirmButtonText: "OK",
-        // });
-
-        // navigate("/lessons/section/exercise/?id=65312fdc5584c1110faeb164fdf");
-        setIsPageLoading(true);
-        if (
-          localStorage.getItem("currentAllExercises") &&
-          localStorage.getItem("currentExerciseQuestionLength")
-        ) {
-          const currentExerciseQuestionLength = JSON.parse(
-            localStorage.getItem("currentExerciseQuestionLength")
-          );
-          const currentAllExercises = JSON.parse(
-            localStorage.getItem("currentAllExercises")
-          );
-          console.log(
-            "data found...........",
-            currentAllExercises[currentExerciseQuestionLength]
-          );
-          if (currentAllExercises.length > currentExerciseQuestionLength) {
-            setShowVerifyButton(true);
-            const currentQuiz =
-              currentAllExercises[currentExerciseQuestionLength];
-
-            // data validate
-
-            // MULTIPLE_CHOICE
-            if (
-              currentQuiz.type === "SINGLE_CHOICE_QUESTION_TEXT_FORMAT" ||
-              currentQuiz.type === "SINGLE_CHOICE_QUESTION_IMAGE_FORMAT" ||
-              currentQuiz.type === "SINGLE_CHOICE_QUESTION_AUDIO_FORMAT" ||
-              currentQuiz.type === "BASIC_QCM" ||
-              currentQuiz.type === "IMAGE_QCM" ||
-              currentQuiz.type === "AUDIO_QCM"
-            ) {
-              console.log("this is quiz");
-              /// remove content
-              localStorage.removeItem("content");
-              try {
-                localStorage.setItem(
-                  "currentQuiz",
-                  JSON.stringify(
-                    TestFunction(
-                      currentQuiz.exerciseAndAnswers,
-                      currentQuiz.id,
-                      currentQuiz.type,
-                      currentQuiz.title
-                    )
-                  )
-                );
-                /// test
-                dispatch(QuizValidationAction(true));
-
-                //   navigate("/lessons/section/quiz");
-              } catch (error) {
-                console.log("data not valid");
-              }
-            }
-
-            // listen and repeat
-            if (currentQuiz.type === "LISTEN") {
-              /// remove content
-              localStorage.removeItem("content");
-
-              try {
-                // store data
-                const listenData = ListenRepeat(
-                  currentQuiz.exerciseAndAnswers,
-                  currentQuiz.id,
-                  currentQuiz.type,
-                  currentQuiz.title
-                );
-                localStorage.setItem("currentQuiz", JSON.stringify(listenData));
-
-                // hide navber and navigate
-                dispatch(QuizValidationAction(true));
-                //   navigate("/lessons/section/quiz");
-              } catch (error) {
-                console.log("data not valid");
-              }
-            }
-
-            // listen and repeat
-            if (currentQuiz.type === "MATCH") {
-              localStorage.setItem(
-                "currentQuiz",
-                JSON.stringify(
-                  FormatMatchTheWordsData(
-                    currentQuiz.exerciseAndAnswers,
-                    currentQuiz.id,
-                    currentQuiz.type,
-                    currentQuiz.title
-                  )
-                )
-              );
-
-              // hide navber and navigate
-              dispatch(QuizValidationAction(true));
-              // navigate("/lessons/section/quiz");
-            }
-
-            // translate
-            if (currentQuiz.type === "TRANSLATE") {
-              localStorage.removeItem("content");
-
-              localStorage.setItem(
-                "currentQuiz",
-                JSON.stringify(
-                  Translate(
-                    currentQuiz.exerciseAndAnswers,
-                    currentQuiz.id,
-                    currentQuiz.type,
-                    currentQuiz.title
-                  )
-                )
-              );
-              console.log("title", currentQuiz.title);
-
-              // hide navber and navigate
-              dispatch(QuizValidationAction(true));
-              // navigate("/lessons/section/quiz");
-            }
-            if (currentQuiz.type === "MEMORY") {
-              localStorage.setItem(
-                "memoryGame",
-                JSON.stringify(
-                  MemoryGameData(currentQuiz.exerciseAndAnswers, currentQuiz.id)
-                )
-              );
-
-              // navigate("/lessons/section/quiz/game");
-              dispatch(QuizValidationAction(true));
-            }
-            if (currentQuiz.type === "PUT_IN_ORDER") {
-              localStorage.removeItem("content");
-
-              localStorage.setItem(
-                "currentQuiz",
-                JSON.stringify(
-                  FormatPutInOrder(
-                    currentQuiz.exerciseAndAnswers,
-                    currentQuiz.id,
-                    currentQuiz.type,
-                    currentQuiz.title
-                  )
-                )
-              );
-
-              // hide navber and navigate
-              dispatch(QuizValidationAction(true));
-              // navigate("/lessons/section/quiz");
-            }
-            if (currentQuiz.type === "DIALOGUE") {
-              localStorage.removeItem("content");
-
-              const dialoguedata = filteredObjects[0];
-
-              console.log(
-                FormatDialogueData(
-                  dialoguedata,
-                  currentQuiz.id,
-                  currentQuiz.type
-                )
-              );
-              localStorage.setItem(
-                "currentQuiz",
-                JSON.stringify(
-                  FormatDialogueData(
-                    dialoguedata,
-                    currentQuiz.id,
-                    currentQuiz.title
-                  )
-                )
-              );
-              setIsDialogExercise(true);
-              // hide navber and navigate
-              dispatch(QuizValidationAction(true));
-              // navigate("/lessons/section/quiz/dialogue");
-            }
-            const isDia = currentQuiz.type === "DIALOGUE";
-            if (isDia === false) {
-              setIsDialogExercise(false);
-            }
-
-            // data validate
-            setProgress(0);
-            setQuizCompleted(false);
-            setTimeout(() => {
-              setIsPageLoading(false);
-            }, 300);
-            setCurrentQuestion(0);
-            localStorage.setItem(
-              "currentExerciseQuestionLength",
-              JSON.stringify(currentExerciseQuestionLength + 1)
-            );
-          } else {
-            navigate(-1);
-          }
-        }
-      };
       GoToNextExercise();
     }
     // check end
@@ -1417,6 +1412,14 @@ const Home = () => {
     setIsRightShowCloseOpen("hide-r-box");
     setIsFooterOpen("");
   };
+  const handlePrevQuestion = () => {
+    console.log("prev");
+  };
+
+  const handleNextQuestion = () => {
+    console.log("next");
+    GoToNextExercise();
+  };
 
   if (isDialogExercise) {
     return (
@@ -1433,6 +1436,16 @@ const Home = () => {
 
             {/* Dialouge here */}
             <Modal show={true} onHide={toggleDialouge} fullscreen={true}>
+              {/* prev and next  */}
+              <div
+                className="prev_arrow"
+                onClick={() => console.log("prev arrow")}
+              >
+                <BiSolidLeftArrow />
+              </div>
+              <div className="next_arrow" onClick={() => handleNextQuestion()}>
+                <BiSolidRightArrow />
+              </div>
               <div>
                 {" "}
                 <div className="w-100">

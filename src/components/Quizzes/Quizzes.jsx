@@ -15,6 +15,7 @@ import {
   TranslatingWordsQuestion,
 } from "./components/index";
 import { IoSettingsOutline } from "react-icons/io5";
+import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
 import close_icon from "../../assets/close_icon_2.png";
 import quiz_avatar from "../../assets/quiz_avatar.png";
 import quiz_avatar_2 from "../../assets/quiz_avatar_2.png";
@@ -45,6 +46,7 @@ import { FormatPutInOrder } from "../LearningDashboard/components/functions/Form
 import { FormatDialogueData } from "../LearningDashboard/components/functions/FormatDialogueData";
 import { FormatMatchTheWordsData } from "../LearningDashboard/components/functions/FormatMatchTheWordsData";
 import Dialogue from "./components/Dialogue/Dialogue";
+import { Translate } from "../LearningDashboard/components/functions/Translate";
 // lesson quiz
 
 let quizData1 = [
@@ -1399,8 +1401,12 @@ const Quizzes = () => {
   const handleContinue = () => {
     if (currentQuestion < currentLessonData.questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
+      // setCurrentQuestion(currentQuestion + 2);
+
       setShowVerifyButton(true);
+
       setAnswerCorrect(null); // Reset the answer correctness
+      console.log("current question", currentQuestion);
     } else if (currentLesson < quizData.length - 1) {
       setSelectedAnswer(null);
       setCurrentLesson(currentLesson + 1);
@@ -1416,7 +1422,7 @@ const Quizzes = () => {
   };
 
   // HANDLE ALERT
-  const handleDelete = () => {
+  const handleDelete = (prev) => {
     // Swal.fire({
     //   title: "Success!",
     //   text: "Quiz completed successfully.",
@@ -1441,8 +1447,20 @@ const Quizzes = () => {
         currentAllExercises[currentExerciseQuestionLength]
       );
       if (currentAllExercises.length > currentExerciseQuestionLength) {
+        localStorage.setItem(
+          "currentExerciseQuestionLength",
+          JSON.stringify(
+            prev
+              ? 0
+              : JSON.parse(
+                  localStorage.getItem("currentExerciseQuestionLength")
+                ) + 1
+          )
+        );
+        console.log("current questions");
         setShowVerifyButton(true);
-        const currentQuiz = currentAllExercises[currentExerciseQuestionLength];
+        const currentQuiz =
+          currentAllExercises[prev ? 0 : currentExerciseQuestionLength];
 
         // data validate
 
@@ -1537,6 +1555,7 @@ const Quizzes = () => {
               )
             )
           );
+
           console.log("title", currentQuiz.title);
 
           // hide navber and navigate
@@ -1608,14 +1627,71 @@ const Quizzes = () => {
           setIsPageLoading(false);
         }, 300);
         setCurrentQuestion(0);
-        localStorage.setItem(
-          "currentExerciseQuestionLength",
-          JSON.stringify(currentExerciseQuestionLength + 1)
-        );
       } else {
         navigate(-1);
       }
     }
+  };
+  const handlePrevQuestion = () => {
+    setRightMultipleAnswer("");
+
+    const currentQuestionData =
+      quizData[currentLesson].questions[currentQuestion];
+    const isCorrect =
+      selectedAnswer === currentQuestionData.correctAnswerIndex ||
+      JSON.stringify(selectedAnswer) ===
+        JSON.stringify(currentQuestionData.correctAnswers);
+
+    if (isCorrect) {
+      setProgress(progress + 1);
+    }
+
+    if (
+      currentQuestion < quizData[currentLesson].questions.length &&
+      currentQuestion
+    ) {
+      console.log(currentQuestion);
+      setSelectedAnswer(null);
+      setCurrentQuestion(currentQuestion - 1);
+      console.log("called");
+    }
+
+    // else if (currentLesson < quizData.length - 1) {
+    //   setSelectedAnswer(null);
+    //   setCurrentLesson(currentLesson + 1);
+    //   setCurrentQuestion(0);
+    // }
+
+    // else {
+    //   setQuizCompleted(true);
+    //   handleDelete();
+    // }
+    else {
+      handleDelete(true);
+    }
+  };
+  const handleNextQuestion = () => {
+    console.log("next");
+    if (currentQuestion < currentLessonData.questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      // setCurrentQuestion(currentQuestion + 2);
+
+      setShowVerifyButton(true);
+
+      setAnswerCorrect(null); // Reset the answer correctness
+      console.log("current question", currentQuestion);
+    } else if (currentLesson < quizData.length - 1) {
+      setSelectedAnswer(null);
+      setCurrentLesson(currentLesson + 1);
+      setCurrentQuestion(0);
+      setShowVerifyButton(true);
+      setAnswerCorrect(null); // Reset the answer correctness
+    } else {
+      handleNext();
+    }
+    // Reset selectedWordMatchingAnswer and selectedPairs
+    // setSelectedWordMatchingAnswer([]);
+    // setSelectedPairs([]);
   };
   const renderQuestionFormat = () => {
     const currentQuestionData =
@@ -1771,6 +1847,18 @@ const Quizzes = () => {
               </div>
             ) : (
               <div className={`quiz_container`}>
+                <div
+                  className="prev_arrow"
+                  onClick={() => console.log("right arraow")}
+                >
+                  <BiSolidLeftArrow />
+                </div>
+                <div
+                  className="next_arrow"
+                  onClick={() => handleNextQuestion()}
+                >
+                  <BiSolidRightArrow />
+                </div>
                 {/* QUIZ HEADER */}
                 <div className="quiz_header">
                   <button
