@@ -11,21 +11,21 @@ const ImageMultipleChoiceQuestion = ({
   const [option, setOption] = useState([]);
   const [counter, setCount] = useState(0);
   useEffect(() => {
-    console.log("fdfdf", option);
-    setCount((prev) => prev + 1);
-    const matchingObject = options.find(
-      (item) => item.text === options[counter].text
-    );
+    // console.log("fdfdf", option);
+    // setCount((prev) => prev + 1);
+    // const matchingObject = options.find(
+    //   (item) => item.text === options[counter].text
+    // );
 
-    if (matchingObject) {
-      const matchingIndex = options.indexOf(matchingObject);
-      options.splice(matchingIndex, 1);
-      options.unshift(matchingObject);
+    // if (matchingObject) {
+    //   const matchingIndex = options.indexOf(matchingObject);
+    //   options.splice(matchingIndex, 1);
+    //   options.unshift(matchingObject);
 
-      setOption(options);
-    } else {
-      console.log("No matching object found.");
-    }
+    //   setOption(options);
+    // } else {
+    //   console.log("No matching object found.");
+    // }
 
     console.log("sentence text", sentence.text);
 
@@ -66,7 +66,7 @@ const ImageMultipleChoiceQuestion = ({
           />
           Your browser does not support the audio element.
         </audio>
-        {option.map((option, index) => (
+        {options.map((option, index) => (
           // <div
           //   key={index}
           //   className={`option img_box col-6 ${
@@ -88,15 +88,13 @@ const ImageMultipleChoiceQuestion = ({
         `}
               onClick={() => {
                 onAnswerSelect(index);
-                audioPlay(option.audio.media);
+                audioPlay(option.audioURL);
               }}
             >
               <div className="d-flex justify-content-center">
                 <img
                   className="card-img-top"
-                  src={`${API_URL}/mediaObject/download/${
-                    option.image ? option.image.media : ""
-                  }`}
+                  src={`${API_URL}/mediaObject/download/${option.imageURL}`}
                   alt="Loading..."
                 />
               </div>

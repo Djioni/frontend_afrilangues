@@ -1437,7 +1437,7 @@ const Home = () => {
             {/* Dialouge here */}
             <Modal show={true} onHide={toggleDialouge} fullscreen={true}>
               {/* prev and next  */}
-              <div
+              {/* <div
                 className="prev_arrow"
                 onClick={() => console.log("prev arrow")}
               >
@@ -1445,7 +1445,7 @@ const Home = () => {
               </div>
               <div className="next_arrow" onClick={() => handleNextQuestion()}>
                 <BiSolidRightArrow />
-              </div>
+              </div> */}
               <div>
                 {" "}
                 <div className="w-100">

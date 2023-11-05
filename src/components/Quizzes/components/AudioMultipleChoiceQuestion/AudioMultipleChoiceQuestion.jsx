@@ -2,15 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import { PiSpeakerHigh } from "react-icons/pi";
 import { FaPlayCircle } from "react-icons/fa";
 import { IoPauseOutline } from "react-icons/io5";
+import { API_URL } from "../../../../api";
+import shuffleArray from "../../../LearningDashboard/components/functions/ShuffleArray";
 
 const AudioMultipleChoiceQuestion = ({
   options,
   selectedAnswer,
   onAnswerSelect,
   rightMultipleAnswer,
+  sentenceText,
 }) => {
   console.log("from audio", rightMultipleAnswer);
   const [activeIndex, setActiveIndex] = useState(null);
+  useEffect(() => {
+    setActiveIndex(null);
+  }, [sentenceText]);
+
   options.map((value) => {
     console.log(value);
   });
@@ -41,44 +48,56 @@ const AudioMultipleChoiceQuestion = ({
     }
   }, [activeIndex]);
 
-  return (
-    <div className="audio_multiple_choice_question">
-      {options.map((option, index) => (
-        <div
-          key={index}
-          className={`option audio_box ${
-            selectedAnswer === index ? "selected " : ""
-          }
-          ${option.text === rightMultipleAnswer ? "selected-right" : ""}
-          `}
-          onClick={() => {
-            onAnswerSelect(index);
-            togglePlay(index);
-          }}
-        >
-          <audio controls className="audio_control">
-            <source src={option.audioURL} type="audio/mpeg" />
-            Your browser does not support the audio element.
-            <PiSpeakerHigh className="audio_icon" />
-          </audio>
+  console.log("option", options);
 
-          <div className="audio_box_icon">
-            {activeIndex !== index ? (
-              <FaPlayCircle
-                className={`audio-icon ${
-                  activeIndex === index ? "playing" : ""
-                }`}
+  return (
+    <div>
+      <div className="d-block">
+        <h2 className="text-center " style={{ marginBottom: "30px" }}>
+          {sentenceText}
+        </h2>
+      </div>
+      <div className="audio_multiple_choice_question">
+        {options.map((option, index) => (
+          <div
+            key={index}
+            className={`option audio_box ${
+              selectedAnswer === index ? "selected " : ""
+            }
+    ${option.text === rightMultipleAnswer ? "selected-right" : ""}
+    `}
+            onClick={() => {
+              onAnswerSelect(index);
+              togglePlay(index);
+            }}
+          >
+            <audio controls className="audio_control">
+              <source
+                src={`${API_URL}/mediaObject/download/${option.audioURL}`}
+                type="audio/mpeg"
               />
-            ) : (
-              <IoPauseOutline
-                className={`audio-icon ${
-                  activeIndex === index ? "playing" : ""
-                }`}
-              />
-            )}
+              Your browser does not support the audio element.
+              <PiSpeakerHigh className="audio_icon" />
+            </audio>
+
+            <div className="audio_box_icon">
+              {activeIndex !== index ? (
+                <FaPlayCircle
+                  className={`audio-icon ${
+                    activeIndex === index ? "playing" : ""
+                  }`}
+                />
+              ) : (
+                <IoPauseOutline
+                  className={`audio-icon ${
+                    activeIndex === index ? "playing" : ""
+                  }`}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

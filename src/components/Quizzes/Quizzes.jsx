@@ -49,10 +49,24 @@ import Dialogue from "./components/Dialogue/Dialogue";
 import { Translate } from "../LearningDashboard/components/functions/Translate";
 // lesson quiz
 
-let quizData1 = [
+let quizData = [
   {
     lessonTitle: "Lesson 1: Multiple Choice",
     questions: [
+      {
+        questionText: "Listen to the audio. Which animal sound like a Cat?",
+        format: "multipleChoice",
+        audioOptions: [
+          {
+            audioURL: "",
+            text: "Dog",
+          },
+          { audioURL: cat_sound, text: "Cat" },
+          { audioURL: cow_sound, text: "Cow" },
+          { audioURL: horse_sound, text: "Horse" },
+        ],
+        correctAnswerIndex: 1,
+      },
       {
         questionText: "What is the capital of France?",
         format: "multipleChoice",
@@ -75,20 +89,6 @@ let quizData1 = [
           { imageURL: tiger_icon, text: "Tiger" },
         ],
         correctAnswerIndex: 0,
-      },
-      {
-        questionText: "Listen to the audio. Which animal sound like a Cat?",
-        format: "multipleChoice",
-        audioOptions: [
-          {
-            audioURL: "",
-            text: "Dog",
-          },
-          { audioURL: cat_sound, text: "Cat" },
-          { audioURL: cow_sound, text: "Cow" },
-          { audioURL: horse_sound, text: "Horse" },
-        ],
-        correctAnswerIndex: 1,
       },
     ],
   },
@@ -208,7 +208,7 @@ let quizData1 = [
 
   // Add more lessons
 ];
-const quizData = [
+const quizData1 = [
   {
     lessonTitle: "Lesson 5: Put Words in Order",
     questions: [
@@ -1399,6 +1399,11 @@ const Quizzes = () => {
     }
   };
   const handleContinue = () => {
+    setSelectedPairs([]);
+    setWrongLeftIndex([]);
+    setStoreRightIndex([]);
+    setDisableLeftIndex([]);
+    setDisableRightIndex([]);
     if (currentQuestion < currentLessonData.questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       // setCurrentQuestion(currentQuestion + 2);
@@ -1414,6 +1419,7 @@ const Quizzes = () => {
       setShowVerifyButton(true);
       setAnswerCorrect(null); // Reset the answer correctness
     } else {
+      setIsWordMatchingComplete(false);
       handleNext();
     }
     // Reset selectedWordMatchingAnswer and selectedPairs
@@ -1542,6 +1548,7 @@ const Quizzes = () => {
 
         // translate
         if (currentQuiz.type === "TRANSLATE") {
+          console.log("hello world");
           localStorage.removeItem("content");
 
           localStorage.setItem(
@@ -1697,17 +1704,13 @@ const Quizzes = () => {
     const currentQuestionData =
       quizData[currentLesson].questions[currentQuestion];
 
-    console.log("______________");
-    console.log(currentQuestionData);
-    console.log("____________");
-
     if (currentQuestionData.format === "multipleChoice") {
       if (currentQuestionData.imageOptions) {
         return (
           <ImageMultipleChoiceQuestion
             sentence={currentQuestionData.sentence}
             rightMultipleAnswer={rightMultipleAnswer}
-            options={currentQuestionData.option}
+            options={currentQuestionData.imageOptions}
             selectedAnswer={selectedAnswer}
             onAnswerSelect={handleAnswerSelect}
           />
@@ -1717,6 +1720,7 @@ const Quizzes = () => {
           <AudioMultipleChoiceQuestion
             rightMultipleAnswer={rightMultipleAnswer}
             options={currentQuestionData.audioOptions}
+            sentenceText={currentQuestionData.sentenceText}
             selectedAnswer={selectedAnswer}
             onAnswerSelect={handleAnswerSelect}
           />

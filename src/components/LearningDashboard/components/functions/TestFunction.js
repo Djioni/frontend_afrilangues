@@ -1,4 +1,5 @@
 import { API_URL } from "../../../../api";
+import shuffleArray from "./ShuffleArray";
 
 export const TestFunction = (QAdata, userID, type, title) => {
   console.log("qadata", QAdata);
@@ -164,6 +165,7 @@ export const TestFunction = (QAdata, userID, type, title) => {
   const quizQuestion = QAdata;
 
   const quizData = [];
+  const audioQuizData = [];
   if (quizQuestion && userID && type && title) {
     quizQuestion.sort((a, b) => a.order - b.order);
 
@@ -185,16 +187,16 @@ export const TestFunction = (QAdata, userID, type, title) => {
     });
 
     // audio options
-    const audioOptions = quizQuestion.map((value) => {
-      if (
-        value.answers.some(
-          (answer) =>
-            answer.mediaResponse && answer.mediaResponse.type === "audio/mpeg"
-        )
-      ) {
-        return value;
-      }
-    });
+    // const audioOptions = quizQuestion.map((value) => {
+    //   if (
+    //     value.answers.some(
+    //       (answer) =>
+    //         answer.mediaResponse && answer.mediaResponse.type === "audio/mpeg"
+    //     )
+    //   ) {
+    //     return value;
+    //   }
+    // });
 
     // // text options
     const ImageOptions = quizQuestion.map((value) => {
@@ -213,45 +215,72 @@ export const TestFunction = (QAdata, userID, type, title) => {
     });
 
     if (type === "SINGLE_CHOICE_QUESTION_AUDIO_FORMAT") {
-      // // audio option filtering start
-      const audioOptionsFilter = audioOptions.map((value) => {
-        if (value) {
-          //
-          // order text and id
-          const audiodata = value.answers.map((answer) => ({
-            text: answer.content,
-            audioURL:
-              answer.mediaResponse &&
-              `${API_URL}/mediaObject/download/${answer.mediaResponse.media}`,
-          }));
+      // // // audio option filtering start
+      // const audioOptionsFilter = audioOptions.map((value) => {
+      //   if (value) {
+      //     //
+      //     // order text and id
+      //     const audiodata = value.answers.map((answer) => ({
+      //       text: answer.content,
+      //       audioURL:
+      //         answer.mediaResponse &&
+      //         `${API_URL}/mediaObject/download/${answer.mediaResponse.media}`,
+      //     }));
 
-          //
-          const option = value.answers.map((answer) => answer.content);
-          const correctAnswerIndex = value.answers.findIndex(
-            (answer) => answer.correct
-          );
+      //     //
+      //     const option = value.answers.map((answer) => answer.content);
+      //     const correctAnswerIndex = value.answers.findIndex(
+      //       (answer) => answer.correct
+      //     );
 
-          // console.log(option);
-          // console.log(correctAnswerIndex);
-          return {
-            sentence: { text: value.sentence },
-            type: type,
+      //     // console.log(option);
+      //     // console.log(correctAnswerIndex);
+      //     return {
+      //       sentence: { text: value.sentence },
+      //       type: type,
 
-            order: value.order,
-            questionText: value.sentence,
-            audioOptions: audiodata,
-            correctAnswerIndex: correctAnswerIndex,
-            format: "multipleChoice",
-          };
-        }
-      });
-      // remove falsy data
-      audioOptionsFilter.forEach((value) => {
-        if (typeof value === "object" && value !== null) {
-          quizData.push(value);
-        }
-      });
+      //       order: value.order,
+      //       questionText: value.sentence,
+      //       audioOptions: audiodata,
+      //       correctAnswerIndex: correctAnswerIndex,
+      //       format: "multipleChoice",
+      //     };
+      //   }
+      // });
+      // // remove falsy data
+      // audioOptionsFilter.forEach((value) => {
+      //   if (typeof value === "object" && value !== null) {
+      //     quizData.push(value);
+      //   }
+      // });
       // audio option filtering end
+      const arr = [];
+
+      quizQuestion.forEach((item) => {
+        arr.push({
+          audioURL: item.mediaQuestion[0].media,
+          text: item.answers[0].content,
+          sentence: item.sentence,
+          order: item.order,
+        });
+      });
+      const updatedData = [];
+      quizQuestion.forEach((item) => {
+        const shuffledArr = shuffleArray(arr);
+        updatedData.push({
+          sentence: { text: item.sentence },
+          sentenceText: item.sentence,
+          type: type,
+          order: item.order,
+          questionText: title,
+          format: "multipleChoice",
+          audioOptions: shuffledArr,
+          correctAnswerIndex: 0,
+        });
+      });
+
+      // quizData.push(updatedData);
+      audioQuizData.push(updatedData);
     }
 
     // image option filtering start
@@ -288,6 +317,29 @@ export const TestFunction = (QAdata, userID, type, title) => {
         };
       });
 
+      // option filter
+      const imageOptionData = [];
+
+      quizQuestion.forEach((item) => {
+        imageOptionData.push({
+          imageURL: item.mediaQuestion.filter(
+            (item) => item.type === "image/png" || item.type === "image/jpeg"
+          )[0]
+            ? item.mediaQuestion.filter(
+                (item) =>
+                  item.type === "image/png" || item.type === "image/jpeg"
+              )[0].media
+            : "",
+          text: item.answers[0].content,
+          audioURL: item.mediaQuestion.filter(
+            (item) => item.type === "audio/mpeg"
+          )[0]
+            ? item.mediaQuestion.filter((item) => item.type === "audio/mpeg")[0]
+                .media
+            : "",
+        });
+      });
+
       //
       const imageOptionsFilter = quizQuestion.map((value) => {
         if (value) {
@@ -308,6 +360,7 @@ export const TestFunction = (QAdata, userID, type, title) => {
 
           // console.log(option);
           // console.log(correctAnswerIndex);
+          const shuffArr = shuffleArray(transformedData);
           return {
             sentence: {
               text: value.sentence,
@@ -321,10 +374,10 @@ export const TestFunction = (QAdata, userID, type, title) => {
             },
             order: value.order,
             questionText: title,
-            imageOptions: audiodata,
+            imageOptions: shuffleArray(imageOptionData),
             correctAnswerIndex: correctAnswerIndex,
             format: "multipleChoice",
-            option: transformedData,
+            option: shuffArr,
           };
         }
       });
@@ -384,13 +437,39 @@ export const TestFunction = (QAdata, userID, type, title) => {
       });
     }
 
-    return [
-      {
+    if (type === "SINGLE_CHOICE_QUESTION_AUDIO_FORMAT") {
+      console.log("..................................sR");
+      console.log("data", {
         id: userID,
         type: type,
         lessonTitle: "lesson",
-        questions: quizOrderData,
-      },
-    ];
+        questions: audioQuizData[0],
+      });
+      return [
+        {
+          id: userID,
+          type: type,
+          lessonTitle: "lesson",
+          questions: audioQuizData[0],
+        },
+      ];
+    } else {
+      console.log("datadatadta", [
+        {
+          id: userID,
+          type: type,
+          lessonTitle: "lesson",
+          questions: quizOrderData,
+        },
+      ]);
+      return [
+        {
+          id: userID,
+          type: type,
+          lessonTitle: "lesson",
+          questions: quizOrderData,
+        },
+      ];
+    }
   }
 };

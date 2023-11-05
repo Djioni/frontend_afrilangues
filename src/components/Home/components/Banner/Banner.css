@@ -1,5 +1,5 @@
 .banner_wrapper {
-  background-image: url("../../../../assets/hero-arrow-bg.png");
+  /* background-image: url("../../../../assets/hero-arrow-bg.png"); */
   background-repeat: no-repeat;
   background-position: center calc(50% -200px); /* Adjusted for margin-top */
   background-size: contain;

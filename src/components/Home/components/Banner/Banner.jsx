@@ -85,7 +85,7 @@ const Banner = () => {
         </div>
 
         {/* BG PLANE ELEMENT */}
-        <div className="root-plane-1">
+        <div className="root-plane-1 d-none">
           {" "}
           <div className="c-root-plane-1">
             <img src={plane_1} alt="" className="plane_elem_1" />
@@ -93,14 +93,14 @@ const Banner = () => {
           </div>
         </div>
 
-        <div className="root-plane-2">
+        <div className="root-plane-2 d-none">
           <div className="c-root-plane-2">
             <img src={plane_2} alt="" className="plane_elem_2" />
             <span className="plane_elem_2_text">Lingala</span>
           </div>
         </div>
 
-        <div className="root-plane-3">
+        <div className="root-plane-3 d-none">
           <div className="c-root-plane-3">
             <img src={plane_1} alt="" id="hero-img" className="plane_elem_3" />
             <span className="plane_elem_3_text">Wolof</span>

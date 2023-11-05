@@ -162,7 +162,7 @@ const Login = () => {
             if (currentPath === "lessons/section/") {
               navitate("/lessons/section/");
             } else {
-              navitate("/onboarding-tutorials");
+              navitate("/dashboard");
             }
           }
         })

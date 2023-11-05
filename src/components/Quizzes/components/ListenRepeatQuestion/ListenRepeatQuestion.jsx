@@ -45,7 +45,7 @@ const ListenRepeatQuestion = ({
           <img src={speaker_icon} alt="" />
         </div>
       </div>
-      <div className="listen_repeat_options">
+      <div className="listen_repeat_options ">
         {options.map((option, index) => (
           <button
             key={index}

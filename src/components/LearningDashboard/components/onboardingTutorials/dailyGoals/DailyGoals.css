@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+#pop1_daily_goal {
+  padding: 20px 10px;
+}
+
+#pop1_daily_goal .row {
+  border: 1px solid #e5e5e5;
+  gap: 0;
+  border-radius: 15px;
+}
+#pop1_daily_goal .box_container_main {
+  padding: 0 !important;
+}
+#pop1_daily_goal .box_container_main:first-child .box_container {
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+#pop1_daily_goal .box_container_main:last-child .box_container {
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+#pop1_daily_goal .box_container {
+  border: 1px solid #e5e5e5;
+
+  padding: 15px 15px;
+  display: flex;
+  justify-content: space-between;
+}
+#pop1_daily_goal .box_container:hover {
+  background-color: rgba(231, 231, 231, 0.3);
+  cursor: pointer;
+}
+
+#pop1_daily_goal .active {
+  background-color: rgba(229, 110, 53, 0.4) !important;
+  border-top: 1px solid rgba(229, 110, 53) !important;
+  border-left: 1px solid rgba(229, 110, 53) !important;
+  border-right: 1px solid rgba(229, 110, 53) !important;
+
+  border-bottom: 1px solid rgba(229, 110, 53) !important;
+}
+
+#pop1_daily_goal .box_container .sub {
+  color: #424242;
+  font-size: 15px;
+}
+#pop1_daily_goal .active .sub {
+  color: #c94503 !important;
+}
+#pop1_daily_goal .active .time {
+  color: #c94503 !important;
+}
+#pop1_daily_goal .box_container .time {
+  color: gray;
+  font-size: 15px;
+  font-family: "Varela Round", sans-serif;
+  font-weight: 300;
+}

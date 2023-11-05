@@ -78,11 +78,11 @@ export default function Exercise() {
               const currentQuiz = filteredObjects[0];
 
               const allexercisedata = filteredObjects;
-              allexercisedata.sort((a, b) => {
-                const dateA = new Date(...a.createdAt);
-                const dateB = new Date(...b.createdAt);
-                return dateA - dateB;
-              });
+              // allexercisedata.sort((a, b) => {
+              //   const dateA = new Date(...a.createdAt);
+              //   const dateB = new Date(...b.createdAt);
+              //   return dateA - dateB;
+              // });
               // set all current exercise
               localStorage.setItem(
                 "currentAllExercises",

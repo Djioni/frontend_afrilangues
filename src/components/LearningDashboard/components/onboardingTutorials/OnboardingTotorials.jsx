@@ -1,222 +1,264 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { QuizValidationAction } from "../../services/actions/QuizValidationAction";
 import "./OnboardingTotorials.css";
-import { IoClose } from "react-icons/io5";
-import { BsSendCheckFill } from "react-icons/bs";
-import Loading from "../../../Loading";
-import { useToast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import QuizProgressBar from "./ProgressBar";
+import ImageOption from "./option/ImageOption";
+import ClipLoader from "react-spinners/ClipLoader";
+import BeatLoader from "react-spinners/BeatLoader";
+import DailyGoals from "./dailyGoals/DailyGoals";
+import ChoosePath from "./ChoosePath/ChoosePath";
 
 export default function OnboardingTotorials() {
   const data = [
     {
-      title: "BIENVENUE SUR AFRILANGUES",
-      desc: [
+      format: "imageOption",
+      title: "Comment nous avez-vous connu ? ",
+      option: [
         {
-          text: `Nous sommes ravis de vous compter parmi nous !
-        Afin de vous aider à apprendre la langue africaine de votre choix, veuillez suivre ces étapes pour une bonne prise en main.
-        `,
-          inlineBold: null,
-          bold: null,
+          text: "Famille/Amis",
+          media: "/assets/media/black_man_woman.png",
+        },
+        {
+          text: "Moteur de recherche",
+          media: "/assets/media/google.svg",
+        },
+        // {
+        //   text: "Nouvelles/article/blog",
+        //   media: "/assets/media/blog.svg",
+        // },
+        {
+          text: "YouTube",
+          media: "/assets/media/youtube.svg",
+        },
+        // {
+        //   text: "TV",
+        //   media: "/assets/media/tv.svg",
+        // },
+        {
+          text: "TikTok",
+          media: "/assets/media/tiktok.svg",
+        },
+        {
+          text: "Facebook/Instagram",
+          media: "/assets/media/instagram.svg",
+        },
+        {
+          text: "LinkedIn",
+          media: "/assets/media/linkedin.png",
+        },
+        {
+          text: "Médias / Presse",
+          media: "/assets/media/news.png",
         },
       ],
     },
     {
-      title: "MES COURS",
-      desc: [
+      format: "imageOption",
+      title: "Pourquoi voulez-vous apprendre une langue africaine ?",
+      option: [
         {
-          text: `Nos cours sont thématiques, structurés et bien amenés pour vous permettre d’apprendre à parler en toute confiance dès le début.
-      Chaque thème comprend plusieurs leçons.
-      `,
-          inlineBold: null,
-          bold: null,
+          text: "Booster mes études",
+          media: "/assets/media/whylearn/education.png",
         },
-      ],
-    },
-    {
-      title: "LEÇONS",
-      desc: [
         {
-          text: `Chaque leçon comprend plusieurs parties :`,
+          text: "Voyager en Afrique",
+          media: "/assets/media/whylearn/travel.png",
+        },
+        // {
+        //   text: "Passez du temps de manière productive",
+        //   media: "/assets/media/whylearn/productively.svg",
+        // },
+        {
+          text: "Discuter avec ma famille, mes amis",
+          media: "/assets/media/black_man_woman.png",
+        },
+        {
+          text: "Stimuler mon cerveau",
+          media: "/assets/media/cerveau.png",
+        },
+        {
+          text: "Booster mon activité / ma carrière",
+          media: "/assets/media/whylearn/career.png",
+        },
 
-          inlineBold: null,
-          bold: ["Introduction", "Phrases", "Dialogue", "Grammaire"],
+        {
+          text: "Curiosité / Plaisir ",
+          media: "/assets/media/others.png",
         },
       ],
     },
     {
-      title: "VÉROUILLAGE / DÉVEROUILLAGE DE CONTENUS",
-      desc: [
+      format: "dailyGoal",
+      title: "Fixe-toi un objectif quotidien !",
+      option: [
         {
-          text: `Les contenus sont verrouillés par défaut. Pour les déverrouiller, vous devez obtenir « 70% de BONNES RÉPONSES » pour passer d’une partie à une autre.`,
-          inlineBold: null,
-          bold: null,
+          name: "Tranquille",
+          time: "5 min / Jour",
+        },
+        {
+          name: "Normal",
+          time: "10 min / Jour",
+        },
+        {
+          name: "Intensif",
+          time: "15 min / Jour",
+        },
+        {
+          name: "Extrême",
+          time: "20 min / Jour",
         },
       ],
     },
     {
-      title: "STATISTIQUES ",
-      desc: [
+      format: "dailyGoal",
+      title: "Quel est votre niveau ?",
+      option: [
         {
-          text: "Lorsque vous donnez de bonnes réponses, vous gagner des cauris, qui sont des points. Vous pouvez les voir dans la rubrique ",
-          inlineBold: ["« STATISTIQUES »"],
-          bold: null,
+          name: "Débutant",
+          time: "",
+        },
+        {
+          name: "Faux débutant ",
+          time: "",
+        },
+        {
+          name: "Intermédiaire ",
+          time: "",
+        },
+        {
+          name: "Avancé ",
+          time: "",
         },
       ],
     },
-    {
-      title: "LEXIQUE THÉMATIQUE",
-      desc: [
-        {
-          text: "Vous pouvez approfondir votre vocabulaire en allant dans le lexique thématique.",
-          inlineBold: null,
-          bold: null,
-        },
-      ],
-    },
+    // {
+    //   format: "choosePath",
+    //   title: "Choisissez le parcours d'apprentissage.",
+    //   option: [
+    //     {
+    //       media: "/assets/path1.svg",
+    //       title: "Apprendre le français pour la première fois ?",
+    //       subTitle: "Commencer à partir de zéro!",
+    //     },
+    //     {
+    //       media: "/assets/path2.svg",
+    //       title: "Vous connaissez déjà un peu le français ?",
+    //       subTitle: "Vérifiez votre niveau ici !",
+    //     },
+    //   ],
+    // },
   ];
 
-  const [currentData, setCurrentData] = useState(null);
-  const [currentDataID, setCurrentDataID] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isPageLoading, setIsPageLoading] = useState(true);
-  const [dNone, setDNone] = useState({ display: "none" });
-  const [currentProcess, setCurrentProcess] = useState("0%");
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [callContinue, setCallContinue] = useState(0);
 
-  const navigate = useNavigate();
+  const [isBtnLoading, setIsBtnLoading] = useState(false);
+  const dispatch = useDispatch();
+  const [isOptionActive, setIsOptionActive] = useState(false);
   useEffect(() => {
-    setTimeout(() => {
-      setIsPageLoading(false);
-      setIsLoading(false);
-      setCurrentData(data[0]);
-    }, 400);
+    dispatch(QuizValidationAction(true));
   }, []);
-  useEffect(() => {
-    //
 
-    //
-    setDNone({ display: "grid" });
-  }, []);
-  const handleClose = () => {
-    navigate("/dashboard");
-    setDNone({ display: "none" });
+  const handleCurrentOption = (active) => {
+    console.log("handleactive", active);
+    setIsOptionActive(active);
   };
-  const Process = (currentnumber, totalnumber) => {
-    const singleProcess = 100 / totalnumber;
-    let totalnumber1 = 0;
-    for (let i = 1; i <= currentnumber; i++) {
-      totalnumber1 += singleProcess;
-    }
-    return `${totalnumber1}%`;
-  };
-  const handleMessage = () => {
-    if (data.length <= currentDataID) {
-      console.log("data found...");
-      navigate("/dashboard");
-    } else {
-      setCurrentProcess(Process(currentDataID, data.length - 1));
-
-      console.log("handleMessage");
-
-      setCurrentData(data[currentDataID]);
-
-      setCurrentDataID((prev) => prev + 1);
+  const handleQuestion = () => {
+    if (currentQuestionIndex < data.length - 1) {
+      if (isOptionActive) {
+        setIsBtnLoading(true);
+        setTimeout(() => {
+          setCallContinue((prev) => prev + 1);
+          setCurrentQuestionIndex((prev) => prev + 1);
+          setIsOptionActive(false);
+          setIsBtnLoading(false);
+        }, 500);
+      }
     }
   };
+  const handleBackQuestion = () => {
+    setCurrentQuestionIndex((prev) => prev - 1);
+    setIsOptionActive(false);
+  };
+
   return (
-    <div>
-      {isPageLoading ? (
-        <Loading
-          full={true}
-          page={true}
-          message={"S'il vous plaît, attendez!"}
-        />
-      ) : (
-        <div id="obdtutorials" className="w-100" style={dNone}>
-          <div
-            className="newl-card "
-            style={isLoading ? { height: "470px" } : {}}
-          >
-            <div className="obdtutorials_process"></div>
-            <div
-              className="obdtutorials_process_current"
-              style={{ width: currentProcess }}
-            ></div>
-            <div className="box w-100 h-100">
-              <div className="email-card">
-                <div className="d-flex justify-content-center position-relative">
-                  <div onClick={handleClose} className="nl-close">
-                    <IoClose className="icon" />
-                  </div>
-                </div>
-              </div>
+    <div id="onb_t">
+      <div>
+        <div className="container_main">
+          <div className="progress_container container">
+            <QuizProgressBar
+              handleBackQuestion={handleBackQuestion}
+              progress={currentQuestionIndex}
+              totalQuestions={data.length - 1}
+            />
+          </div>
 
-              {isLoading ? (
-                <div className="loader_box">
-                  <Loading
-                    full={false}
-                    page={true}
-                    message={"S'il vous plaît, attendez!"}
+          <div
+            className={`hellohello container ${
+              data[currentQuestionIndex].format === "dailyGoal" ||
+              data[currentQuestionIndex].format === "choosePath"
+                ? "daily_goal_question_body"
+                : ""
+            }`}
+          >
+            <div>
+              <div>
+                <h3 className="onb_t_title text-center">
+                  {data[currentQuestionIndex].title}
+                </h3>
+              </div>
+              <div>
+                {data[currentQuestionIndex].format === "imageOption" ? (
+                  <ImageOption
+                    currentQuestionIndex={currentQuestionIndex}
+                    callContinue={callContinue}
+                    handleCurrentOption={handleCurrentOption}
+                    data={data[currentQuestionIndex]}
                   />
-                </div>
-              ) : (
-                <div>
-                  <div className="row boy_section ">
-                    <div className="col-3  col-lg-3  col-xl-2 justify-content-end d-flex">
-                      <div className="boy_img">
-                        <img src="/assets/onboy.png " alt="" />
-                      </div>
+                ) : data[currentQuestionIndex].format === "dailyGoal" ? (
+                  <DailyGoals
+                    currentQuestionIndex={currentQuestionIndex}
+                    callContinue={callContinue}
+                    handleCurrentOption={handleCurrentOption}
+                    data={data[currentQuestionIndex]}
+                  />
+                ) : data[currentQuestionIndex].format === "choosePath" ? (
+                  <ChoosePath
+                    handleCurrentOption={handleCurrentOption}
+                    data={data[currentQuestionIndex]}
+                  />
+                ) : (
+                  ""
+                )}
+
+                {/**/}
+              </div>
+              <div
+                className={`continue_btn ${
+                  data[currentQuestionIndex].format === "choosePath"
+                    ? "d-none"
+                    : "d-block"
+                }`}
+              >
+                <button
+                  onClick={handleQuestion}
+                  className={`${isOptionActive ? "btn_active " : "btn_disabled"}
+                  ${isBtnLoading ? "btn_border_none" : ""}`}
+                >
+                  {isBtnLoading ? (
+                    <div style={{ marginTop: "1px" }}>
+                      <BeatLoader className="loader" color="white" />
                     </div>
-                    <div className="col-9 col-lg-9  col-xl-10">
-                      <h3 className="title">
-                        {currentData ? currentData.title : ""}
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="obdtutorials_body ">
-                    <div className="decs">
-                      {currentData
-                        ? currentData.desc.map((item) => (
-                            <div>
-                              {item.text}
-                              {item.bold ? (
-                                <ul className="bold">
-                                  {item.bold.map((itemtext, index) => (
-                                    <li>
-                                      {itemtext}
-                                      {item.bold.length - 1 === index
-                                        ? "."
-                                        : ","}
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                ""
-                              )}
-                              {item.inlineBold ? (
-                                <div className="d-inline-block">
-                                  <ul className="d-inline-block inline_bold">
-                                    {item.inlineBold.map((text) => (
-                                      <li>{text}</li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                          ))
-                        : ""}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="btn_box d-flex justify-content-end">
-              <button onClick={() => handleMessage()}>Suivant</button>
+                  ) : (
+                    "CONTINUER"
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
