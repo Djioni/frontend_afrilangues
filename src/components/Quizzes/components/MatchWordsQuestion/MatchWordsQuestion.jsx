@@ -18,6 +18,7 @@ const MatchWordsQuestion = ({
   handleVerify,
   leftAudio,
 }) => {
+  console.log("--leftwords", disableLeftIndex, "rightwords", disableRightIndex);
   let sentence = { text: "text", audio: "" };
   console.log("leftindex", wrongLeftIndex); // disableLeftIndex will be like [0,1] and more
   console.log("rightindex", wrongRightIndex); // disableRightIndex will be like [0,1] and more

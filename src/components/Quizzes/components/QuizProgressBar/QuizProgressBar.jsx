@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./QuizProgressBar.css";
 const QuizProgressBar = ({ progress, totalQuestions }) => {
   const percent = ((progress / totalQuestions) * 100).toFixed(2);
 

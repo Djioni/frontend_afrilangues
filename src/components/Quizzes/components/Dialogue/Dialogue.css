@@ -456,6 +456,7 @@
   align-items: center;
   justify-content: space-between;
   height: 225px;
+  position: relative;
 }
 
 .modal-dialog .verification_box .quiz_avatar_box {

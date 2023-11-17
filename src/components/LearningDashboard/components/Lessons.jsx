@@ -53,8 +53,14 @@ export default function Lessons() {
         .get(`${API_URL}/lesson/theme/${id}`, config)
         .then((result) => {
           console.log("dataf", result.data);
+          // set current in local storage
+          localStorage.setItem(
+            "currentAllLessons",
+            JSON.stringify(result.data)
+          );
 
           if (result.data[0]) {
+            localStorage.setItem("currentLessons", JSON.stringify(result.data));
             setCurrentLesson(result.data);
             setIsPageLoading(false);
             dispatch(GetLessonAction(result.data));
@@ -87,6 +93,7 @@ export default function Lessons() {
   const handleSection = (LessonID) => {
     console.log("hello handle section", LessonID);
     navigate(`/lessons/section?id=${LessonID}`);
+    localStorage.setItem("currentLessonID", JSON.stringify(LessonID));
   };
 
   const toggleModal = () => {

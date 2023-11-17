@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import speaker_icon from "../../../../assets/speaker-icon.png";
+import { HiSpeakerWave } from "react-icons/hi2";
 
 const ListenRepeatQuestion = ({
   audioSrc,
@@ -42,7 +43,18 @@ const ListenRepeatQuestion = ({
           className="audio_box_icon d-flex justify-content-center"
           onClick={audioPlay}
         >
-          <img src={speaker_icon} alt="" />
+          <HiSpeakerWave
+            style={{
+              backgroundColor: "#df3d15",
+              width: "45px",
+              height: "45px",
+              padding: "7px",
+              borderRadius: "50%",
+              color: "white",
+              cursor: "pointer",
+            }}
+            size={20}
+          />
         </div>
       </div>
       <div className="listen_repeat_options ">

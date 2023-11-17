@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import speaker_icon from "../../../../assets/speaker-icon.png";
 import { API_URL } from "../../../../api";
+import { HiSpeakerWave } from "react-icons/hi2";
 const MultipleChoiceQuestion = ({
   options,
   selectedAnswer,
@@ -49,11 +50,24 @@ const MultipleChoiceQuestion = ({
               <div>
                 <h2 className="d-inline-block">{sentence.text}</h2>
               </div>
-              <img
-                onClick={audioPlay}
+              {/* <img
                 style={{ marginLeft: "10px", cursor: "pointer" }}
                 src={speaker_icon}
                 alt=""
+              /> */}
+              <HiSpeakerWave
+                onClick={audioPlay}
+                style={{
+                  backgroundColor: "#df3d15",
+                  width: "45px",
+                  height: "45px",
+                  padding: "7px",
+                  borderRadius: "50%",
+                  color: "white",
+                  cursor: "pointer",
+                  margin: "0px 20px",
+                }}
+                size={20}
               />
             </div>
           </div>

@@ -94,8 +94,12 @@ export default function LearnGrettingLession() {
         .get(`${API_URL}/lessonsection/lesson/${id}`, config)
         .then((result) => {
           console.log("dataf", result.data);
-
+          // current data
           if (result.data[0]) {
+            localStorage.setItem(
+              "currentAllSections",
+              JSON.stringify(result.data)
+            );
             setCurrentLessonSection(result.data);
             console.log(result.data);
             setIsPageLoading(false);
@@ -130,6 +134,7 @@ export default function LearnGrettingLession() {
   const handleSection = (sectionID) => {
     console.log("re", sectionID);
     navigate(`/lessons/section/exercise/?id=${sectionID}`);
+    localStorage.setItem("currentLessonSectionID", sectionID);
   };
 
   if (currentLessonSection[0]) {
@@ -148,7 +153,7 @@ export default function LearnGrettingLession() {
                 {currentLessonSection.map((result) => (
                   <div
                     onClick={() => handleSection(result.id)}
-                    className="col-7 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-sm-start mt-4"
+                    className="col-7 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-sm-start mt-4 "
                     key={result.id}
                   >
                     <div>

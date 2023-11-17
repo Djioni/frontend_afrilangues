@@ -1,0 +1,13 @@
+#ex_text_zone {
+  /* margin: 20px 10px; */
+  margin: 10px 0;
+}
+#ex_text_zone .container {
+  /* box-shadow: rgba(223, 84, 17) 0px 0px 0px 2px,
+    rgba(223, 84, 17) 0px 4px 6px -1px, rgba(223, 84, 17) 0px 1px 0px inset; */
+  padding: 10px 10px;
+  font-weight: initial;
+  /* border: 3px solid rgba(223, 84, 17); */
+  height: 100% !important;
+  overflow-y: auto;
+}

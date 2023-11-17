@@ -1,0 +1,8 @@
+.progress_bar {
+  /* background-color: red !important; */
+  height: 18px !important;
+}
+
+.progress_bar .progress_track {
+  background: linear-gradient(to bottom, #df5411, rgb(245, 121, 121), #df5411);
+}

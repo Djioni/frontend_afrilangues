@@ -404,6 +404,7 @@
   padding-bottom: 50px;
 }
 
+/* Scrollbar track and thumb for webkit-based browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 6px;
   background-color: #f5f5f5;
@@ -412,4 +413,20 @@
 ::-webkit-scrollbar-thumb {
   background-color: #df5411;
   min-height: 20px;
+}
+
+/* Scrollbar track and thumb for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #f5f5f5 #df5411;
+}
+
+/* Scrollbar track and thumb for Edge and IE */
+*::-webkit-scrollbar-thumb {
+  background-color: #df5411;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
 }

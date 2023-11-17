@@ -15,6 +15,7 @@ import Loading from "../../Loading";
 import OnboardingTotorials from "./onboardingTutorials/OnboardingTotorials";
 
 export default function Topics() {
+  const testTopicData = [{ title: "hello" }];
   const [showModal, setShowModal] = useState(false);
 
   const changeLessonState = useDispatch();
@@ -139,20 +140,22 @@ export default function Topics() {
     setShowModal((prevValue) => !prevValue);
   };
   return (
-    <div>
+    <div className="w-full">
       {isPageLoading ? (
         <div style={{ marginTop: "200px", paddingBottom: "200px" }}>
           <Loading page={true} message={"S'il vous plaît, attendez!"} />
         </div>
       ) : (
-        <div id="">
+        <div className="w-full">
           <div id="gt">
             <div>
               <div className="row  px-md-5">
                 {userTheme.map((result) => (
                   <div
                     key={result.id}
-                    className="col-12 col-md-6 col-lg-6 col-xl-6"
+                    className={`col-12 col-md-6 col-lg-6 col-xl-6 ${
+                      userTheme.length === 1 ? "w-100" : ""
+                    }`}
                   >
                     <div
                       className="mt-5 card-box w-100 text-center align-self-center"

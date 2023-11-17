@@ -14,6 +14,9 @@ import { MemoryGameDataReducer } from "./components/Quizzes/components/MemoryGam
 import { GetLessonReducer } from "./components/LearningDashboard/services/reducers/GetLessonReduer";
 import { GetLessonSectionReducer } from "./components/LearningDashboard/services/reducers/GetLessonSectionReducer";
 import { GetExerciseReducer } from "./components/LearningDashboard/services/reducers/GetExerciseReducer";
+import { CurrentSectionIndexReducers } from "./components/Quizzes/services/reducers/CurrentSectionIndexReducers";
+import { ExerciseDataNotValidReducers } from "./components/LearningDashboard/services/reducers/ExerciseDataNotValidReducers";
+import { CurrentLessonIndexReducer } from "./components/Quizzes/services/reducers/CurrentLessonIndexReducer";
 const rootReducer = combineReducers({
   auth: AuthReducer,
   lessons: LessonReducer,
@@ -30,6 +33,9 @@ const rootReducer = combineReducers({
   lesson: GetLessonReducer,
   lessonsection: GetLessonSectionReducer,
   exercises: GetExerciseReducer,
+  currentSectionIndex: CurrentSectionIndexReducers,
+  ExerciseDataNotValid: ExerciseDataNotValidReducers,
+  currentLessonIndex: CurrentLessonIndexReducer,
 
   // Add more reducers here if needed
 });

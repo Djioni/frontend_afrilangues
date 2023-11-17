@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import "../../../QuizPage.css";
 import "../Dialogue.css";
 import { QuizValidationAction } from "../../../../LearningDashboard/services/actions/QuizValidationAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../../../Loading";
 import { TestFunction } from "../../../../LearningDashboard/components/functions/TestFunction";
 import { ListenRepeat } from "../../../../LearningDashboard/components/functions/ListenRepeat";
@@ -31,7 +31,10 @@ import { FormatPutInOrder } from "../../../../LearningDashboard/components/funct
 import Exercise from "../../../../LearningDashboard/components/Exercise";
 import Quizzes from "../../../Quizzes";
 import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
-const Home = () => {
+import { CurrentSectionIndexAction } from "../../../services/actions/CurrentSectionIndexAction";
+
+const Home = ({ handlePrevQuestion }) => {
+  console.log("handleprevquestion", handlePrevQuestion);
   // souonds
   const [wrongSound] = useState(
     new Howl({
@@ -222,6 +225,10 @@ const Home = () => {
   const [showVerifyButton, setShowVerifyButton] = useState(true);
   const [isWordMatchingComplete, setIsWordMatchingComplete] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const currentSectionIndex = useSelector((state) => state.currentSectionIndex);
+  const currentLessonIndex = useSelector((state) => state.currentLessonIndex);
+
+  const [isNextExerciseTrue, setIsNextExerciseTrue] = useState(false);
 
   // Define quizData as an example (replace with your actual data)
   // const quizData = [
@@ -487,6 +494,11 @@ const Home = () => {
       if (currentAllExercises.length > currentExerciseQuestionLength) {
         setShowVerifyButton(true);
         const currentQuiz = currentAllExercises[currentExerciseQuestionLength];
+        // current main exercise
+        localStorage.setItem(
+          "currentMainExercise",
+          JSON.stringify(currentQuiz)
+        );
 
         // data validate
 
@@ -639,6 +651,17 @@ const Home = () => {
           dispatch(QuizValidationAction(true));
           // navigate("/lessons/section/quiz/dialogue");
         }
+
+        if (currentQuiz.type === "TEXT_ZONE") {
+          localStorage.removeItem("content");
+
+          const textZone = filteredObjects[0].exerciseAndAnswers;
+          localStorage.setItem("textZone", JSON.stringify(textZone));
+
+          // hide navber and navigate
+          dispatch(QuizValidationAction(true));
+          // navigate("/lessons/section/quiz/dialogue");
+        }
         const isDia = currentQuiz.type === "DIALOGUE";
         if (isDia === false) {
           setIsDialogExercise(false);
@@ -656,7 +679,41 @@ const Home = () => {
           JSON.stringify(currentExerciseQuestionLength + 1)
         );
       } else {
-        navigate(-1);
+        // navigate(-1);
+        console.log("net quest found.");
+
+        // handle next section and lesson and topic end
+
+        const currentAllLessonsectionsData =
+          localStorage.getItem("currentAllSections");
+        const currentLessonSectionID = localStorage.getItem(
+          "currentLessonSectionID"
+        );
+        const allFilterSections = [];
+        if (currentAllLessonsectionsData) {
+          const currentAllLessonSections = JSON.parse(
+            currentAllLessonsectionsData
+          );
+          console.log("lessonsection", currentAllLessonSections);
+          // current data without current
+          currentAllLessonSections.forEach((item, index) => {
+            if (item.id === currentLessonSectionID) {
+              console.log("current", index, item);
+            } else {
+              allFilterSections.push(item);
+            }
+          });
+          // navigate next section
+          console.log("currentSectionIndex", currentSectionIndex);
+          navigate(
+            `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
+          );
+
+          dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
+          setIsNextExerciseTrue(true);
+        }
+
+        // handle next section and lesson and topic end
       }
     }
   };
@@ -1369,7 +1426,39 @@ const Home = () => {
           console.log(activeQuestion.questions.length < currentQuestionID + 1);
         } else {
           console.log("more question not found!");
-          navigate(-1);
+          // handle next section and lesson and topic end
+
+          const currentAllLessonsectionsData =
+            localStorage.getItem("currentAllSections");
+          const currentLessonSectionID = localStorage.getItem(
+            "currentLessonSectionID"
+          );
+          console.log("data found", currentAllLessonsectionsData);
+          const allFilterSections = [];
+          if (currentAllLessonsectionsData) {
+            const currentAllLessonSections = JSON.parse(
+              currentAllLessonsectionsData
+            );
+            console.log("lessonsection", currentAllLessonSections);
+            // current data without current
+            currentAllLessonSections.forEach((item, index) => {
+              if (item.id === currentLessonSectionID) {
+                console.log("current", index, item);
+              } else {
+                allFilterSections.push(item);
+              }
+            });
+            // navigate next section
+            console.log("currentSectionIndex", currentSectionIndex);
+            navigate(
+              `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
+            );
+
+            dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
+            setIsNextExerciseTrue(true);
+          }
+
+          // handle next section and lesson and topic end
         }
         // check end
         const inputKeyword = [];
@@ -1412,15 +1501,23 @@ const Home = () => {
     setIsRightShowCloseOpen("hide-r-box");
     setIsFooterOpen("");
   };
-  const handlePrevQuestion = () => {
-    console.log("prev");
-  };
+  // const handlePrevQuestion = () => {
+  //   console.log("prev");
+  // };
 
   const handleNextQuestion = () => {
     console.log("next");
     GoToNextExercise();
   };
 
+  const handlePrevQuest = () => {
+    handlePrevQuestion();
+    setIsDialogExercise(false);
+    setIsNextExerciseTrue(true);
+  };
+  if (isNextExerciseTrue) {
+    return <Exercise />;
+  }
   if (isDialogExercise) {
     return (
       <div>
@@ -1437,19 +1534,17 @@ const Home = () => {
             {/* Dialouge here */}
             <Modal show={true} onHide={toggleDialouge} fullscreen={true}>
               {/* prev and next  */}
-              {/* <div
-                className="prev_arrow"
-                onClick={() => console.log("prev arrow")}
-              >
+              <div className="prev_arrow" onClick={() => handlePrevQuest()}>
                 <BiSolidLeftArrow />
               </div>
               <div className="next_arrow" onClick={() => handleNextQuestion()}>
                 <BiSolidRightArrow />
-              </div> */}
+              </div>
               <div>
                 {" "}
                 <div className="w-100">
                   <QuizProgressBar
+                    backPath={`${localStorage.getItem("currentLessonID")}`}
                     progress={progress}
                     totalQuestions={activeQuestion.inputs}
                   />
@@ -1586,6 +1681,16 @@ const Home = () => {
                   <AiOutlineClose className="icon" />
                 </div>
                 <div className={`container verification_box ${footerBoxClass}`}>
+                  {/* prev and next  */}
+                  <div className="prev_arrow" onClick={() => handlePrevQuest()}>
+                    <BiSolidLeftArrow />
+                  </div>
+                  <div
+                    className="next_arrow"
+                    onClick={() => handleNextQuestion()}
+                  >
+                    <BiSolidRightArrow />
+                  </div>
                   <div className="quiz_avatar_box">
                     {answerCorrect === null ? (
                       <>

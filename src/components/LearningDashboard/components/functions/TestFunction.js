@@ -411,7 +411,7 @@ export const TestFunction = (QAdata, userID, type, title) => {
             sentence: { text: value.sentence, audio: value.mediaQuestion },
             order: value.order,
             questionText: title,
-            options: audiodata,
+            options: shuffleArray(audiodata),
             correctAnswerIndex: correctAnswerIndex,
             format: "multipleChoice",
           };

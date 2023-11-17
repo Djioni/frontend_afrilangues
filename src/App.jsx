@@ -18,6 +18,7 @@ import { MemoryGameDataAction } from "./components/Quizzes/components/MemoryGame
 import CoursePlan from "./components/Home/components/plan-section/CoursePlan";
 import axios from "axios";
 import { API_URL } from "./api";
+import TextZone from "./components/Quizzes/components/TextZone/TextZone";
 
 const App = () => {
   const authData = useSelector((state) => state.auth);
@@ -70,6 +71,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Layout />
+      {/* <TextZone /> */}
       {/* <LearningDashboard /> */}
       {/* <Home /> */}
       {/* <CoursePlan /> */}

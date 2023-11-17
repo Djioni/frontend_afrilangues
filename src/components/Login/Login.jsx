@@ -163,6 +163,8 @@ const Login = () => {
               navitate("/lessons/section/");
             } else {
               navitate("/dashboard");
+              /// path exercise lesson and section
+              localStorage.setItem("currentSectionIndex", JSON.stringify(0));
             }
           }
         })

@@ -3,16 +3,16 @@
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  padding-top: 100px;
+  /* padding-top: 100px; */
   position: relative;
   background-color: white;
+  padding-top: 15px !important;
 }
 
 .quiz_container .quiz_header {
   display: flex;
   align-items: center;
-  gap: 40px;
-  width: 50%;
+  gap: 10px !important;
 }
 
 .quiz_container .quiz_header .close_btn,
@@ -117,6 +117,7 @@
   align-items: center;
   height: 100%;
   display: grid;
+  overflow-y: auto;
 }
 .quiz_container .match_words_question .option {
   font-size: 18px !important;
@@ -351,10 +352,28 @@
   font-size: 20px;
   min-width: fit-content;
 }
+.quiz_container .verify_button_textZone,
+.quiz_container .next_button_textZone {
+  padding: 16px 49px 16px 49px;
+  background-color: #eaeaea;
+  color: rgb(189, 184, 184);
+  border: none;
+  cursor: initial;
+  transition: background-color 0.3s;
+  border-radius: 999px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  font-weight: 600;
+  font-size: 20px;
+  min-width: fit-content;
+}
 
 .quiz_container .verify_button:hover,
 .quiz_container .next_button:hover {
   background-color: #c94503;
+}
+.quiz_container .verify_button_textZone:hover,
+.quiz_container .next_button_textZone:hover {
+  background-color: #eaeaea;
 }
 
 .quiz_container .listen_repeat_container audio {
@@ -498,7 +517,7 @@
   }
 
   .quiz_container .quiz_header {
-    gap: 20px;
+    gap: 10px;
     width: 100%;
     padding: 0 20px;
   }

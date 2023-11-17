@@ -24,8 +24,8 @@ export default function Layout() {
             <div className="row mt-4   ">
               <div className="col-6 col-lg-7 col-xl-8 d-flex justify-content-center position-relative">
                 <section className="sec-lessions d-flex w-100  justify-content-center">
+                  <Topics />
                   <div className="col-card ">
-                    <Topics />
                     <br />
                   </div>
                 </section>

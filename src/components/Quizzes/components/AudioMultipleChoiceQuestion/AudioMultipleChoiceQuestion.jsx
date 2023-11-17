@@ -4,6 +4,7 @@ import { FaPlayCircle } from "react-icons/fa";
 import { IoPauseOutline } from "react-icons/io5";
 import { API_URL } from "../../../../api";
 import shuffleArray from "../../../LearningDashboard/components/functions/ShuffleArray";
+import { HiSpeakerWave } from "react-icons/hi2";
 
 const AudioMultipleChoiceQuestion = ({
   options,
@@ -76,13 +77,22 @@ const AudioMultipleChoiceQuestion = ({
                 src={`${API_URL}/mediaObject/download/${option.audioURL}`}
                 type="audio/mpeg"
               />
-              Your browser does not support the audio element.
-              <PiSpeakerHigh className="audio_icon" />
+              Your browser does not support the audio element.{" "}
+              <HiSpeakerWave size={20} />
             </audio>
 
             <div className="audio_box_icon">
               {activeIndex !== index ? (
-                <FaPlayCircle
+                <HiSpeakerWave
+                  style={{
+                    backgroundColor: "#df3d15",
+                    width: "30px",
+                    height: "30px",
+                    padding: "5px",
+                    borderRadius: "50%",
+                    color: "white",
+                  }}
+                  size={20}
                   className={`audio-icon ${
                     activeIndex === index ? "playing" : ""
                   }`}
