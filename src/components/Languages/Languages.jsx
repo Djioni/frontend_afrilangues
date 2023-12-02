@@ -28,7 +28,7 @@ function Languages() {
 
   const GetLanguages = () => {
     axios
-      .get(`${API_URL}/language/all`)
+      .get(`${API_URL}/language/member`)
       .then((result) => {
         console.log(result.data);
         setLanguageData(result.data);
@@ -114,11 +114,14 @@ function Languages() {
               <h2 className="fw-medium text-white">Je voudrais apprendre le</h2>
             </div>
             <div className="languages-grid-container">
-              {languageData.map((item, index) => (
-                <div key={index} onClick={() => SelectedLanguage(item, index)}>
+              {languageData.map(({ language, member }, index) => (
+                <div
+                  key={index}
+                  onClick={() => SelectedLanguage(language, index)}
+                >
                   <LanguageCard
-                    members={0}
-                    logo={`${API_URL}/mediaObject/download/${item.image}`}
+                    members={member}
+                    logo={`${API_URL}/mediaObject/download/${language.image}`}
                   />
                 </div>
               ))}

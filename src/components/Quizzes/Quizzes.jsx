@@ -52,6 +52,9 @@ import Exercise from "../LearningDashboard/components/Exercise";
 import { CurrentLessonIndexAction } from "./services/actions/CurrentLessonIndexAction";
 import { CurrentSectionIndexAction } from "./services/actions/CurrentSectionIndexAction";
 import { ListenRepeat } from "../LearningDashboard/components/functions/ListenRepeat";
+import MemoryGame from "./components/MemoryGame/MemoryGame";
+import { MemoryGameData } from "../LearningDashboard/components/functions/MemoryGameData";
+import Game from "./components/MemoryGame/Game";
 
 // lesson quiz
 
@@ -291,7 +294,7 @@ const Quizzes = () => {
   const [isNextExerciseTrue, setIsNextExerciseTrue] = useState(false);
   const currentSectionIndex = useSelector((state) => state.currentSectionIndex);
   const currentLessonIndex = useSelector((state) => state.currentLessonIndex);
-
+  const [isMemoryGame, setIsMemoryGame] = useState(false);
   // quizData = quizData[0];
   const content = JSON.parse(localStorage.getItem("content"));
   const navigate = useNavigate();
@@ -1601,6 +1604,7 @@ const Quizzes = () => {
 
           // navigate("/lessons/section/quiz/game");
           dispatch(QuizValidationAction(true));
+          setIsMemoryGame(true);
         }
         if (currentQuiz.type === "PUT_IN_ORDER") {
           localStorage.removeItem("content");
@@ -1674,21 +1678,33 @@ const Quizzes = () => {
         const currentLessonSectionID = localStorage.getItem(
           "currentLessonSectionID"
         );
-        const allFilterSections = [];
+        let allFilterSections = [];
         if (currentAllLessonsectionsData) {
           const currentAllLessonSections = JSON.parse(
             currentAllLessonsectionsData
           );
           console.log("lessonsection", currentAllLessonSections);
           // current data without current
-          currentAllLessonSections.forEach((item, index) => {
-            if (item.id === currentLessonSectionID) {
-              console.log("current", index, item);
-            } else {
-              allFilterSections.push(item);
-            }
-          });
+          // currentAllLessonSections.forEach((item, index) => {
+          //   if (item.id === currentLessonSectionID) {
+          //     console.log("current", index, item);
+          //   } else {
+          //     allFilterSections.push(item);
+          //   }
+          // });
           // navigate next section
+          const currentIndex = currentAllLessonSections.findIndex(
+            (item) => item.id === currentLessonSectionID
+          );
+          // showing next all data base on index
+          if (currentIndex !== -1) {
+            const nextItems = currentAllLessonSections.slice(currentIndex + 1);
+            allFilterSections = nextItems;
+            console.log("next item", nextItems);
+          } else {
+            console.log("Current ID not found in the array");
+          }
+          console.log("current section index", currentIndex);
           console.log("currentSectionIndex", currentSectionIndex);
           if (currentSectionIndex < allFilterSections.length) {
             navigate(
@@ -1704,16 +1720,22 @@ const Quizzes = () => {
             console.log("ready for to to next l");
             const currentLessonID = localStorage.getItem("currentLessonID");
             const currentLessonsData = localStorage.getItem("currentLessons");
-            const filteredCurrentLessons = [];
+            let filteredCurrentLessons = [];
             if (currentLessonsData) {
               const currentLessons = JSON.parse(currentLessonsData);
-              currentLessons.forEach((item, index) => {
-                if (item.id === JSON.parse(currentLessonID)) {
-                  console.log("current", index, item);
-                } else {
-                  filteredCurrentLessons.push(item);
-                }
-              });
+
+              // show next all  lesson base on current lesson index
+              const currentIndex = currentLessons.findIndex(
+                (item) => item.id === currentLessonID
+              );
+              // showing next all data base on index
+              if (currentIndex !== -1) {
+                const nextItems = currentLessons.slice(currentIndex + 1);
+                filteredCurrentLessons = nextItems;
+                console.log("next item", nextItems);
+              } else {
+                console.log("Current ID not found in the array");
+              }
 
               console.log("hello", filteredCurrentLessons);
 
@@ -1976,62 +1998,74 @@ const Quizzes = () => {
         const currentLessonSectionID = localStorage.getItem(
           "currentLessonSectionID"
         );
-        const allFilterSections = [];
+        let allFilterSections = [];
         if (currentAllLessonsectionsData) {
           const currentAllLessonSections = JSON.parse(
             currentAllLessonsectionsData
           );
           console.log("lessonsection", currentAllLessonSections);
           // current data without current
-          currentAllLessonSections.forEach((item, index) => {
-            if (item.id === currentLessonSectionID) {
-              console.log("current", index, item);
-            } else {
-              allFilterSections.push(item);
-            }
-          });
+          // currentAllLessonSections.forEach((item, index) => {
+          //   if (item.id === currentLessonSectionID) {
+          //     console.log("current", index, item);
+          //   } else {
+          //     allFilterSections.push(item);
+          //   }
+          // });
           // navigate next section
+          const currentIndex = currentAllLessonSections.findIndex(
+            (item) => item.id === currentLessonSectionID
+          );
+          // showing next all data base on index
+          if (currentIndex !== -1) {
+            const nextItems = currentAllLessonSections.slice(currentIndex + 1);
+            allFilterSections = nextItems;
+            console.log("next item", nextItems);
+          } else {
+            console.log("Current ID not found in the array");
+          }
+          console.log("current section index", currentIndex);
           console.log("currentSectionIndex", currentSectionIndex);
-          if (currentSectionIndex >= 1) {
-            dispatch(CurrentSectionIndexAction(currentSectionIndex - 1));
-
+          if (currentSectionIndex < allFilterSections.length) {
             navigate(
-              `/lessons/section/exercise/?id=${
-                currentAllLessonSections[currentSectionIndex - 1].id
-              }`
+              `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
             );
+            dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
 
             setIsNextExerciseTrue(true);
             // navigate next Lesson
           } else {
-            if (currentLessonIndex >= 1) {
-              dispatch(CurrentLessonIndexAction(currentLessonIndex - 1)); // Move to the previous lesson index
+            dispatch(CurrentLessonIndexAction(0));
 
-              console.log("ready for to go back");
-              const currentLessonID = localStorage.getItem("currentLessonID");
-              const currentLessonsData = localStorage.getItem("currentLessons");
-              const filteredCurrentLessons = [];
+            console.log("ready for to to next l");
+            const currentLessonID = localStorage.getItem("currentLessonID");
+            const currentLessonsData = localStorage.getItem("currentLessons");
+            let filteredCurrentLessons = [];
+            if (currentLessonsData) {
+              const currentLessons = JSON.parse(currentLessonsData);
 
-              if (currentLessonsData) {
-                const currentLessons = JSON.parse(currentLessonsData);
-                currentLessons.forEach((item, index) => {
-                  if (item.id === JSON.parse(currentLessonID)) {
-                    console.log("current", index, item);
-                  } else {
-                    filteredCurrentLessons.push(item);
-                  }
-                });
+              // show next all  lesson base on current lesson index
+              const currentIndex = currentLessons.findIndex(
+                (item) => item.id === currentLessonID
+              );
+              // showing next all data base on index
+              if (currentIndex !== -1) {
+                const nextItems = currentLessons.slice(currentIndex + 1);
+                filteredCurrentLessons = nextItems;
+                console.log("next item", nextItems);
+              } else {
+                console.log("Current ID not found in the array");
+              }
 
-                console.log("hello", filteredCurrentLessons);
+              console.log("hello", filteredCurrentLessons);
 
-                console.log("currentlessonindex", currentLessonIndex);
-                if (currentLessonIndex > 0) {
-                  navigate(
-                    `/lessons?id=${
-                      currentLessons[currentLessonIndex - 1].theme.id
-                    }`
-                  );
-                }
+              console.log("currentlessonindex", currentLessonIndex);
+              if (currentLessonIndex < filteredCurrentLessons.length) {
+                navigate(
+                  `/lessons?id=${filteredCurrentLessons[currentLessonIndex].theme.id}`
+                );
+
+                dispatch(CurrentLessonIndexAction(currentLessonIndex + 1));
               }
             }
           }
@@ -2294,6 +2328,9 @@ const Quizzes = () => {
 
   if (isDialogExercise) {
     return <Dialogue handlePrevQuestion={handlePrevQuestion} />;
+  }
+  if (isMemoryGame) {
+    return <Game />;
   }
 
   if (isNextExerciseTrue) {

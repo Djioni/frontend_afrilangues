@@ -32,6 +32,7 @@ import Exercise from "../../../../LearningDashboard/components/Exercise";
 import Quizzes from "../../../Quizzes";
 import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
 import { CurrentSectionIndexAction } from "../../../services/actions/CurrentSectionIndexAction";
+import { CurrentLessonIndexAction } from "../../../services/actions/CurrentLessonIndexAction";
 
 const Home = ({ handlePrevQuestion }) => {
   console.log("handleprevquestion", handlePrevQuestion);
@@ -679,9 +680,6 @@ const Home = ({ handlePrevQuestion }) => {
           JSON.stringify(currentExerciseQuestionLength + 1)
         );
       } else {
-        // navigate(-1);
-        console.log("net quest found.");
-
         // handle next section and lesson and topic end
 
         const currentAllLessonsectionsData =
@@ -689,28 +687,79 @@ const Home = ({ handlePrevQuestion }) => {
         const currentLessonSectionID = localStorage.getItem(
           "currentLessonSectionID"
         );
-        const allFilterSections = [];
+        let allFilterSections = [];
         if (currentAllLessonsectionsData) {
           const currentAllLessonSections = JSON.parse(
             currentAllLessonsectionsData
           );
           console.log("lessonsection", currentAllLessonSections);
           // current data without current
-          currentAllLessonSections.forEach((item, index) => {
-            if (item.id === currentLessonSectionID) {
-              console.log("current", index, item);
-            } else {
-              allFilterSections.push(item);
-            }
-          });
+          // currentAllLessonSections.forEach((item, index) => {
+          //   if (item.id === currentLessonSectionID) {
+          //     console.log("current", index, item);
+          //   } else {
+          //     allFilterSections.push(item);
+          //   }
+          // });
           // navigate next section
-          console.log("currentSectionIndex", currentSectionIndex);
-          navigate(
-            `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
+          const currentIndex = currentAllLessonSections.findIndex(
+            (item) => item.id === currentLessonSectionID
           );
+          // showing next all data base on index
+          if (currentIndex !== -1) {
+            const nextItems = currentAllLessonSections.slice(currentIndex + 1);
+            allFilterSections = nextItems;
+            console.log("next item", nextItems);
+          } else {
+            console.log("Current ID not found in the array");
+          }
+          console.log("current section index", currentIndex);
+          console.log("currentSectionIndex", currentSectionIndex);
+          if (currentSectionIndex < allFilterSections.length) {
+            navigate(
+              `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
+            );
+            dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
 
-          dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
-          setIsNextExerciseTrue(true);
+            setIsNextExerciseTrue(true);
+            // navigate next Lesson
+          } else {
+            console.log("ready for go to next lesson");
+            dispatch(CurrentLessonIndexAction(0));
+
+            console.log("ready for to to next l");
+            const currentLessonID = localStorage.getItem("currentLessonID");
+            const currentLessonsData = localStorage.getItem("currentLessons");
+            let filteredCurrentLessons = [];
+            if (currentLessonsData) {
+              const currentLessons = JSON.parse(currentLessonsData);
+
+              // show next all  lesson base on current lesson index
+              const currentIndex = currentLessons.findIndex(
+                (item) => item.id === currentLessonID
+              );
+              // showing next all data base on index
+              if (currentIndex !== -1) {
+                const nextItems = currentLessons.slice(currentIndex + 1);
+                filteredCurrentLessons = nextItems;
+                console.log("next item", nextItems);
+              } else {
+                console.log("Current ID not found in the array");
+              }
+
+              console.log("hello", filteredCurrentLessons);
+
+              console.log("currentlessonindex", currentLessonIndex);
+              if (currentLessonIndex < filteredCurrentLessons.length) {
+                navigate(
+                  `/lessons?id=${filteredCurrentLessons[currentLessonIndex].theme.id}`
+                );
+
+                dispatch(CurrentLessonIndexAction(currentLessonIndex + 1));
+              } else {
+              }
+            }
+          }
         }
 
         // handle next section and lesson and topic end
@@ -1425,7 +1474,6 @@ const Home = ({ handlePrevQuestion }) => {
           }
           console.log(activeQuestion.questions.length < currentQuestionID + 1);
         } else {
-          console.log("more question not found!");
           // handle next section and lesson and topic end
 
           const currentAllLessonsectionsData =
@@ -1433,29 +1481,79 @@ const Home = ({ handlePrevQuestion }) => {
           const currentLessonSectionID = localStorage.getItem(
             "currentLessonSectionID"
           );
-          console.log("data found", currentAllLessonsectionsData);
-          const allFilterSections = [];
+          let allFilterSections = [];
           if (currentAllLessonsectionsData) {
             const currentAllLessonSections = JSON.parse(
               currentAllLessonsectionsData
             );
             console.log("lessonsection", currentAllLessonSections);
             // current data without current
-            currentAllLessonSections.forEach((item, index) => {
-              if (item.id === currentLessonSectionID) {
-                console.log("current", index, item);
-              } else {
-                allFilterSections.push(item);
-              }
-            });
+            // currentAllLessonSections.forEach((item, index) => {
+            //   if (item.id === currentLessonSectionID) {
+            //     console.log("current", index, item);
+            //   } else {
+            //     allFilterSections.push(item);
+            //   }
+            // });
             // navigate next section
-            console.log("currentSectionIndex", currentSectionIndex);
-            navigate(
-              `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
+            const currentIndex = currentAllLessonSections.findIndex(
+              (item) => item.id === currentLessonSectionID
             );
+            // showing next all data base on index
+            if (currentIndex !== -1) {
+              const nextItems = currentAllLessonSections.slice(
+                currentIndex + 1
+              );
+              allFilterSections = nextItems;
+              console.log("next item", nextItems);
+            } else {
+              console.log("Current ID not found in the array");
+            }
+            console.log("current section index", currentIndex);
+            console.log("currentSectionIndex", currentSectionIndex);
+            if (currentSectionIndex < allFilterSections.length) {
+              navigate(
+                `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
+              );
+              dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
 
-            dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
-            setIsNextExerciseTrue(true);
+              setIsNextExerciseTrue(true);
+              // navigate next Lesson
+            } else {
+              dispatch(CurrentLessonIndexAction(0));
+
+              console.log("ready for to to next l");
+              const currentLessonID = localStorage.getItem("currentLessonID");
+              const currentLessonsData = localStorage.getItem("currentLessons");
+              let filteredCurrentLessons = [];
+              if (currentLessonsData) {
+                const currentLessons = JSON.parse(currentLessonsData);
+
+                // show next all  lesson base on current lesson index
+                const currentIndex = currentLessons.findIndex(
+                  (item) => item.id === currentLessonID
+                );
+                // showing next all data base on index
+                if (currentIndex !== -1) {
+                  const nextItems = currentLessons.slice(currentIndex + 1);
+                  filteredCurrentLessons = nextItems;
+                  console.log("next item", nextItems);
+                } else {
+                  console.log("Current ID not found in the array");
+                }
+
+                console.log("hello", filteredCurrentLessons);
+
+                console.log("currentlessonindex", currentLessonIndex);
+                if (currentLessonIndex < filteredCurrentLessons.length) {
+                  navigate(
+                    `/lessons?id=${filteredCurrentLessons[currentLessonIndex].theme.id}`
+                  );
+
+                  dispatch(CurrentLessonIndexAction(currentLessonIndex + 1));
+                }
+              }
+            }
           }
 
           // handle next section and lesson and topic end
@@ -1534,12 +1632,12 @@ const Home = ({ handlePrevQuestion }) => {
             {/* Dialouge here */}
             <Modal show={true} onHide={toggleDialouge} fullscreen={true}>
               {/* prev and next  */}
-              <div className="prev_arrow" onClick={() => handlePrevQuest()}>
+              {/* <div className="prev_arrow" onClick={() => handlePrevQuest()}>
                 <BiSolidLeftArrow />
               </div>
               <div className="next_arrow" onClick={() => handleNextQuestion()}>
                 <BiSolidRightArrow />
-              </div>
+              </div> */}
               <div>
                 {" "}
                 <div className="w-100">
@@ -1674,6 +1772,16 @@ const Home = ({ handlePrevQuestion }) => {
                     : ""
                 }`}
               >
+                {/* prev and next  */}
+                <div className="prev_arrow" onClick={() => handlePrevQuest()}>
+                  <BiSolidLeftArrow />
+                </div>
+                <div
+                  className="next_arrow"
+                  onClick={() => handleNextQuestion()}
+                >
+                  <BiSolidRightArrow />
+                </div>
                 <div
                   className={`wrong-close ${isRightShowCloseOpen}`}
                   onClick={HandleWrongClose}
@@ -1681,16 +1789,6 @@ const Home = ({ handlePrevQuestion }) => {
                   <AiOutlineClose className="icon" />
                 </div>
                 <div className={`container verification_box ${footerBoxClass}`}>
-                  {/* prev and next  */}
-                  <div className="prev_arrow" onClick={() => handlePrevQuest()}>
-                    <BiSolidLeftArrow />
-                  </div>
-                  <div
-                    className="next_arrow"
-                    onClick={() => handleNextQuestion()}
-                  >
-                    <BiSolidRightArrow />
-                  </div>
                   <div className="quiz_avatar_box">
                     {answerCorrect === null ? (
                       <>
