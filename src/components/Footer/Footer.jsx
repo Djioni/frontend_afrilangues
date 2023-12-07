@@ -75,13 +75,13 @@ const Footer = () => {
             <p>Conditions</p>
             <ul>
               <li>
-                <a href="#">Terms of Sales</a>
+                <a href="#">Conditions de vente</a>
               </li>
               <li>
-                <a href="#">Terms of use</a>
+                <a href="#">Conditions d'utilisations</a>
               </li>
               <li>
-                <a href="#">Privacy</a>
+                <a href="#">Confidentialité</a>
               </li>
             </ul>
           </div>

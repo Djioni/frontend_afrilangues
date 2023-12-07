@@ -1,15 +1,15 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import "./ErrorModal.css";
-const ErrorModal = ({ open, setOpen, error, actionText }) => {
+const ErrorModal = ({ open, setOpen, error, actionText, title }) => {
   return (
     <section id="err-m" className="">
       <Modal id="err-m-content" show={open} onHide={setOpen}>
         <div className="p-3 box">
           {" "}
-          <h5>Erreur</h5>
+          <h5 style={{ fontWeight: "600" }}>{title || "Erreur"}</h5>
           <Modal.Body>
-            <p style={{ color: "#1a9900" }} className="fw-bold">
+            <p style={{ color: "#1a9900", fontWeight: "300" }} className="">
               {error}
             </p>
           </Modal.Body>

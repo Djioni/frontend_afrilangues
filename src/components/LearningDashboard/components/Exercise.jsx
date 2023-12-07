@@ -573,7 +573,8 @@ export default function Exercise({ handlePrevQuestion }) {
     return (
       <ErrorModal
         open={true}
-        error="Exercice introuvable!"
+        error="Cette section est vide pour l'instant. Continuez et revenez plus tard.        "
+        title={"SECTION VIDE"}
         actionText={"Continuer"}
         setOpen={toggleModal}
       />
