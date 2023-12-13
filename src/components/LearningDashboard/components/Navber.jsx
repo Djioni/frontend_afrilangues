@@ -98,7 +98,7 @@ export default function Navber() {
     localStorage.clear();
     Cookies.set("token", "");
     Cookies.set("id", "");
-    successSound.play();
+    // successSound.play();
     toast.success("Déconnexion réussie!👌", {
       position: "top-right",
       autoClose: 1000,
@@ -114,7 +114,7 @@ export default function Navber() {
       Cookies.remove("token");
       Cookies.remove("id");
       localStorage.clear();
-      navigate("/home");
+      navigate("/");
     }, 2000);
   };
 

@@ -67,6 +67,9 @@ const Login = () => {
       setIsPageLoding(false);
     }
   };
+  useEffect(() => {
+    RedirectDashboard();
+  }, []);
 
   // redirect dashboard section (end)
 
@@ -140,7 +143,7 @@ const Login = () => {
             Cookies.set("token", JSON.stringify(token), { expires: 7 });
             Cookies.set("id", JSON.stringify(id), { expires: 7 });
             sessionStorage.clear();
-            successSound.play();
+            // successSound.play();
             setIsLoading(false);
             toast.success("Connexion réussie!!!!!!👌", {
               position: "top-right",
@@ -203,7 +206,15 @@ const Login = () => {
   const toggleModal = () => {
     setShowModal((prevValue) => !prevValue);
   };
-  return (
+
+  if (isPageLoading) {
+    return (
+      <div>
+        <Loading message="S'il vous plaît, attendez" page={true} />
+      </div>
+    );
+  }
+  if (!isPageLoading || !userToken)
     <div>
       {isPageLoading ? (
         <Loading message="S'il vous plaît, attendez" page={true} />
@@ -346,8 +357,7 @@ const Login = () => {
         pauseOnHover
         theme="light"
       />
-    </div>
-  );
+    </div>;
 };
 
 export default Login;

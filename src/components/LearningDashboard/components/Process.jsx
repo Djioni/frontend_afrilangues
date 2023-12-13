@@ -67,7 +67,7 @@ export default function Process() {
             {/* div-lavel-box */}
             <div className="row">
               <div className="col-4">
-                <h3>Progression</h3>
+                <h3>PROGRESSION</h3>
               </div>
 
               <div className="col-8 d-flex justify-content-end ">
@@ -76,14 +76,18 @@ export default function Process() {
                 </div>
               </div>
             </div>
-            <div className="mt-5">
+            <div style={{ paddingTop: "23px" }}>
               <div>
                 <ProcessPercent />
               </div>
             </div>
-            <div className="dash-border">
-              <img src="/assets/line.svg" className="img-fluid" alt="" />
-            </div>
+            <div
+              style={{
+                borderBottomWidth: "2px",
+                borderStyle: "dashed",
+                borderBottomColor: "lightgray",
+              }}
+            ></div>
           </div>
           <div>
             <DailyGoals />

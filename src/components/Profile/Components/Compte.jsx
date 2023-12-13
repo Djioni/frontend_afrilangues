@@ -48,10 +48,10 @@ function Compte() {
         className="mb-3"
         style={{ backgroundColor: "white", width: "100%", textAlign: "left" }}
       >
-        <Link to="http://162.213.249.50:3000/auth/register">
+        <Link to="/change-language">
           <Button size="md" style={buttonStyle}>
             <BsGlobe2 style={iconStyle} />
-            Mon cours
+            Commencer une nouvelle langue
           </Button>
         </Link>
       </div>

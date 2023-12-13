@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
@@ -75,13 +76,13 @@ const Footer = () => {
             <p>Conditions</p>
             <ul>
               <li>
-                <a href="#">Conditions de vente</a>
+                <a href="/condition-of-sale">Conditions de vente</a>
               </li>
               <li>
-                <a href="#">Conditions d'utilisations</a>
+                <a href="/terms-of-use">Mentions légales</a>
               </li>
               <li>
-                <a href="#">Confidentialité</a>
+                <a href={"/confidentiality"}>Confidentialité</a>
               </li>
             </ul>
           </div>
@@ -90,22 +91,26 @@ const Footer = () => {
 
             <ul>
               <li>
-                <a href="#">Instagram</a>
+                <a href="https://www.instagram.com/afrilangues/">Instagram</a>
               </li>
               <li>
-                <a href="#">Facebook</a>
+                <a href="https://www.facebook.com/afrilangues">Facebook</a>
               </li>
               <li>
-                <a href="#">LinkedIn</a>
+                <a href="https://www.linkedin.com/company/afrilangues/?viewAsMember=true ">
+                  LinkedIn
+                </a>
               </li>
               <li>
-                <a href="#">Youtube</a>
+                <a href="https://www.youtube.com/channel/UCeB4UPA38S2hscm54e9gvhg">
+                  Youtube
+                </a>
               </li>
               <li>
-                <a href="#">Twitter</a>
+                <a href="https://twitter.com/afrilangues">Twitter</a>
               </li>
               <li>
-                <a href="#">Tik tok</a>
+                <a href="https://www.pinterest.fr/afrilangues/ ">Pinterest</a>
               </li>
             </ul>
           </div>

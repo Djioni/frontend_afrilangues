@@ -9,9 +9,8 @@ export default function DailyGoals() {
     <div id="d-goals">
       <div>
         <div>
-          <h3 className="h3-1">Objectif quotidiens :</h3>
+          <h3 className="h3-1">OBJECTIF QUOTIDIEN :</h3>
           <div className="hours">
-            <small>Objectif quotidien</small>
             <div className="progress">
               <div
                 className="progress-bar"
@@ -23,25 +22,45 @@ export default function DailyGoals() {
               ></div>
             </div>
           </div>
+          <div style={{ marginTop: "40px" }}>
+            <div
+              style={{
+                borderBottomWidth: "2px",
+                borderStyle: "dashed",
+                borderBottomColor: "lightgray",
+              }}
+            ></div>
+          </div>
           <div className="earn ">
-            <h3> Cauris gagnés :</h3>
+            <h3> CIWARA GAGNÉS :</h3>
             <div className="earn-pa">
               <div>
                 <div className="image-1">
                   <img className="" src="/assets/ppdille2.svg" alt="" />
                 </div>
                 <div>
-                  <small>{ciwara} CIWARA</small>{" "}
+                  <small className="ciwra_text">{ciwara} CIWARA</small>{" "}
                 </div>
               </div>
+              <div style={{ paddingTop: "20px" }}>
+                <div
+                  style={{
+                    borderBottomWidth: "2px",
+                    borderStyle: "dashed",
+                    borderBottomColor: "lightgray",
+                  }}
+                ></div>
+              </div>
+
               <div>
+                <h3> CAURIS GAGNÉS :</h3>
                 <div className="">
                   <img className="image-1" src="/assets/e.svg" alt="" />
                 </div>
                 <div>
                   <img src="" alt="" />
                   <div>
-                    <small>{point} pieces</small>
+                    <small>{point} PIECES</small>
                   </div>
                 </div>
               </div>

@@ -10,6 +10,7 @@ import { API_URL } from "../../api";
 import axios from "axios";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
 
 function Languages() {
   const { language } = useSelector((state) => state.language);
@@ -18,6 +19,8 @@ function Languages() {
   const [selectLan, setSelectlan] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState("");
   console.log("language!", language);
+  const userToken = Cookies.get("token");
+  const usertID = Cookies.get("id");
 
   const navigate = useNavigate();
 
@@ -44,23 +47,32 @@ function Languages() {
   //user data
   const cookies = Cookies.get("user");
   const RedirectDashboard = () => {
-    if (cookies) {
-      const userData = JSON.parse(cookies);
-      if (
-        userData.email &&
-        userData.id &&
-        userData.token &&
-        userData.username
-      ) {
+    //
+
+    //
+    if (userToken && usertID) {
+      const tokenLength = JSON.parse(userToken).length;
+      const idLength = JSON.parse(usertID).length;
+
+      if (tokenLength > TOKEN_LENGTH && idLength > ID_LENGTH) {
         console.log("direct dashboard");
+
         navigate("/dashboard");
+      } else {
+        setIsPageLoading(false);
       }
+    } else {
+      setIsPageLoading(false);
     }
   };
 
   useEffect(() => {
-    GetLanguages();
+    console.log("hello world");
     RedirectDashboard();
+  }, []);
+  useEffect(() => {
+    GetLanguages();
+
     return () => {
       console.log("unmount");
     };
@@ -91,7 +103,9 @@ function Languages() {
 
   if (selectLan && currentLanguage) {
     return <Register />;
-  } else {
+  }
+
+  if (!userToken && !isPageLoading) {
     return (
       <div>
         <div className="back-button"></div>

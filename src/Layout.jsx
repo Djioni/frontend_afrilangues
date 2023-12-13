@@ -32,6 +32,13 @@ import EditMonProfil from "./components/Profile/Components/EditMonProfil";
 import Propos from "./components/Profile/Components/Propos";
 import OnboardingTotorials from "./components/LearningDashboard/components/onboardingTutorials/OnboardingTotorials";
 
+import {
+  ConditionOfSale,
+  Confidentiality,
+  TermsOfUse,
+} from "./components/Home/components";
+import ChangeLanguage from "./components/LearningDashboard/components/changeLanguage/ChangeLanguage";
+
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
   const [isLearningDashboardOpen, setIsDashBoardOpen] = useState(true);
@@ -101,11 +108,11 @@ export default function Layout() {
     }
 
     if (
-      !location.pathname.includes("home") &&
-      !location.pathname.includes("auth") &&
-      !location.pathname.includes("register") &&
-      !location.pathname.includes("forgetpassword") &&
-      !location.pathname.includes("reset") &&
+      !location.pathname.length === 1 ||
+      !location.pathname.includes("auth") ||
+      !location.pathname.includes("register") ||
+      !location.pathname.includes("forgetpassword") ||
+      !location.pathname.includes("reset") ||
       !quizValidate
     ) {
       setIsDashBoardOpen(true);
@@ -124,18 +131,12 @@ export default function Layout() {
 
       <Routes>
         {/* public routes */}
+        <Route path="/" element={<Home />} />
 
         <Route
           path="/"
-          element={
-            <Navigate
-              to={userToken && usertID ? "/dashboard" : "/home"}
-              replace
-            />
-          }
+          element={<Navigate to={userToken && usertID ? "/dashboard" : "/"} />}
         />
-
-        <Route path="/home" element={<Home />} />
 
         {/* auth routes */}
         <Route path="/auth/login" element={<Login />} />
@@ -164,6 +165,7 @@ export default function Layout() {
         />
         {/* dashboard routes */}
         <Route path="/dashboard" element={<LearningDashboard />} />
+        <Route path="/change-language" element={<ChangeLanguage />} />
 
         <Route path="/onboarding-tutorials" element={<OnboardingTotorials />} />
 
@@ -236,6 +238,30 @@ export default function Layout() {
           element={
             <div className="">
               <TestParams />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/condition-of-sale"
+          element={
+            <div className="">
+              <ConditionOfSale />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/confidentiality"
+          element={
+            <div className="">
+              <Confidentiality />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/terms-of-use"
+          element={
+            <div className="">
+              <TermsOfUse />
             </div>
           }
         ></Route>

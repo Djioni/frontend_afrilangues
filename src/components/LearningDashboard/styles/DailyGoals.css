@@ -1,5 +1,5 @@
 #d-goals {
-  margin-top: 15px;
+  margin-top: 30px;
   font-family: "Poppins", sans-serif;
 }
 #d-goals .h3 {
@@ -11,7 +11,7 @@
   text-transform: capitalize;
 }
 #d-goals .hours {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 #d-goals .hours small {
@@ -31,12 +31,14 @@
 }
 
 #d-goals .earn h3 {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 #d-goals .earn-pa {
-  margin-top: 50px;
+  margin-top: 30px;
 }
-
+.ciwra_text {
+  transform: translateY(-55px) !important;
+}
 #d-goals .earn-pa small {
   color: #000;
   font-family: "Poppins", sans-serif;
@@ -65,6 +67,7 @@
   border-radius: 10px;
   border: none;
   background-color: white;
+  overflow-y: scroll;
 }
 
 #d-goals .ranking .active button {
@@ -76,10 +79,10 @@
   margin-top: 32px;
 }
 #d-goals .ranking .r-box {
-  margin-top: 70px;
+  margin-top: 40px;
 }
 #d-goals .rank-1 button {
-  margin-top: 30px;
+  margin-top: 25px;
   border-radius: 0;
   width: 200px;
   padding: 5px 15px;

@@ -33,11 +33,17 @@ body {
   width: 98%;
   border-radius: 30px;
   position: absolute;
-  height: 1340px;
+  height: 1400px;
+
   display: flex;
   justify-content: center;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
+}
+.sec-process {
+  border-radius: 30px;
+  background-color: white;
+  height: 1400px;
 }
 
 .sec-m-process {
@@ -55,11 +61,6 @@ body {
   display: flex;
   justify-content: center;
   border-radius: 10px;
-}
-
-.sec-process {
-  border-radius: 30px;
-  background-color: white;
 }
 
 @media only screen and (max-width: 1616px) {

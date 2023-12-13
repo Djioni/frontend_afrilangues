@@ -1,15 +1,25 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 
-export default function RankUsers(props) {
-  const { rankuserData } = props;
+export default function RankUsers({ rankuserData }) {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    setData(rankuserData);
+    console.log("from", rankuserData);
+  }, [rankuserData]);
   return (
     <div>
-      {rankuserData.map((result) => (
-        <div className="rank-1 d-flex" key={result.id}>
+      {data?.map((result, index) => (
+        <div className="rank-1 d-flex" key={index}>
           <div className="d-inline-block">
-            <button className="d-flex d-flex rf-btn justify-content-between align-items-center ">
+            <button
+              style={index === 0 ? { marginTop: "10px" } : null}
+              className="d-flex d-flex rf-btn justify-content-between align-items-center "
+            >
               <div className="id">
-                <span>{result.id}</span>
+                <span>{index + 1 < 10 ? `0${index + 1}` : index + 1}</span>
               </div>
               <div>
                 <img src="/assets/path346.svg" alt="" />
@@ -74,7 +84,10 @@ export default function RankUsers(props) {
             </button>
           </div>
 
-          <button className="d-inline-block rf-btn-2 number">
+          <button
+            className="d-inline-block rf-btn-2 number"
+            style={index === 0 ? { marginTop: "10px" } : null}
+          >
             {result.number}
           </button>
         </div>

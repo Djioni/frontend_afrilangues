@@ -1,3 +1,10 @@
+import {
+  Route,
+  Routes,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 // ======= IMPORTING COMPONENTS FROM components FOLDER =======
 import { useEffect } from "react";
 import { Footer, Navigation } from "../index";
@@ -17,6 +24,7 @@ import {
 import { useDispatch } from "react-redux";
 import { CurrentPathAction } from "../LearningDashboard/services/actions/CurrentPathAction";
 import NewsLetter from "./components/newsletter/NewsLetter";
+import ConditionOfSale from "./pages/ConditionOfSale";
 
 const Home = () => {
   const disPatch = useDispatch();

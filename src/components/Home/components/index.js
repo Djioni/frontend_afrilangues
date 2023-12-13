@@ -7,6 +7,9 @@ import FrequentlyQuestions from "./FrequentlyQuestions/FrequentlyQuestions";
 import Media from "./Media/Media";
 import Subscribe from "./Subscribe/Subscribe";
 import CoursePlan from "./plan-section/CoursePlan";
+import ConditionOfSale from "../pages/ConditionOfSale";
+import Confidentiality from "../pages/Confidentiality";
+import TermsOfUse from "../pages/TermsOfUse";
 
 export {
   Banner,
@@ -18,4 +21,7 @@ export {
   FrequentlyQuestions,
   Media,
   Subscribe,
+  ConditionOfSale,
+  Confidentiality,
+  TermsOfUse,
 };
