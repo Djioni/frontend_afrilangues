@@ -95,6 +95,7 @@ export default function Navber() {
   };
 
   const handleLogout = () => {
+    setProfileToggle("");
     localStorage.clear();
     Cookies.set("token", "");
     Cookies.set("id", "");
@@ -151,7 +152,7 @@ export default function Navber() {
                 if (userToken && ID) {
                   navigate("/dashboard");
                 } else {
-                  navigate("/home");
+                  navigate("/");
                 }
               }}
             >

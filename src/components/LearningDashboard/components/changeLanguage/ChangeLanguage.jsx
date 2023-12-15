@@ -112,7 +112,7 @@ function ChangeLanguage() {
         >
           <div
             className="h-auto w-100 d-flex flex-column gap-5 align-items-center justify-content-start mx-auto rounded-4 slide-in"
-            style={{ marginTop: "110px" }}
+            style={{ marginTop: "105px" }}
           >
             <div
               className="position-relative"
@@ -125,7 +125,7 @@ function ChangeLanguage() {
               />
             </div>
             <div className="page-title">
-              <h2 className="fw-medium text-white">Je voudrais apprendre le</h2>
+              <h3 className="fw-medium text-white">Je voudrais apprendre le</h3>
             </div>
             <div className="languages-grid-container">
               {languageData.map(({ language, member }, index) => (

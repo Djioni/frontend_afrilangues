@@ -20,6 +20,7 @@ import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
 import "../../App.css";
 import { GetLanguageAction } from "../Languages/services/actions/LanguageAction";
 import Languages from "../Languages/Languages";
+import Navigation from "../Navigation/Navigation";
 const Register = () => {
   const { language } = useSelector((state) => state.language);
   const displathLanguage = useDispatch();
@@ -218,6 +219,7 @@ const Register = () => {
   if (language) {
     return (
       <div>
+        <Navigation />
         {isPageLoading ? (
           <Loading page={true} message={"S'il vous plaît, attendez"} />
         ) : (
@@ -225,7 +227,10 @@ const Register = () => {
             className="w-100 h-100 d-flex flex-column justify-content-center  align-items-center rounded-4"
             style={{ minHeight: "100vh", background: "#F6F6F6" }}
           >
-            <div className="d-lg-grid h-auto mx-auto rounded-4 register-grid-container slide-in">
+            <div
+              className="d-lg-grid h-auto mx-auto rounded-4 register-grid-container slide-in"
+              style={{ marginTop: "110px" }}
+            >
               {/* left section */}
               <form
                 onSubmit={handleSubmit}

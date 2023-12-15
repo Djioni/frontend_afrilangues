@@ -11,3 +11,8 @@
   right: 5px;
   cursor: pointer;
 }
+
+.user-img-wrapper .user-img img {
+  height: 150px;
+  transform: translateY(-20px);
+}

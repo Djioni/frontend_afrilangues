@@ -10,7 +10,7 @@ import Languages from "./components/Languages/Languages";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import ErrorModal from "./components/ErrorModal";
-import { Home, LearningDashboard, Quizzes } from "./components";
+import { Home, LearningDashboard, Navigation, Quizzes } from "./components";
 import Navber from "./components/LearningDashboard/components/Navber";
 import GrettingLesson from "./components/LearningDashboard/components/Lessons";
 import LessonSection from "./components/LearningDashboard/components/LessonSection";
@@ -42,11 +42,15 @@ import ChangeLanguage from "./components/LearningDashboard/components/changeLang
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
   const [isLearningDashboardOpen, setIsDashBoardOpen] = useState(true);
+
+  const [isHomePageNavigation, setIsHomePageNavigation] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { questions } = useSelector((state) => state.questions);
   const quizValidate = useSelector((state) => state.quizValidate);
+
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const userToken = Cookies.get("token");
   const usertID = Cookies.get("id");
 
@@ -108,26 +112,30 @@ export default function Layout() {
     }
 
     if (
-      !location.pathname.length === 1 ||
-      !location.pathname.includes("auth") ||
-      !location.pathname.includes("register") ||
-      !location.pathname.includes("forgetpassword") ||
-      !location.pathname.includes("reset") ||
-      !quizValidate
+      location.pathname.length === 1 ||
+      location.pathname.includes("register") ||
+      location.pathname.includes("auth") ||
+      location.pathname.includes("forgetpassword") ||
+      location.pathname.includes("reset") ||
+      quizValidate
     ) {
-      setIsDashBoardOpen(true);
-    } else {
       setIsDashBoardOpen(false);
+      setIsPageLoading(false);
+      setIsHomePageNavigation(true);
+    } else {
+      setIsDashBoardOpen(true);
+      setIsPageLoading(false);
+      setIsHomePageNavigation(false);
     }
   }, [location.pathname, setIsDashBoardOpen, quizValidate]);
 
   return (
     <div>
-      {isLearningDashboardOpen && (
+      {isLearningDashboardOpen && !isPageLoading ? (
         <section className="sec-nav">
           <Navber />
         </section>
-      )}
+      ) : null}
 
       <Routes>
         {/* public routes */}

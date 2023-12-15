@@ -11,6 +11,7 @@ import axios from "axios";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
+import Navigation from "../Navigation/Navigation";
 
 function Languages() {
   const { language } = useSelector((state) => state.language);
@@ -108,12 +109,16 @@ function Languages() {
   if (!userToken && !isPageLoading) {
     return (
       <div>
+        <Navigation />
         <div className="back-button"></div>
         <div
           className="w-100 h-100 d-flex flex-column justify-content-start align-items-center rounded-4 py-4 px-4"
           style={{ minHeight: "100vh", background: "#F6F6F6" }}
         >
-          <div className="h-auto w-100 d-flex flex-column gap-5 align-items-center justify-content-start mx-auto rounded-4 slide-in">
+          <div
+            className="h-auto w-100 d-flex flex-column gap-5 align-items-center justify-content-start mx-auto rounded-4 slide-in"
+            style={{ marginTop: "105px" }}
+          >
             <div
               className="position-relative"
               style={{ height: "100px", width: "105px" }}
@@ -125,7 +130,7 @@ function Languages() {
               />
             </div>
             <div className="page-title">
-              <h2 className="fw-medium text-white">Je voudrais apprendre le</h2>
+              <h3 className="fw-medium text-white">Je voudrais apprendre le</h3>
             </div>
             <div className="languages-grid-container">
               {languageData.map(({ language, member }, index) => (

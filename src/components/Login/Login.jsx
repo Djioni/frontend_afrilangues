@@ -24,6 +24,7 @@ import Cookies from "js-cookie";
 import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
 import "../../App.css";
 import { CurrentPathAction } from "../LearningDashboard/services/actions/CurrentPathAction";
+import Navigation from "../Navigation/Navigation";
 const Login = () => {
   const disPatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
@@ -67,10 +68,10 @@ const Login = () => {
       setIsPageLoding(false);
     }
   };
+
   useEffect(() => {
     RedirectDashboard();
   }, []);
-
   // redirect dashboard section (end)
 
   // souonds
@@ -166,8 +167,6 @@ const Login = () => {
               navitate("/lessons/section/");
             } else {
               navitate("/dashboard");
-              /// path exercise lesson and section
-              localStorage.setItem("currentSectionIndex", JSON.stringify(0));
             }
           }
         })
@@ -206,59 +205,56 @@ const Login = () => {
   const toggleModal = () => {
     setShowModal((prevValue) => !prevValue);
   };
-
-  if (isPageLoading) {
+  if (!userToken) {
     return (
       <div>
-        <Loading message="S'il vous plaît, attendez" page={true} />
-      </div>
-    );
-  }
-  if (!isPageLoading || !userToken)
-    <div>
-      {isPageLoading ? (
-        <Loading message="S'il vous plaît, attendez" page={true} />
-      ) : (
-        <div
-          className="w-100 h-100 d-flex flex-column justify-content-center  align-items-center rounded-4 "
-          style={{ minHeight: "100vh", background: "#F6F6F6" }}
-        >
-          <div className="d-lg-grid h-auto mx-auto rounded-4 login-grid-container slide-in">
-            {/* left section */}
-            <form
-              onSubmit={handleSubmit}
-              className="h-100 d-flex flex-column flex-grow-1 justify-content-center align-items-center gap-2 p-lg-5 p-2 login-left-section"
-            >
-              <div className="d-flex align-items-center justify-content-center rounded-circle user-img-wrapper p-4">
-                <div className=" position-relative user-img">
-                  <img
-                    src={"/assets/user.png"}
-                    alt=""
-                    className="w-100 h-100 object-fit-fill "
-                  />
+        <Navigation />
+        {isPageLoading && !userToken ? (
+          <Loading message="S'il vous plaît, attendez" page={true} />
+        ) : (
+          <div
+            className="w-100 h-100 d-flex flex-column justify-content-center  align-items-center rounded-4 "
+            style={{ minHeight: "100vh", background: "#F6F6F6" }}
+          >
+            <div className="d-lg-grid h-auto mx-auto rounded-4 login-grid-container slide-in">
+              {/* left section */}
+              <form
+                onSubmit={handleSubmit}
+                className="h-100 d-flex flex-column flex-grow-1 justify-content-center align-items-center gap-2 p-lg-5 p-2 login-left-section"
+              >
+                <div
+                  className="d-flex align-items-center justify-content-center rounded-circle user-img-wrapper p-4"
+                  style={{ overflow: "hidden" }}
+                >
+                  <div className=" position-relative user-img">
+                    <img
+                      src={"/assets/onboy.png"}
+                      alt=""
+                      className=" object-fit-fill "
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="w-100 d-flex flex-column align-items-center justify-content-center gap-2 mb-4">
-                <div className="eye_box">
-                  <TextInput
-                    name="email"
-                    value={inputs.email}
-                    setValue={handleInputs}
-                    type={emailInputType} // Dynamically set input type
-                    placeholder="Votre e-mail ou nom d'utilisateur"
-                    icon={<HiOutlineMail className="input-icon" />}
-                    required={false}
-                    // Add an eye icon to toggle email/username visibility
-                    suffix={
-                      <span
-                        className="password-toggle-icon"
-                        onClick={toggleEmailVisibility}
-                      >
-                        {showEmail ? <HiOutlineEyeOff /> : <HiOutlineEye />}
-                      </span>
-                    }
-                  />
-                  {/* <div className="eye_icon">
+                <div className="w-100 d-flex flex-column align-items-center justify-content-center gap-2 mb-4">
+                  <div className="eye_box">
+                    <TextInput
+                      name="email"
+                      value={inputs.email}
+                      setValue={handleInputs}
+                      type={emailInputType} // Dynamically set input type
+                      placeholder="Votre e-mail ou nom d'utilisateur"
+                      icon={<HiOutlineMail className="input-icon" />}
+                      required={false}
+                      // Add an eye icon to toggle email/username visibility
+                      suffix={
+                        <span
+                          className="password-toggle-icon"
+                          onClick={toggleEmailVisibility}
+                        >
+                          {showEmail ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                        </span>
+                      }
+                    />
+                    {/* <div className="eye_icon">
                     <span
                       className="password-toggle-icon "
                       onClick={toggleEmailVisibility}
@@ -266,98 +262,104 @@ const Login = () => {
                       {showEmail ? <HiOutlineEyeOff /> : <HiOutlineEye />}
                     </span>
                   </div> */}
-                </div>
-
-                <div className="eye_box">
-                  <TextInput
-                    name="password"
-                    value={inputs.password}
-                    setValue={handleInputs}
-                    type={passwordInputType} // Dynamically set input type
-                    placeholder="Mot de passe"
-                    icon={<HiOutlineLockClosed className="input-icon" />}
-                    required={false}
-                    // Add an eye icon to toggle password visibility
-                  />
-                  <div className="eye_icon">
-                    <span
-                      className="password-toggle-icon"
-                      onClick={togglePasswordVisibility}
-                    >
-                      {showPassword ? <AiOutlineEyeInvisible /> : <AiFillEye />}
-                    </span>
                   </div>
-                </div>
-              </div>
 
-              <button
-                type="submit"
-                className="mainGradient border-0 py-2 rounded-3 text-white language-btn"
-              >
-                Connexion{" "}
-                {isLoading && (
-                  <div className="px-1 d-inline-block">
-                    <div
-                      class="spinner-border spinner-border-sm"
-                      style={{ height: "15px", width: "15px" }}
-                      role="status"
-                    >
-                      <span class="visually-hidden">Loading...</span>
+                  <div className="eye_box">
+                    <TextInput
+                      name="password"
+                      value={inputs.password}
+                      setValue={handleInputs}
+                      type={passwordInputType} // Dynamically set input type
+                      placeholder="Mot de passe"
+                      icon={<HiOutlineLockClosed className="input-icon" />}
+                      required={false}
+                      // Add an eye icon to toggle password visibility
+                    />
+                    <div className="eye_icon">
+                      <span
+                        className="password-toggle-icon"
+                        onClick={togglePasswordVisibility}
+                      >
+                        {showPassword ? (
+                          <AiOutlineEyeInvisible />
+                        ) : (
+                          <AiFillEye />
+                        )}
+                      </span>
                     </div>
                   </div>
-                )}
-              </button>
+                </div>
 
-              <div className="w-100 d-flex flex-column align-items-center justify-content-center gap-1">
-                <NavLink
-                  to="/forgetpassword"
-                  className="text-center text-decoration-none text-black"
+                <button
+                  type="submit"
+                  className="mainGradient border-0 py-2 rounded-3 text-white language-btn"
                 >
-                  Mot de passe oublié ?
-                </NavLink>
-                <NavLink to="/auth/register" className="outlined-link">
-                  Créer un compte ?
-                </NavLink>
-              </div>
-            </form>
+                  Connexion{" "}
+                  {isLoading && (
+                    <div className="px-1 d-inline-block">
+                      <div
+                        class="spinner-border spinner-border-sm"
+                        style={{ height: "15px", width: "15px" }}
+                        role="status"
+                      >
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                  )}
+                </button>
 
-            {/* right section */}
-            <div className=" h-100 d-lg-flex d-none flex-column align-items-center justify-content-center gap-4 p-5 mainGradient login-right-section">
-              <div className="bg-white rounded-circle p-4">
-                <div className="position-relative rounded-circle  login-logo-img white-shadow">
-                  <img
-                    src={"/assets/logo.png"}
-                    className="w-100 h-100 object-fit-fill "
-                    alt=""
-                  />
+                <div className="w-100 d-flex flex-column align-items-center justify-content-center gap-1">
+                  <NavLink
+                    to="/forgetpassword"
+                    className="text-center text-decoration-none text-black"
+                  >
+                    Mot de passe oublié ?
+                  </NavLink>
+                  <NavLink to="/auth/register" className="outlined-link">
+                    Créer un compte ?
+                  </NavLink>
+                </div>
+              </form>
+
+              {/* right section */}
+              <div className=" h-100 d-lg-flex d-none flex-column align-items-center justify-content-center gap-4 p-5 mainGradient login-right-section">
+                <div className="bg-white rounded-circle p-4">
+                  <div className="position-relative rounded-circle  login-logo-img white-shadow">
+                    <img
+                      src={"/assets/logo.png"}
+                      className="w-100 h-100 object-fit-fill "
+                      alt=""
+                    />
+                  </div>
                 </div>
               </div>
             </div>
+            {/* ErrorModal component */}
+            {showModal && (
+              <ErrorModal
+                open={showModal}
+                error="Veuillez remplir tous les champs.              "
+                actionText={"Continuer"}
+                setOpen={toggleModal}
+              />
+            )}
           </div>
-          {/* ErrorModal component */}
-          {showModal && (
-            <ErrorModal
-              open={showModal}
-              error="Veuillez remplir tous les champs.              "
-              actionText={"Continuer"}
-              setOpen={toggleModal}
-            />
-          )}
-        </div>
-      )}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-    </div>;
+        )}
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </div>
+    );
+  }
 };
 
 export default Login;

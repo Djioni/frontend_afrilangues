@@ -150,26 +150,28 @@ export default function LearnGrettingLession() {
           <div id="lgl">
             <div>
               <div className="row pb-5 d-flex justify-content-center justify-content-lg-between">
-                {currentLessonSection.map((result) => (
+                {currentLessonSection.map((result, index) => (
                   <div
                     onClick={() => handleSection(result.id)}
-                    className="col-7 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-sm-start mt-4 "
+                    className={`col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex card_box ${
+                      (index + 1) % 2 === 0
+                        ? "justify-content-start card_margin_right"
+                        : "justify-content-end"
+                    } mt-4`}
                     key={result.id}
                   >
                     <div>
                       {result.image ? (
-                        <div className="card truncate">
+                        <div className="card truncate justify-content-center">
                           <div className="d-flex justify-content-center">
                             <div
                               className="inner-icon mt-2"
                               style={{
-                                height: "80px",
-                                width: "80px",
                                 border: "0",
                               }}
                             >
                               <img
-                                className="w-100 h-100"
+                                className="w-100 h-100 "
                                 src={`${API_URL}/mediaObject/download/${result.image}`}
                                 alt=""
                               />

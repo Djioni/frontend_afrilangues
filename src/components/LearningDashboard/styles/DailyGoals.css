@@ -67,7 +67,6 @@
   border-radius: 10px;
   border: none;
   background-color: white;
-  overflow-y: scroll;
 }
 
 #d-goals .ranking .active button {

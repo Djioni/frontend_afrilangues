@@ -52,6 +52,8 @@
   width: 200px;
   height: 200px;
   padding: 20px 50px;
+  justify-content: end;
+  align-items: center;
   border-radius: 50%;
   -webkit-box-shadow: 0px 10px 49px -20px rgba(0, 0, 0, 0.75);
   transition: box-shadow 0.3s ease; /* Add animation with a 0.3s duration */
@@ -60,7 +62,10 @@
 #lgl .card:hover {
   -webkit-box-shadow: 0px 10px 49px -20px rgba(255, 140, 29, 0.75);
 }
-
+#lgl .card .inner-icon {
+  height: 65px;
+  width: 65px;
+}
 #lgl .inner-icon {
 }
 
@@ -119,5 +124,34 @@
     left: 10px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  #lgl .card {
+    width: 160px;
+    height: 160px;
+    padding: 20px 50px;
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 10px 49px -20px rgba(0, 0, 0, 0.75);
+    transition: box-shadow 0.3s ease; /* Add animation with a 0.3s duration */
+    margin-right: 10px;
+  }
+  #lgl .card_box {
+    padding: 0 !important;
+
+    gap: 0 !important;
+    margin-top: 10px !important;
+  }
+  .card_margin_right {
+  }
+  #lgl .row {
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  #lgl .card .inner-icon {
+    height: 55px;
+    width: 55px;
   }
 }

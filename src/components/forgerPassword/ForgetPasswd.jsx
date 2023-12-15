@@ -17,6 +17,7 @@ import Cookies from "js-cookie";
 import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
 
 import { CurrentPathAction } from "../LearningDashboard/services/actions/CurrentPathAction";
+import Navigation from "../Navigation/Navigation";
 const ForgetPasswd = () => {
   const disPatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
@@ -161,6 +162,7 @@ const ForgetPasswd = () => {
   };
   return (
     <div>
+      <Navigation />
       {isPageLoading ? (
         <Loading message="S'il vous plaît, attendez" page={true} />
       ) : (

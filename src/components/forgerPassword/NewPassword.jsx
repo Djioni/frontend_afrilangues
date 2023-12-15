@@ -17,6 +17,7 @@ import Cookies from "js-cookie";
 import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
 
 import { CurrentPathAction } from "../LearningDashboard/services/actions/CurrentPathAction";
+import Navigation from "../Navigation/Navigation";
 const NewPassword = () => {
   const { passToken } = useParams();
   console.log("pass token", passToken);
@@ -159,6 +160,7 @@ const NewPassword = () => {
   };
   return (
     <div>
+      <Navigation />
       {isPageLoading ? (
         <Loading message="S'il vous plaît, attendez" page={true} />
       ) : (

@@ -25,11 +25,12 @@ const Navigation = () => {
             <div
               style={{ cursor: "pointer", zIndex: "22" }}
               onClick={() => {
-                if (userToken && userID) {
-                  navigate("/dashboard");
-                } else {
-                  navigate("/home");
-                }
+                // if (userToken && userID) {
+                //   navigate("/dashboard");
+                // } else {
+                //   navigate("/");
+                // }
+                navigate("/");
               }}
             >
               <img src={logo} alt="Logo" className="img-fluid" />
