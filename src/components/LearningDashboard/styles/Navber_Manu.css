@@ -245,8 +245,10 @@
   height: 28px;
 }
 .lang .flag {
-  height: 35px;
-  width: 28px;
+  height: 28px;
+  width: 29px;
+  border-radius: 50%;
+  transform: translateX(4px);
 }
 .manu-toggle {
   background-color: #1e1e1e;
@@ -266,8 +268,13 @@
 }
 @media only screen and (max-width: 767px) {
   .lang .flag {
-    height: 37px;
-    width: 32px;
+    height: 28px;
+    width: 29px;
+    border-radius: 50%;
+    transform: translateX(4px);
+  }
+  .lang {
+    transform: translateY(-8px) !important;
   }
   .nav-list {
     margin-top: 5px;

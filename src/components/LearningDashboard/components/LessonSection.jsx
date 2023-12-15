@@ -148,12 +148,12 @@ export default function LearnGrettingLession() {
           />
         ) : (
           <div id="lgl">
-            <div>
+            <div className="d-flex justify-content-center ">
               <div className="row pb-5 d-flex justify-content-center justify-content-lg-between">
                 {currentLessonSection.map((result, index) => (
                   <div
                     onClick={() => handleSection(result.id)}
-                    className={`col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex card_box ${
+                    className={`col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2 d-flex card_box ${
                       (index + 1) % 2 === 0
                         ? "justify-content-start card_margin_right"
                         : "justify-content-end"

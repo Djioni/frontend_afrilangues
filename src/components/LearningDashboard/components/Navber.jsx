@@ -182,7 +182,7 @@ export default function Navber() {
                 <div className="lang d-inline-block">
                   <div onClick={langClickHandler} className="pointer">
                     <img
-                      src="assets/flags/france.svg"
+                      src="assets/flags/france.png"
                       className="flag"
                       alt="f"
                     />
