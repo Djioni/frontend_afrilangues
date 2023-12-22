@@ -148,7 +148,7 @@ export default function LearnGrettingLession() {
           />
         ) : (
           <div id="lgl">
-            <div className="d-flex justify-content-center ">
+            <div className="">
               <div className="row pb-5 d-flex justify-content-center justify-content-lg-between">
                 {currentLessonSection.map((result, index) => (
                   <div

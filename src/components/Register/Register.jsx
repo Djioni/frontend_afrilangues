@@ -178,6 +178,7 @@ const Register = () => {
             toast.error(
               `${
                 error.response.data.data ||
+                error?.message ||
                 "Tous les champs doivent etre remples!"
               }🤯`,
               {
@@ -205,7 +206,9 @@ const Register = () => {
     }
 
     if (!(inputs.confirmPassword === inputs.password)) {
-      setErrorMessage("Tous les champs doivent etre remples");
+      setErrorMessage(
+        "Tous les champs avec l'astérisque doivent être remplis."
+      );
       setShowModal(true);
       wrongSound.play();
     }
