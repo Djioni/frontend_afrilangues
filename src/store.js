@@ -17,6 +17,7 @@ import { GetExerciseReducer } from "./components/LearningDashboard/services/redu
 import { CurrentSectionIndexReducers } from "./components/Quizzes/services/reducers/CurrentSectionIndexReducers";
 import { ExerciseDataNotValidReducers } from "./components/LearningDashboard/services/reducers/ExerciseDataNotValidReducers";
 import { CurrentLessonIndexReducer } from "./components/Quizzes/services/reducers/CurrentLessonIndexReducer";
+import { IsPlayReducer } from "./components/services/reducers/IsPlayReducer";
 const rootReducer = combineReducers({
   auth: AuthReducer,
   lessons: LessonReducer,
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   currentSectionIndex: CurrentSectionIndexReducers,
   ExerciseDataNotValid: ExerciseDataNotValidReducers,
   currentLessonIndex: CurrentLessonIndexReducer,
+  isPlay: IsPlayReducer,
 
   // Add more reducers here if needed
 });

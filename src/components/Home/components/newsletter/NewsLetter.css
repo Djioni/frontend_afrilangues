@@ -6,14 +6,13 @@
     0,
     0.1
   ); Semi-transparent background for the blur effect */
-  background-color: #eaeaea;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   margin: 0 auto;
   z-index: 22;
-  backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+  backdrop-filter: blur(20px); /* Adjust the blur amount as needed */
   display: grid;
   align-items: center;
 }

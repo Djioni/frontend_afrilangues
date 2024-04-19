@@ -41,7 +41,7 @@ const Home = () => {
       <DownloadApp />
       <br />
       <br />
-      {/* <Pricing /> */}
+      <Pricing />
       <Testimonials />
       <FrequentlyQuestions />
       <Media />

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { NavLink, useNavigate } from "react-router-dom"; // Assuming you have React Router for navigation
 import {
@@ -26,6 +28,7 @@ import "../../App.css";
 import { CurrentPathAction } from "../LearningDashboard/services/actions/CurrentPathAction";
 import Navigation from "../Navigation/Navigation";
 const Login = () => {
+  const current_url_path = sessionStorage.getItem("current_url_path");
   const disPatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [isFormFilled, setIsFormFilled] = useState(false);
@@ -160,11 +163,10 @@ const Login = () => {
             //direact login page
 
             console.log("ready for redirect");
-            if (currentPath === "/lessonfdfs") {
-              navitate("/lessons");
-            }
-            if (currentPath === "lessons/section/") {
-              navitate("/lessons/section/");
+            if (current_url_path) {
+              console.log("currentpathhellow", current_url_path);
+              window.location.href = current_url_path;
+              sessionStorage.removeItem("current_url_path");
             } else {
               navitate("/dashboard");
             }

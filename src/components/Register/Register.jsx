@@ -133,8 +133,8 @@ const Register = () => {
         const userSchma = {
           username: username || "",
           email: email,
-          roles: ["string"],
-          password: "123456",
+          roles: ["USER"],
+          password: password,
           language: [language],
           firstName: name,
           lastName: name,

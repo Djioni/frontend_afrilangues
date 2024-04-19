@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -10,20 +12,21 @@ import ErrorModal from "../../ErrorModal";
 import { FaHourglassEnd } from "react-icons/fa";
 import { GetLessonSectionAction } from "../services/actions/GetLessonSectionAction";
 import { GetLessonAction } from "../services/actions/GetLessonAction";
+import LessonAndSectionTitle from "./lessonAnd_SectionTitle/LessonAndSectionTitle";
+import AdsPage from "../../ads/AdsPage";
 
 export default function Lessons() {
   const navigate = useNavigate();
   const [isPageLoading, setIsPageLoading] = useState(true);
   const dispatch = useDispatch();
   const userToken = Cookies.get("token");
+  const userId = Cookies.get("id");
   const location = useLocation();
   const [showModal, setShowModal] = useState(true);
   const [lessonNotFound, setLessonNotFound] = useState(false);
   const [currentLesson, setCurrentLesson] = useState([]);
-  const [allSection, setAllSection] = useState([]);
-
-  const lessons = useSelector((state) => state.lesson);
-  const lessonsections = useSelector((state) => state.lessonsection);
+  const [adsInfo, setAdsInfo] = useState(null);
+  const [subscriptionData, setSubscriptionData] = useState(null);
 
   // get params
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -47,30 +50,46 @@ export default function Lessons() {
           Authorization: `${AUTH_NAME} ${JSON.parse(userToken)}`,
         },
       };
-      //
+      // define request
+      const result = axios.get(`${API_URL}/lesson/theme/${id}`, config);
+      const adsInfo = axios.get(`${API_URL}/advertisement/`, config);
+      const subscriptionData = axios.get(
+        `${API_URL}/subscription/user/${userId && JSON.parse(userId)}/`,
+        config
+      );
 
       axios
-        .get(`${API_URL}/lesson/theme/${id}`, config)
-        .then((result) => {
-          console.log("dataf", result.data);
-          // set current in local storage
-          localStorage.setItem(
-            "currentAllLessons",
-            JSON.stringify(result.data)
-          );
+        .all([result, adsInfo, subscriptionData])
+        .then(
+          axios.spread((result, adsInfo, subscriptionData) => {
+            if (subscriptionData?.data[0]) {
+              ("");
+            } else {
+              console.log("data______", adsInfo.data);
+              setAdsInfo(adsInfo.data);
+            }
+            // set current in local storage
+            localStorage.setItem(
+              "currentAllLessons",
+              JSON.stringify(result.data)
+            );
 
-          if (result.data[0]) {
-            localStorage.setItem("currentLessons", JSON.stringify(result.data));
-            setCurrentLesson(result.data);
-            setIsPageLoading(false);
-            dispatch(GetLessonAction(result.data));
-          } else {
-            setIsPageLoading(false);
-            console.log("okay");
-            setLessonNotFound(true);
-          }
-          //
-        })
+            if (result.data[0]) {
+              localStorage.setItem(
+                "currentLessons",
+                JSON.stringify(result.data)
+              );
+              setCurrentLesson(result.data);
+              setIsPageLoading(false);
+              dispatch(GetLessonAction(result.data));
+            } else {
+              setIsPageLoading(false);
+              console.log("okay");
+              setLessonNotFound(true);
+            }
+            //
+          })
+        )
         .catch((error) => {
           console.log(error.response.status);
           if (error.response.status === 401) {
@@ -78,6 +97,8 @@ export default function Lessons() {
             Cookies.set("id", "");
             localStorage.clear();
             navigate("/auth/login");
+          } else {
+            window.alert(error.message);
           }
         });
     }
@@ -103,6 +124,7 @@ export default function Lessons() {
     setLessonNotFound((prevvalue) => !prevvalue);
     navigate("/dashboard");
   };
+
   if (currentLesson[0]) {
     return (
       <div id={isPageLoading ? "" : "gt"}>
@@ -116,6 +138,11 @@ export default function Lessons() {
           </div>
         ) : (
           <div>
+            {/* {adsInfo && <AdsPage adsInfo={adsInfo} />} */}
+            <LessonAndSectionTitle
+              text={"Revenir aux thèmes"}
+              title={currentLesson[0]?.theme?.name}
+            />
             <div className="row">
               {currentLesson.map((result) => (
                 <div

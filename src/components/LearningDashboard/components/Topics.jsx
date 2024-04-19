@@ -1,6 +1,8 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import "../styles/Lessons.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, json, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   bonusPointIncrement,
@@ -13,6 +15,7 @@ import { ThemeAction } from "../../services/actions/ThemeAction";
 import ErrorModal from "../../ErrorModal";
 import Loading from "../../Loading";
 import OnboardingTotorials from "./onboardingTutorials/OnboardingTotorials";
+import AdsPage from "../../ads/AdsPage";
 
 export default function Topics() {
   const testTopicData = [{ title: "hello" }];
@@ -22,6 +25,8 @@ export default function Topics() {
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [userTheme, setUserTheme] = useState([]);
   const currentTheme = useSelector((state) => state.currentTheme);
+  const [adsInfo, setAdsInfo] = useState(null);
+  const [isSubscriptionData, setSubscriptionData] = useState(null);
   const dispatch = useDispatch();
   const userToken = Cookies.get("token");
   const usertID = Cookies.get("id");
@@ -52,8 +57,28 @@ export default function Topics() {
         } else {
           try {
             console.log("this is xioa");
-            const response = await axios.get(`${API_URL}/users/me`, config);
-            console.log(response.data.language);
+            const [response, subscription, adsData] = await axios.all([
+              axios.get(`${API_URL}/users/me`, config),
+              axios.get(
+                `${API_URL}/subscription/user/${JSON.parse(usertID)}`,
+                config
+              ),
+              axios.get(`${API_URL}/advertisement/`, config),
+            ]);
+            // subscription data
+            console.log("subscription---------------------", subscription.data);
+            if (subscription?.data.length > 0) {
+              setSubscriptionData(subscription.data);
+              localStorage.setItem(
+                "subscription",
+                JSON.stringify(subscription.data)
+              );
+            }
+            if (subscription.data[0]) {
+              ("hello");
+            } else {
+              setAdsInfo(adsData.data);
+            }
             localStorage.setItem(
               "languageid",
 
@@ -70,22 +95,6 @@ export default function Topics() {
             console.log("theme", theme.data);
             localStorage.setItem("theme", JSON.stringify(theme.data));
             setUserTheme(theme.data);
-
-            // // // // get lesson
-            // const lesson = await axios.get(`${API_URL}/lesson/`, config);
-            // // mange lesson
-            // sessionStorage.setItem("lesson", JSON.stringify(lesson.data));
-
-            // // get lesson section
-            // const lessonsection = await axios.get(
-            //   `${API_URL}/lessonsection/`,
-            //   config
-            // );
-            // // mange lesson section
-            // sessionStorage.setItem(
-            //   "lessonsection",
-            //   JSON.stringify(lessonsection.data)
-            // );
             //loading false
             setIsPageLoading(false);
           } catch (error) {
@@ -118,8 +127,6 @@ export default function Topics() {
   //handle topics
 
   const handleTheme = (themeID) => {
-    console.log("hello");
-
     const filteGreetings = userTheme.filter((item) => item.id === themeID);
     console.log(filteGreetings);
     if (filteGreetings[0]) {
@@ -147,7 +154,15 @@ export default function Topics() {
         </div>
       ) : (
         <div className="w-full">
+          {isSubscriptionData === null ? (
+            <div className="banner_topic">
+              <NavLink to={"/pricing"}>
+                <img className="w-100" src="/banner.jpg" alt="" />
+              </NavLink>
+            </div>
+          ) : null}
           <div id="gt">
+            {/* {adsInfo && <AdsPage adsInfo={adsInfo} />} */}
             <div>
               <div className="row  px-md-5">
                 {userTheme.map((result) => (
@@ -159,7 +174,9 @@ export default function Topics() {
                   >
                     <div
                       className="mt-5 card-box w-100 text-center align-self-center"
-                      onClick={() => handleTheme(result.id)}
+                      onClick={() => {
+                        handleTheme(result.id);
+                      }}
                     >
                       <div className="card">
                         <img

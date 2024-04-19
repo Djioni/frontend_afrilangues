@@ -6,8 +6,11 @@
 	symlinks = false
 	ignorecase = true
 [remote "origin"]
-	url = https://github.com/msbhh-ms/afi.v2
+	url = https://github.com/dev-mdsohagmiya/afi.v2.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "old"]
+	remote = origin
+	merge = refs/heads/main
 [branch "main"]
 	remote = origin
 	merge = refs/heads/main

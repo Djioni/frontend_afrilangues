@@ -1,9 +1,12 @@
+/** @format */
+
 import { useState } from "react";
 import tick_icon from "../../../../assets/tick_icon.png";
 import close_icon from "../../../../assets/close_icon.png";
 import star_icon from "../../../../assets/star-icon.png";
 import upload_icon from "../../../../assets/upload-icon.png";
 import "./Pricing.css";
+import { NavLink } from "react-router-dom";
 
 const Pricing = () => {
   const [togglePriceBtn, setTogglePriceBtn] = useState(true);
@@ -77,7 +80,9 @@ const Pricing = () => {
                 </ul>
               </div>
 
-              <button>Upgrade now</button>
+              <a href="/checkout">
+                <button>Upgrade now</button>
+              </a>
             </div>
             <div className="pricing_card pricing_card_2">
               <div>
@@ -111,7 +116,9 @@ const Pricing = () => {
                 </ul>
               </div>
 
-              <button>Get Started</button>
+              <a href="/checkout">
+                <button>Get Started</button>
+              </a>
             </div>
             <div className="pricing_card">
               <div>
@@ -145,7 +152,9 @@ const Pricing = () => {
                 </ul>
               </div>
 
-              <button>Upgrade now</button>
+              <a href="/checkout">
+                <button>Upgrade now</button>
+              </a>
             </div>
           </div>
         </div>

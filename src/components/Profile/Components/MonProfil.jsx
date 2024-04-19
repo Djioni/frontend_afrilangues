@@ -1,7 +1,12 @@
+/** @format */
+
 import { Link } from "react-router-dom";
 import avatarImage from "/assets/avatar.jpg";
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
+import { API_URL, AUTH_NAME } from "../../../api";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 const containerStyle = {
   minHeight: "100vh",
@@ -64,6 +69,10 @@ const buttonStyle = {
 };
 
 function MonProfil() {
+  const userToken = Cookies.get("token");
+  const usertID = Cookies.get("id");
+  const subscribedData = localStorage.getItem("subscription");
+
   const [fullName, setFullName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
@@ -78,6 +87,23 @@ function MonProfil() {
     }
   }, []);
 
+  const handleCancelSubscription = () => {
+    const subscription = JSON.parse(subscribedData);
+    const token = JSON.parse(userToken);
+
+    axios
+      .delete(`${API_URL}/subscription/${subscription[0]?.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((result) => {
+        console.log("delete result", result.data);
+      })
+      .catch((error) => {
+        console.error("delete error", error);
+      });
+  };
   return (
     <div
       className="container d-flex justify-content-center align-items-center"
@@ -94,7 +120,15 @@ function MonProfil() {
                 Editor mon profil
               </Button>
             </Link>
-            <Button className="btn mt-3" style={buttonStyle}>
+            <Button
+              className="btn mt-3"
+              style={buttonStyle}
+              onClick={() => {
+                if (subscribedData) {
+                  handleCancelSubscription();
+                }
+              }}
+            >
               Mon abonnement
             </Button>
           </div>

@@ -1,0 +1,164 @@
+#newsl1 {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 52 !important;
+  display: grid;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-y: auto; /* Ensure overflow doesn't reveal blurred content */
+  padding: 50px 0px;
+  backdrop-filter: blur(20px); /* Adjust the blur amount as needed */
+}
+
+#newsl1::before {
+  /* Pseudo-element for the background blur effect */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  filter: blur(20px); /* Apply the blur effect */
+  z-index: -1; /* Ensure the blur is behind the content */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#newsl1 .newl-card {
+  max-width: 680px !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  border-radius: 0px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+  border-radius: 8px;
+}
+
+#newsl1 .ads_container {
+  border: 1px solid #e4e3f3;
+  overflow: hidden;
+  position: relative;
+}
+
+#newsl1 .ads_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ads_header .title {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+#newsl1 .ads_header .close {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #8b8c93 !important;
+  cursor: pointer;
+  /* background-color: black; */
+  height: 30px;
+  width: 30px;
+}
+
+#newsl1 .ads_body {
+  padding: 20px 0px;
+  position: relative;
+}
+
+#newsl1 .ads_body .title {
+  font-size: 28px;
+  padding: 0px 10px;
+  color: black;
+}
+
+#newsl1 .ads_body .dsc {
+  padding: 0px 10px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #8b8c93;
+  padding-bottom: 10px;
+  text-decoration: dashed;
+}
+
+#newsl1 .ads_body .action {
+  border-top: 1px solid #e4e3f3;
+  padding: 0 10px;
+
+  align-items: center;
+  padding-top: 20px;
+}
+
+#newsl1 .ads_body .action .name {
+  font-size: 22px;
+  color: #6d6d6d;
+  font-weight: 500;
+}
+
+#newsl1 .ads_body .action a {
+  text-decoration: none;
+  color: #ff5703;
+  font-size: 20px;
+  font-weight: 500;
+  padding-bottom: 7px;
+  text-align: center;
+}
+
+#newsl1 .ads_body .action a .arrow {
+  font-size: 30px;
+}
+#newsl1 .ads_body_link {
+}
+#newsl1 .newl-card a {
+  text-decoration: dashed !important;
+}
+
+#newsl1 .video_control {
+  background: unset !important;
+  display: flex;
+  gap: 7px;
+  top: 2%;
+  left: 2%;
+}
+#newsl1 .video_control .icon {
+  font-size: 30px;
+  cursor: pointer;
+  color: black;
+}
+#newsl1 .video_control .icon1 {
+  font-size: 33px;
+  transform: translateY(-1px);
+  cursor: pointer;
+  color: black;
+}
+@media only screen and (max-width: 767px) {
+  #newsl1 .ads_body .title {
+    font-size: 25px;
+  }
+  #newsl1 {
+    padding: 20px;
+  }
+  #newsl1 .newl-card {
+    width: 100% !important;
+  }
+  #newsl1 .ads_body .dsc {
+    font-size: 16px;
+  }
+  #newsl1 .ads_body .action .name {
+    font-size: 16px;
+  }
+}

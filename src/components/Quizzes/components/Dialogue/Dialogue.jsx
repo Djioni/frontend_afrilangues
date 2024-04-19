@@ -5,7 +5,7 @@ import "./Dialogue.css";
 import { useDispatch } from "react-redux";
 import { QuizValidationAction } from "../../../LearningDashboard/services/actions/QuizValidationAction";
 import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
-export default function Dialogue({ handlePrevQuestion }) {
+export default function Dialogue({ handlePrevQuestion, adsInfo }) {
   console.log("dialouge handle prev question", handlePrevQuestion);
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ export default function Dialogue({ handlePrevQuestion }) {
   };
   return (
     <div>
-      <Home handlePrevQuestion={handlePrevQuestion} />
+      <Home adsInfo={adsInfo} handlePrevQuestion={handlePrevQuestion} />
     </div>
   );
 }

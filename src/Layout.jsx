@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from "react";
 import {
   Route,
@@ -35,9 +37,12 @@ import OnboardingTotorials from "./components/LearningDashboard/components/onboa
 import {
   ConditionOfSale,
   Confidentiality,
+  Pricing,
   TermsOfUse,
 } from "./components/Home/components";
 import ChangeLanguage from "./components/LearningDashboard/components/changeLanguage/ChangeLanguage";
+import CheckoutPage from "./components/checkout/CheckoutPage";
+import AdsPage from "./components/ads/AdsPage";
 
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
@@ -58,7 +63,6 @@ export default function Layout() {
     //
 
     try {
-      // Retrieve token and id from cookies
       const token = JSON.parse(Cookies.get("token"));
       const id = JSON.parse(Cookies.get("id"));
 
@@ -67,22 +71,9 @@ export default function Layout() {
         // Dispatch AuthAction if token and id are valid
         dispatch(AuthAction({ id: id, token: token }));
       } else {
-        // Redirect to login if token and id are not valid
-        // navigate("/auth/login");
       }
-    } catch (error) {
-      // Redirect to login on error
-      // navigate("/auth/login");
-    }
-
-    // Log questions to the console
-    // console.log("questions: ", questions);
+    } catch (error) {}
   }, []);
-
-  // useEffect(() => {
-  //   // This effect will run only once when the component mounts.
-  //   navigate("/home");
-  // }, []);
 
   const toggleModal = () => {
     setShowModal((prevValue) => !prevValue);
@@ -94,8 +85,6 @@ export default function Layout() {
   useEffect(() => {
     // expires time
     const expireTime = new Date(currentTime.getTime() + 60000 * 1440);
-    // console.log(new Date(currentTime.getTime() + 180000));
-    // This effect will run whenever 'isLearningDashboardOpen' changes or location.pathname changes.
 
     const userToken = Cookies.get("token");
     const userID = Cookies.get("id");
@@ -123,9 +112,13 @@ export default function Layout() {
       setIsPageLoading(false);
       setIsHomePageNavigation(true);
     } else {
-      setIsDashBoardOpen(true);
-      setIsPageLoading(false);
-      setIsHomePageNavigation(false);
+      if (location.pathname.includes("checkout")) {
+        return null;
+      } else {
+        setIsDashBoardOpen(true);
+        setIsPageLoading(false);
+        setIsHomePageNavigation(false);
+      }
     }
   }, [location.pathname, setIsDashBoardOpen, quizValidate]);
 
@@ -190,7 +183,7 @@ export default function Layout() {
             </div>
           }
         ></Route>
-
+        <Route path="/ads" element={<AdsPage />}></Route>
         <Route
           path="/lessons"
           element={
@@ -242,6 +235,22 @@ export default function Layout() {
           }
         ></Route>
         <Route
+          path="/checkout"
+          element={
+            <div className="">
+              <CheckoutPage />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/pricing"
+          element={
+            <div className="" style={{ paddingTop: "30px" }}>
+              <Pricing />
+            </div>
+          }
+        ></Route>
+        <Route
           path="/topic/:title"
           element={
             <div className="">
@@ -274,10 +283,6 @@ export default function Layout() {
           }
         ></Route>
 
-        {/* * routes  */}
-        {/* <Route path="*" element={<Register />} /> */}
-
-        {/* This route will match any unknown route */}
         <Route
           path="*"
           element={
