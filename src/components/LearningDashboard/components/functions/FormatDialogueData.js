@@ -1,6 +1,8 @@
 export const FormatDialogueData = (QAdata, QuizID, title) => {
   //
 
+  console.log(QAdata)
+ try {
   if (QAdata && QuizID && title) {
     const jsonData = {
       id: "6503729c41bd45770962a19e",
@@ -97,7 +99,7 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
         const sentence = exercise.sentence;
         const questionWords = exercise.questionWords;
         let modifiedSentence = sentence;
-        questionWords.forEach((questionWord) => {
+        questionWords?.forEach((questionWord) => {
           modifiedSentence = modifiedSentence.replace("...", questionWord);
         });
         return modifiedSentence;
@@ -219,4 +221,8 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
     // Now, jsonObject contains your data without double quotes around property names
     // console.log(jsonData);
   }
+ } catch (error) {
+  console.log(error)
+  
+ }
 };

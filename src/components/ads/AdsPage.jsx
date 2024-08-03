@@ -12,7 +12,7 @@ import AdsVideoPlayer from "./AdsVideoPlayer";
 import { FaRegCirclePlay } from "react-icons/fa6";
 import { FaPause } from "react-icons/fa6";
 
-export default function AdsPage({ adsInfo }) {
+export default function AdsPage({ adsInfo ,setIsAdsPage}) {
   const [isClose, setIsClose] = useState(false);
   const currentads = localStorage.getItem("currentads");
   const [totalSeconds, setTotalSeconds] = useState(5);
@@ -60,7 +60,10 @@ export default function AdsPage({ adsInfo }) {
       localStorage.setItem(
         "currentads",
         JSON.stringify({ current: activeAd.current + 1, total: adsInfo.length })
+
       );
+
+      setIsAdsPage(false)
     } else {
       localStorage.setItem(
         "currentads",
@@ -68,6 +71,7 @@ export default function AdsPage({ adsInfo }) {
       );
     }
     setIsClose(true);
+    setIsAdsPage(false)
   };
   console.log(
     "current url:",

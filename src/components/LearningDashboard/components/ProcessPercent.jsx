@@ -5,7 +5,7 @@ export default function ProcessPercent() {
     <div id="process-p" className="">
       <div>
         <div className="d-flex justify-content-center p-svg ">
-          <img src="/assets/ppmiddle.svg" alt="" />
+          <img src="/assets/dashboard/ppmiddle.png" alt="" />
           <h2 className="">&nbsp;&nbsp;2%</h2>
           <div className="">
             <div className="svg-1">

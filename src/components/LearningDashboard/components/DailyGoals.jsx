@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/DailyGoals.css";
 import RankTabs from "./RankTabs";
 import { useSelector } from "react-redux";
+
 export default function DailyGoals() {
   const { lavel, point, ciwara } = useSelector((state) => state.lessons);
 
@@ -36,7 +37,11 @@ export default function DailyGoals() {
             <div className="earn-pa">
               <div>
                 <div className="image-1">
-                  <img className="" src="/assets/ppdille2.svg" alt="" />
+                  <img
+                    className=""
+                    src="/assets/dashboard/ppmiddle.png"
+                    alt=""
+                  />
                 </div>
                 <div>
                   <small className="ciwra_text">{ciwara} CIWARA</small>{" "}
@@ -55,7 +60,11 @@ export default function DailyGoals() {
               <div>
                 <h3> CAURIS GAGNÉS :</h3>
                 <div className="">
-                  <img className="image-1" src="/assets/e.svg" alt="" />
+                  <img
+                    className="image-1"
+                    src="/assets/dashboard/e.png"
+                    alt=""
+                  />
                 </div>
                 <div>
                   <img src="" alt="" />

@@ -8,14 +8,14 @@ function LessonAndSectionTitle({ title, text }) {
   return (
     <div className="row  title_container">
       <div className="col-12 col-md-12 text-md-center">
-        <h2 className="title text-black" style={{ fontWeight: "600" }}>
+        <h2 className="title text-black tw-text-center md:tw-text-start" style={{ fontWeight: "600" }}>
           {title}
         </h2>
         <h2
           onClick={() => {
             navigate(-1);
           }}
-          className="buttonText d-inline-block "
+          className="buttonText  tw-text-center md:tw-text-start"
           style={{ fontWeight: "400", cursor: "pointer" }}
         >
           {text}

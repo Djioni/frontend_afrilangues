@@ -1,0 +1,106 @@
+.ref_african_language_wrapper {
+  padding-bottom: 70px;
+}
+
+.ref_african_language_container .heading-container {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ref_african_language_container .heading-container h2 {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 72px;
+  color: #1e1e1e;
+  letter-spacing: 2px;
+}
+
+.ref_african_language_container .heading-container h2 span {
+  color: #ff6b35;
+}
+
+.ref_african_language_container .heading-container p {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 40px;
+  color: #1e1e1e;
+}
+
+.paragraph {
+  font-size: 20px;
+  font-weight: 300;
+  color: #1e1e1e;
+}
+
+@media screen and (max-width: 991px) {
+  /* CSS styles for small mobile devices */
+  .paragraph {
+    font-size: 18px;
+    line-height: 30px;
+    margin-top: 20px;
+  }
+}
+
+.ref_african_language_container .content_container button {
+  background-color: #ff6b35;
+  color: #1e1e1e;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 33px;
+  padding: 10px 30px 10px 30px;
+  border-radius: 18px;
+  border: 0;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.ref_african_language_container .content_container button:hover {
+  background-color: #000000;
+  color: white;
+}
+
+@media screen and (max-width: 991px) {
+  /* CSS styles for small mobile devices */
+
+  .ref_african_language_container .heading-container {
+    width: 100%;
+  }
+
+  .ref_african_language_container .heading-container h2 {
+    font-size: 40px;
+    line-height: 50px;
+  }
+
+  .ref_african_language_container .heading-container p {
+    font-size: 18px;
+    line-height: 30px;
+    margin-top: 20px;
+  }
+
+  .ref_african_language_container .content_container button {
+    font-size: 18px;
+    margin-top: 30px;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  /* CSS styles for mobile devices */
+
+  .ref_african_language_container .content_container button {
+    margin-top: 70px;
+  }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+  .ref_african_language_container .heading-container {
+    width: 100%;
+  }
+}
+
+.custom-image-size {
+  max-width: 30%;
+  height: auto;
+}

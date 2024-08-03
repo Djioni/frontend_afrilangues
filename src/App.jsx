@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter,
-
-} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "./Layout";
 
 const App = () => {
-
-
-
   const quizData = [
     {
       lessonTitle: "Lesson 1: Multiple Choice",

@@ -163,18 +163,18 @@ export default function Navber() {
           <div className="col-9 col-md-11 justify-content-end justify-content-xl-end d-flex   ">
             <ul className="nav-list">
               <li className="d-inline-block d-none d-xl-inline-block">
-                <a href="/"> MES COURS</a>
+                <a href="/dashboard"> MES COURS</a>
               </li>
 
-              <li className="d-inline-block d-none d-xl-inline-block">
+              {/* <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/"> DICTIONNAIRE</a>
-              </li>
+              </li> */}
               <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/">COURS EN DIRECT</a>
               </li>
-              <li className="d-inline-block d-none d-xl-inline-block">
+              {/* <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/">TARIFS</a>
-              </li>
+              </li> */}
               <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/">AIDE</a>
               </li>

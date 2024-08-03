@@ -525,6 +525,84 @@ export default function Exercise({ handlePrevQuestion }) {
     setShowModal((prevValue) => !prevValue);
     navigate(-1);
   };
+
+
+
+// add timer//
+
+const [isAdsPage,setIsAdsPage] = useState(false)
+
+useEffect(() => {
+  const AdsTimer = async () => {
+
+
+    const saveDate = localStorage.getItem("adsDate");
+    if (saveDate) {
+      console.log("saveDate___________", saveDate);
+    }
+    // Create a new date object with the current date and time
+    let date = new Date();
+
+    // Define the number of minutes you want to add
+    let minutesToAdd = 7; // Example: adding 30 minutes
+
+    // Calculate total minutes from the Unix epoch to the current date
+    let initialTotalMinutes = Math.floor(date.getTime() / (1000 * 60));
+
+    // Add the minutes
+    date.setMinutes(date.getMinutes() + minutesToAdd);
+
+    // Calculate total minutes from the Unix epoch to the updated date
+    let updatedTotalMinutes = Math.floor(date.getTime() / (1000 * 60));
+
+    // Calculate the added minutes for verification
+    let addedMinutes = updatedTotalMinutes - initialTotalMinutes;
+
+    // Log the updated total minutes
+    console.log(
+      `Total minutes since Unix epoch after adding ${minutesToAdd} minutes: ${updatedTotalMinutes}`
+    );
+
+    // Log the added minutes for verification
+    // console.log(`Added minutes: ${addedMinutes}`);
+
+    const storeUsersMe = async () => {
+      try {
+      localStorage.setItem(
+          "adsDate",
+          JSON.stringify({
+            date: updatedTotalMinutes,
+          })
+        );
+
+        console.log(":::ads minutes updated_____", updatedTotalMinutes);
+      } catch (error) {
+       console.log(error)
+      }
+    };
+    if (adsInfo) {
+      if (saveDate) {
+        console.log("time found")
+    let  prevDate = JSON.parse(saveDate);
+
+        if (prevDate?.date <= initialTotalMinutes) {
+          setIsAdsPage(true);
+          storeUsersMe();
+        }
+      } else {
+        console.log("time over")
+        setIsAdsPage(true);
+        storeUsersMe();
+      }
+    }
+  };
+  setInterval(() => {
+    AdsTimer();
+  }, 5000);
+}, [ adsInfo,isAdsPage]);
+
+
+
   if (
     currentExercise.type === "SINGLE_CHOICE_QUESTION_TEXT_FORMAT" ||
     currentExercise.type === "SINGLE_CHOICE_QUESTION_IMAGE_FORMAT" ||
@@ -549,8 +627,8 @@ export default function Exercise({ handlePrevQuestion }) {
           />
         ) : (
           <div>
-            {adsInfo && (currentExercise.type === "TEXT_ZONE") === false && (
-              <AdsPage adsInfo={adsInfo} />
+            {adsInfo && isAdsPage &&  (currentExercise.type === "TEXT_ZONE") === false && (
+              <AdsPage setIsAdsPage={setIsAdsPage}  adsInfo={adsInfo} />
             )}
             <Quizzes />
           </div>
@@ -574,7 +652,7 @@ export default function Exercise({ handlePrevQuestion }) {
           />
         ) : (
           <div>
-            {adsInfo && <AdsPage adsInfo={adsInfo} />}
+            {adsInfo && isAdsPage && <AdsPage setIsAdsPage={setIsAdsPage} adsInfo={adsInfo} />}
             <Game />
           </div>
         )}
@@ -593,6 +671,7 @@ export default function Exercise({ handlePrevQuestion }) {
         ) : (
           <div>
             <Dialogue
+            isAdsPage={isAdsPage}
               adsInfo={adsInfo}
               handlePrevQuestion={handlePrevQuestion}
             />

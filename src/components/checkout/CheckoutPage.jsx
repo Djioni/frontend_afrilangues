@@ -72,7 +72,7 @@ const ErrorResult = ({ children }) => <div className="error">{children}</div>;
 const CheckoutForm = ({ handleCheckData }) => {
   const [iscupon, setIsCupon] = useState(false);
   const navigate = useNavigate();
-  const [btnText, setBtnText] = useState("Pay");
+  const [btnText, setBtnText] = useState("Payer");
   const [paymentStatus, setPaymentStatus] = useState(false);
   const userToken = Cookies.get("token");
   const userID = Cookies.get("id");
@@ -115,7 +115,7 @@ const CheckoutForm = ({ handleCheckData }) => {
       // API REQUEST
 
       if (userToken && userID && token) {
-        setBtnText("Processing...");
+        setBtnText("Traitement...");
         const tokenf = JSON.parse(userToken);
         console.log(JSON.parse(userToken));
         const user = JSON.parse(userID);
@@ -167,17 +167,17 @@ const CheckoutForm = ({ handleCheckData }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Full Name</label>
+      <label htmlFor="name">Nom et prénom</label>
       <input
         id="name"
         required
-        placeholder="Jenny Rosen"
+        placeholder="Idrissa Konté"
         value={name}
         onChange={(e) => {
           setName(e.target.value);
         }}
       />
-      <label htmlFor="cardNumber">Card Number</label>
+      <label htmlFor="cardNumber">Numéro de carte</label>
       <CardNumberElement
         id="cardNumber"
         onBlur={logEvent("blur")}
@@ -186,7 +186,7 @@ const CheckoutForm = ({ handleCheckData }) => {
         onReady={logEvent("ready")}
         options={ELEMENT_OPTIONS}
       />
-      <label htmlFor="expiry">Card Expiration</label>
+      <label htmlFor="expiry">Date d'expiration de la carte</label>
       <CardExpiryElement
         id="expiry"
         onBlur={logEvent("blur")}
@@ -205,17 +205,17 @@ const CheckoutForm = ({ handleCheckData }) => {
         options={ELEMENT_OPTIONS}
       />
 
-      <label htmlFor="postal">Country</label>
+      <label htmlFor="postal">Pays</label>
       <input
         id="country"
         required
-        placeholder="French"
+        placeholder="France"
         value={countryText}
         onChange={(e) => {
           setCountryText(e.target.value);
         }}
       />
-      <label htmlFor="postal">Postal Code</label>
+      <label htmlFor="postal">Code Postal</label>
       <input
         id="postal"
         required
@@ -238,16 +238,16 @@ const CheckoutForm = ({ handleCheckData }) => {
             cursor: "pointer",
           }}
         >
-          You have a cupon code?
+          Vous avez un code promo ?
         </small>
       )}
       {iscupon && (
         <div>
-          <label htmlFor="postal">Cupon Code</label>
+          <label htmlFor="postal">Code promo</label>
           <input
             id="Cupon Code (optional)"
             required
-            placeholder="Cupon Code (optional)"
+            placeholder="Code Cupon (facultatif)"
             value={cuponText}
             onChange={(e) => {
               setCuponText(e.target.value);

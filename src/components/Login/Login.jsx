@@ -26,7 +26,7 @@ import Cookies from "js-cookie";
 import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
 import "../../App.css";
 import { CurrentPathAction } from "../LearningDashboard/services/actions/CurrentPathAction";
-import Navigation from "../Navigation/Navigation";
+import Navigation from "../Home/Components/Navigation";
 const Login = () => {
   const current_url_path = sessionStorage.getItem("current_url_path");
   const disPatch = useDispatch();

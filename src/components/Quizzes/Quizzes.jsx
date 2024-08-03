@@ -2430,7 +2430,7 @@ const Quizzes = () => {
                                 <img
                                   src={quiz_avatar}
                                   alt=""
-                                  className="img-fluid"
+                                  className="img-fluid user-select-none"
                                 />
                               </div>
                               <div className="quiz_avatar_ques">

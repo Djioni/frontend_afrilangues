@@ -12,7 +12,8 @@ import Languages from "./components/Languages/Languages";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import ErrorModal from "./components/ErrorModal";
-import { Home, LearningDashboard, Navigation, Quizzes } from "./components";
+import { Home, LearningDashboard, Quizzes } from "./components";
+
 import Navber from "./components/LearningDashboard/components/Navber";
 import GrettingLesson from "./components/LearningDashboard/components/Lessons";
 import LessonSection from "./components/LearningDashboard/components/LessonSection";
@@ -34,20 +35,27 @@ import EditMonProfil from "./components/Profile/Components/EditMonProfil";
 import Propos from "./components/Profile/Components/Propos";
 import OnboardingTotorials from "./components/LearningDashboard/components/onboardingTutorials/OnboardingTotorials";
 
-import {
-  ConditionOfSale,
-  Confidentiality,
-  Pricing,
-  TermsOfUse,
-} from "./components/Home/components";
+// import {
+//   ConditionOfSale,
+//   Confidentiality,
+//   Pricing,
+//   TermsOfUse,
+// } from "./components/Home/components";
+
 import ChangeLanguage from "./components/LearningDashboard/components/changeLanguage/ChangeLanguage";
 import CheckoutPage from "./components/checkout/CheckoutPage";
 import AdsPage from "./components/ads/AdsPage";
+import ConditionOfSale from "./components/Home/pages/ConditionOfSale";
+import Confidentiality from "./components/Home/pages/Confidentiality";
+import TermsOfUse from "./components/Home/pages/TermsOfUse";
+import Pricing from "./components/Home/components/Pricing/Pricing";
+import Navigation from "./components/Home/Components/Navigation";
+import { HomeFormation } from "./components/Formation/HomeFormation";
 
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
   const [isLearningDashboardOpen, setIsDashBoardOpen] = useState(true);
-
+  const [isHomeNav, setIsHomeNav] = useState(false);
   const [isHomePageNavigation, setIsHomePageNavigation] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -101,6 +109,14 @@ export default function Layout() {
     }
 
     if (
+      location.pathname.includes("condition-of-sale") ||
+      location.pathname.includes("terms-of-use") ||
+      location.pathname.includes("confidentiality")
+    ) {
+      setIsHomeNav(true);
+    }
+
+    if (
       location.pathname.length === 1 ||
       location.pathname.includes("register") ||
       location.pathname.includes("auth") ||
@@ -115,19 +131,26 @@ export default function Layout() {
       if (location.pathname.includes("checkout")) {
         return null;
       } else {
-        setIsDashBoardOpen(true);
-        setIsPageLoading(false);
-        setIsHomePageNavigation(false);
+        if (location.pathname.includes("formation")) {
+          return null;
+        } else {
+          setIsDashBoardOpen(true);
+          setIsPageLoading(false);
+          setIsHomePageNavigation(false);
+          setIsHomeNav(false);
+        }
       }
     }
   }, [location.pathname, setIsDashBoardOpen, quizValidate]);
 
   return (
     <div>
-      {isLearningDashboardOpen && !isPageLoading ? (
+      {isLearningDashboardOpen && !isPageLoading && !isHomePageNavigation ? (
         <section className="sec-nav">
-          <Navber />
+          {isHomeNav ? <Navigation /> : <Navber />}
         </section>
+      ) : isHomeNav ? (
+        <section className="sec-nav"></section>
       ) : null}
 
       <Routes>
@@ -138,6 +161,9 @@ export default function Layout() {
           path="/"
           element={<Navigate to={userToken && usertID ? "/dashboard" : "/"} />}
         />
+
+        {/* // home others */}
+        <Route path="/formation" element={<HomeFormation />} />
 
         {/* auth routes */}
         <Route path="/auth/login" element={<Login />} />

@@ -34,8 +34,8 @@ import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
 import { CurrentSectionIndexAction } from "../../../services/actions/CurrentSectionIndexAction";
 import { CurrentLessonIndexAction } from "../../../services/actions/CurrentLessonIndexAction";
 import AdsPage from "../../../../ads/AdsPage";
-
-const Home = ({ handlePrevQuestion, adsInfo }) => {
+//
+const Home = ({ handlePrevQuestion, adsInfo,isAdsPage }) => {
   console.log("handleprevquestion", handlePrevQuestion);
   // souonds
   const [wrongSound] = useState(
@@ -1632,7 +1632,7 @@ const Home = ({ handlePrevQuestion, adsInfo }) => {
 
             {/* Dialouge here */}
             <Modal show={true} onHide={toggleDialouge} fullscreen={true}>
-              <AdsPage adsInfo={adsInfo} />
+           {  adsInfo && isAdsPage && <AdsPage adsInfo={adsInfo} />}
               {/* prev and next  */}
               {/* <div className="prev_arrow" onClick={() => handlePrevQuest()}>
                 <BiSolidLeftArrow />

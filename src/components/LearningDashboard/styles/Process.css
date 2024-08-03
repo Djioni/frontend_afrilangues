@@ -50,12 +50,12 @@
 }
 
 #process-p .p-svg img {
-  height: 155px;
-  width: 103px;
+  height: 120px;
+
   position: absolute;
-  left: 0;
+  left: 20px;
   right: 30px;
-  top: 0;
+  top: 10px;
   bottom: 35px;
   margin: auto;
 }

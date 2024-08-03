@@ -120,6 +120,20 @@
   cursor: default;
 }
 
+.earn .image-1 {
+  height: 90px;
+  width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+  border-radius: 50%;
+  padding: 5px;
+}
+.earn .image-1 img {
+  height: 100%;
+  object-fit: cover;
+}
 #d-goals .rf-btn-2 {
   border-top-right-radius: 7px !important;
   border-bottom-right-radius: 7px !important;
