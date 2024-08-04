@@ -59,7 +59,23 @@ const Question = ({
           {icon}
         </div>
       );
-    } else if (inputs === 2) {
+    }
+
+    if (inputs === 0) {
+      return (
+        <div
+          className={`w-100 d-flex ${
+            iconRight
+              ? "flex-row justify-content-between"
+              : "flex-row-reverse justify-content-end"
+          } align-items-center py-4 px-2 rounded-2 shadow-lg question my-2`}
+        >
+          <p>{text1}</p>
+          {icon}
+        </div>
+      );
+    }
+    if (inputs === 2) {
       return (
         <div
           className={`dia-q w-100 d-flex ${
