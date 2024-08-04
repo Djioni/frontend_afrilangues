@@ -120,8 +120,8 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
         );
 
         // 1 input
-        if (indicesOfEllipsis.length <= 1) {
-          if (indicesOfEllipsis[0] === 0) {
+        if (indicesOfEllipsis.length === 1) {
+          if (indicesOfEllipsis[0] === 1) {
             console.log("first input");
             transformedData.push({
               id: index + 1,
@@ -134,7 +134,7 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
             });
           } else {
             console.log("middle input");
-            if (textValue.length >= 2) {
+            if (textValue.length === 2) {
               console.log("middle input text1/2");
               transformedData.push({
                 id: index + 1,
@@ -163,9 +163,9 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
           }
         }
         // 2 inputs
-        if (indicesOfEllipsis.length >= 2) {
+        if (indicesOfEllipsis.length === 2) {
           console.log("2 input");
-          if (textValue.length >= 2) {
+          if (textValue.length === 2) {
             console.log("2 input text1/2");
             transformedData.push({
               id: index + 1,
@@ -193,6 +193,20 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
             });
             totalInputNumber++;
           }
+        }
+        // 0 inputs
+
+        if (indicesOfEllipsis.length === 0) {
+          console.log("okay content found!");
+          transformedData.push({
+            id: index + 1,
+            order: exercise.order,
+            inputs: 0,
+            inputFirst: true,
+            input1Name: `blank${totalInputNumber}`,
+            text1: textValue[0],
+            sentence: FormatSentence(),
+          });
         }
       });
 
