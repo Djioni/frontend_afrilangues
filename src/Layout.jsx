@@ -13,7 +13,7 @@ import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import ErrorModal from "./components/ErrorModal";
 import { Home, LearningDashboard, Quizzes } from "./components";
-
+import Navigation from "./components/Home/Components/Navigation";
 import Navber from "./components/LearningDashboard/components/Navber";
 import GrettingLesson from "./components/LearningDashboard/components/Lessons";
 import LessonSection from "./components/LearningDashboard/components/LessonSection";
@@ -49,7 +49,6 @@ import ConditionOfSale from "./components/Home/pages/ConditionOfSale";
 import Confidentiality from "./components/Home/pages/Confidentiality";
 import TermsOfUse from "./components/Home/pages/TermsOfUse";
 import Pricing from "./components/Home/components/Pricing/Pricing";
-import Navigation from "./components/Home/Components/Navigation";
 import { HomeFormation } from "./components/Formation/HomeFormation";
 
 export default function Layout() {
