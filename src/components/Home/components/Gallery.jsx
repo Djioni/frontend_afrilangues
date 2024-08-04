@@ -38,7 +38,7 @@ const Gallery = forwardRef((props, ref) => {
                       <h2 className="tracking-widest taille-titre title-font fw-bold text-white custom-mb-3 text-uppercase shadow-lg">
                         {src.split(".")[0].toUpperCase()}
                       </h2>
-                      <h1 className="title-font taille-ss-titre fw-medium text-white custom-mb-5 mx-4 shadow-md">
+                      <h1 className="title-font tw-font-[400] taille-ss-titre  fw-medium  text-white custom-mb-5 mx-4 shadow-md">
                         {index === 0
                           ? "Vous êtes à la recherche de cours de langues africaines ?"
                           : index === 1
@@ -108,7 +108,7 @@ const Gallery = forwardRef((props, ref) => {
             height: 40vh !important;
           }
           .title-font {
-            font-size: 1.2rem !important;
+            font-size: 17px !important;
           }
           h2 {
             font-size: 1.75rem !important;
