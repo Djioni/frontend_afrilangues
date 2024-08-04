@@ -35,7 +35,7 @@ import { CurrentSectionIndexAction } from "../../../services/actions/CurrentSect
 import { CurrentLessonIndexAction } from "../../../services/actions/CurrentLessonIndexAction";
 import AdsPage from "../../../../ads/AdsPage";
 //
-const Home = ({ handlePrevQuestion, adsInfo,isAdsPage }) => {
+const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
   console.log("handleprevquestion", handlePrevQuestion);
   // souonds
   const [wrongSound] = useState(
@@ -1614,6 +1614,10 @@ const Home = ({ handlePrevQuestion, adsInfo,isAdsPage }) => {
     setIsDialogExercise(false);
     setIsNextExerciseTrue(true);
   };
+
+  useEffect(() => {
+    console.log("all time", quizData);
+  }, [quizData]);
   if (isNextExerciseTrue) {
     return <Exercise />;
   }
@@ -1632,7 +1636,7 @@ const Home = ({ handlePrevQuestion, adsInfo,isAdsPage }) => {
 
             {/* Dialouge here */}
             <Modal show={true} onHide={toggleDialouge} fullscreen={true}>
-           {  adsInfo && isAdsPage && <AdsPage adsInfo={adsInfo} />}
+              {adsInfo && isAdsPage && <AdsPage adsInfo={adsInfo} />}
               {/* prev and next  */}
               {/* <div className="prev_arrow" onClick={() => handlePrevQuest()}>
                 <BiSolidLeftArrow />
