@@ -1,5 +1,3 @@
-
-
 .download_container {
   display: flex;
   align-items: center;
@@ -32,6 +30,10 @@
   font-weight: 300;
   line-height: 30px;
   margin-top: 20px;
+}
+.download_container .custom-icon {
+  height: 100% !important;
+  width: 100% !important;
 }
 
 /* MEDIA QUERY FOR RESPONSIVENESS */
@@ -76,6 +78,6 @@
 }
 
 .custom-icon {
-  max-width:10%;
-  height:auto;
+  max-width: 10%;
+  height: auto;
 }

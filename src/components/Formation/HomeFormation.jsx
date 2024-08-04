@@ -18,7 +18,9 @@ export const HomeFormation = () => {
       <Navigation />
       <Banner />
       <ReferenceAfricanLanguage />
-      <DownloadApp />
+      <div>
+        <DownloadApp />
+      </div>
       <br />
       <br />
       <Pricing />
