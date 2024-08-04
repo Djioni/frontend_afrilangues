@@ -196,7 +196,7 @@ export const FormatDialogueData = (QAdata, QuizID, title) => {
         }
         // 0 inputs
 
-        if (indicesOfEllipsis.length === 0) {
+        if (indicesOfEllipsis.length === 0 && textValue[0]) {
           console.log("okay content found!");
           transformedData.push({
             id: index + 1,
