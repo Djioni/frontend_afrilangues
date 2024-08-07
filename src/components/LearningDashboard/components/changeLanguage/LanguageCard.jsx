@@ -15,7 +15,7 @@ function LanguageCard({ logo, members }) {
         />
       </div>
 
-      <p>{members} members</p>
+      <p className="text-black">{members} members</p>
     </NavLink>
   );
 }
