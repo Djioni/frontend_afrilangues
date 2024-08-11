@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState, useEffect } from "react";
 import {
   Route,
@@ -13,7 +11,7 @@ import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import ErrorModal from "./components/ErrorModal";
 import { Home, LearningDashboard, Quizzes } from "./components";
-import Navigation from "./components/Home/Components/Navigation";
+
 import Navber from "./components/LearningDashboard/components/Navber";
 import GrettingLesson from "./components/LearningDashboard/components/Lessons";
 import LessonSection from "./components/LearningDashboard/components/LessonSection";
@@ -50,7 +48,7 @@ import Confidentiality from "./components/Home/pages/Confidentiality";
 import TermsOfUse from "./components/Home/pages/TermsOfUse";
 import Pricing from "./components/Home/components/Pricing/Pricing";
 import { HomeFormation } from "./components/Formation/HomeFormation";
-
+import { Navigation } from "./components/Home";
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
   const [isLearningDashboardOpen, setIsDashBoardOpen] = useState(true);
