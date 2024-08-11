@@ -2,7 +2,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./index.css";
-import Navigation from "./Components/Navigation";
+
 import Section from "./Components/Section";
 import Gallery from "./Components/Gallery";
 import SectionAlin from "./Components/SectionAlin";
@@ -14,6 +14,7 @@ import Confidentiality from "./Confidentiality";
 import MentionLegales from "./MentionLegales";
 import Reservation from "./Reservation";
 import Devis from "./Devis";
+import Navigation from "./components/Navigation";
 
 function HomeApp() {
   const heroStyle = {

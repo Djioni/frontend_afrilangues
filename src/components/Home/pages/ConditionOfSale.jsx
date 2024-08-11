@@ -1,7 +1,7 @@
 import React from "react";
 import { htmlData } from "./html.data";
 import Footer from "../../Footer/Footer";
-import Navigation from "../Components/Navigation";
+import Navigation from "../components/Navigation";
 
 export default function ConditionOfSale() {
   return (
