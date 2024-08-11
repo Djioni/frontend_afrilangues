@@ -20,7 +20,8 @@ import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
 import "../../App.css";
 import { GetLanguageAction } from "../Languages/services/actions/LanguageAction";
 import Languages from "../Languages/Languages";
-import Navigation from "../Navigation/Navigation";
+import { Navigation } from "../Home";
+
 const Register = () => {
   const { language } = useSelector((state) => state.language);
   const displathLanguage = useDispatch();
