@@ -4,17 +4,15 @@ import { Routes, Route } from "react-router-dom";
 import "./index.css";
 
 import Section from "./components/Section";
-import Gallery from "./components/Gallery";
 import SectionAlin from "./components/SectionAlin";
 import Footer from "./components/Footer";
-import LangageSection from "./components/LangageSection";
 import Partnerships from "./components/Partnerships";
-import ConditionVentes from "./conditionVentes";
-import Confidentiality from "./confidentiality";
+import Confidentiality from "./components/Confidentiality";
 import MentionLegales from "./MentionLegales";
 import Reservation from "./Reservation";
-import Devis from "./Devis";
+import Devis from "./components/Devis";
 import Navigation from "./components/Navigation";
+import ConditionVentes from "./components/ConditionVentes";
 
 function HomeApp() {
   const heroStyle = {
