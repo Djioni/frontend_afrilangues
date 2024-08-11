@@ -138,7 +138,7 @@ function Nav() {
   );
 }
 
-function Navigation() {
+const Navigation = () => {
   return (
     <>
       <Nav />
@@ -323,6 +323,6 @@ function Navigation() {
       `}</style>
     </>
   );
-}
+};
 
 export default Navigation;
