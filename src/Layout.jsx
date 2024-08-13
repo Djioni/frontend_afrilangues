@@ -49,11 +49,14 @@ import TermsOfUse from "./components/Home/pages/TermsOfUse";
 import Pricing from "./components/Home/components/Pricing/Pricing";
 import { HomeFormation } from "./components/Formation/HomeFormation";
 import { Navigation } from "./components/Home";
+import Reservation from "./components/Home/Reservation";
+import Devis from "./components/Home/components/Devis";
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
   const [isLearningDashboardOpen, setIsDashBoardOpen] = useState(true);
   const [isHomeNav, setIsHomeNav] = useState(false);
   const [isHomePageNavigation, setIsHomePageNavigation] = useState(false);
+  const [isdashNav, setisdashNav] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -124,6 +127,13 @@ export default function Layout() {
       setIsDashBoardOpen(false);
       setIsPageLoading(false);
       setIsHomePageNavigation(true);
+    }
+
+    if (
+      location.pathname.includes("reservation") ||
+      location.pathname.includes("devis")
+    ) {
+      setisdashNav(true);
     } else {
       if (location.pathname.includes("checkout")) {
         return null;
@@ -144,7 +154,7 @@ export default function Layout() {
     <div>
       {isLearningDashboardOpen && !isPageLoading && !isHomePageNavigation ? (
         <section className="sec-nav">
-          {isHomeNav ? <Navigation /> : <Navber />}
+          {isHomeNav ? <Navigation /> : !isdashNav ? <Navber /> : null}
         </section>
       ) : isHomeNav ? (
         <section className="sec-nav"></section>
@@ -161,6 +171,8 @@ export default function Layout() {
 
         {/* // home others */}
         <Route path="/formation" element={<HomeFormation />} />
+        <Route path="/devis" element={<Devis />} />
+        <Route path="/reservation" element={<Reservation />} />
 
         {/* auth routes */}
         <Route path="/auth/login" element={<Login />} />
