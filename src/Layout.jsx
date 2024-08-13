@@ -113,6 +113,7 @@ export default function Layout() {
       location.pathname.includes("terms-of-use") ||
       location.pathname.includes("confidentiality")
     ) {
+      setisdashNav(false);
       setIsHomeNav(true);
     }
 
@@ -124,6 +125,7 @@ export default function Layout() {
       location.pathname.includes("reset") ||
       quizValidate
     ) {
+      setisdashNav(false);
       setIsDashBoardOpen(false);
       setIsPageLoading(false);
       setIsHomePageNavigation(true);
@@ -145,6 +147,7 @@ export default function Layout() {
           setIsPageLoading(false);
           setIsHomePageNavigation(false);
           setIsHomeNav(false);
+          setisdashNav(false);
         }
       }
     }
