@@ -7,8 +7,8 @@ Check out the live preview here: [Africalanguess](https://africalanguess.netlify
 ## Installation Steps
 
 # Clone the repository
-git clone https://github.com/your-username/africa-languess.git
-cd africa-languess
+git clone https://github.com/Mandemansa/React_Frontend_Afrilangues.git
+cd React_Frontend_Afrilangues
 
 # Install dependencies
 npm install
