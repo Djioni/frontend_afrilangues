@@ -1,19 +1,31 @@
-# React + Vite
+# Africalanguess
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live Preview
 
-Currently, two official plugins are available:
+Check out the live preview here: [Africalanguess](https://africalanguess.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation Steps
 
-// message submit option
-// one another page for showing all meda a prase info.
-// one another page for to show all people whos need help
+# Clone the repository
+git clone https://github.com/your-username/africa-languess.git
+cd africa-languess
 
-// for the admin one additional option the send message directly userphone
+# Install dependencies
+npm install
+# or if using yarn
+yarn install
 
-// all message all be pending, ader verify then all admin will deside will be approve or not. admin can edit message.
+# Start the development server
+npm run dev
+# or if using yarn
+yarn dev
 
-১। ইউজার মেসেজ সেন্ড করতে পারবে, এবং সেই মেসেজ PENDING THAKBE এডমিন চেক করে যদি কিছু এডিট করা লাগে করে তারপর APPROVE করতে পারবে।
-২।
+# Build for production
+npm run build
+# or if using yarn
+yarn build
+
+# Preview the production build locally (optional)
+npm run serve
+# or if using yarn
+yarn serve
