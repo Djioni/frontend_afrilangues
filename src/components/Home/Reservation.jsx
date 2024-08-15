@@ -362,31 +362,35 @@ function Reservation() {
                 Ajouter
               </button>
             </div>
-            <div className="form-group">
-              <label>RÉCAPITULATIF DE RÉSERVATION(S) :</label>
-              <div className="reservation-summary">
-                <div className="summary-header">
-                  <span className="column-header">LANGUE(S)</span>
-                  <span className="column-header">DATE</span>
-                  <span className="column-header">HEURE DE LA PRESTATION</span>
-                  <span className="column-header">TYPE D'INTERPRÉTARIAT</span>
-                </div>
-                {languages.map((lang, index) => (
-                  <div key={index} className="selected-language">
-                    <span className="column">{lang.language.label}</span>
-                    <span className="column">{lang.date}</span>
-                    <span className="column">
-                      {lang.startTime} - {lang.endTime}
+            <div className=" tw-overflow-x-scroll md:tw-overflow-auto">
+              <div className="form-group">
+                <label>RÉCAPITULATIF DE RÉSERVATION(S) :</label>
+                <div className="reservation-summary">
+                  <div className="summary-header">
+                    <span className="column-header">LANGUE(S)</span>
+                    <span className="column-header">DATE</span>
+                    <span className="column-header">
+                      HEURE DE LA PRESTATION
                     </span>
-                    <span className="column">
-                      {lang.interpretationType === "telephone"
-                        ? "Téléphonique"
-                        : lang.interpretationType === "inPerson"
-                        ? "Présentiel"
-                        : "Visio-conférence"}
-                    </span>
+                    <span className="column-header">TYPE D'INTERPRÉTARIAT</span>
                   </div>
-                ))}
+                  {languages.map((lang, index) => (
+                    <div key={index} className="selected-language">
+                      <span className="column">{lang.language.label}</span>
+                      <span className="column">{lang.date}</span>
+                      <span className="column">
+                        {lang.startTime} - {lang.endTime}
+                      </span>
+                      <span className="column">
+                        {lang.interpretationType === "telephone"
+                          ? "Téléphonique"
+                          : lang.interpretationType === "inPerson"
+                          ? "Présentiel"
+                          : "Visio-conférence"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             <div className="form-group">

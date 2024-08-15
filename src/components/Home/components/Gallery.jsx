@@ -63,7 +63,7 @@ const Gallery = forwardRef((props, ref) => {
                         </a>
                       ) : index === 1 ? (
                         <Link
-                          to="/resa"
+                          to="/reservation"
                           className=" text-decoration-none text-black bg-white border-0 py-custom custom-px-6 rounded"
                         >
                           PRENDRE UN RENDEZ-VOUS

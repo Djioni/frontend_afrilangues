@@ -201,7 +201,7 @@ function Devis() {
       style={{
         fontFamily: "Arial, sans-serif",
         backgroundColor: "#f0f0f0",
-        padding: "20px",
+        padding: "",
         margin: "0 auto",
       }}
     >
@@ -352,33 +352,35 @@ function Devis() {
             >
               Ajouter
             </button>
-            <div className="form-group">
-              <label>RÉCAPITULATIF DE DEMANDE(S) :</label>
-              <div className="reservation-summary">
-                <div className="summary-header">
-                  <span className="column-header">LANGUE SOURCE</span>
-                  <span className="column-header">LANGUE CIBLE</span>
-                  <span className="column-header">DATE</span>
-                  <span className="column-header">LIEN</span>
-                  <span className="column-header">TYPE DE SERVICE</span>
-                </div>
-                {languages.map((lang, index) => (
-                  <div key={index} className="selected-language">
-                    <span className="column">{lang.sourceLanguage}</span>
-                    <span className="column">{lang.language}</span>
-                    <span className="column">{lang.date}</span>
-                    <span className="column">{lang.link}</span>
-                    <span className="column">
-                      {lang.serviceType === "traduction"
-                        ? "Traduction de support"
-                        : lang.serviceType === "sous-titrage"
-                        ? "Sous-titrage de support"
-                        : lang.serviceType === "transcription"
-                        ? "Transcription de support"
-                        : "Réalisation de voix-off"}
-                    </span>
+            <div className=" tw-overflow-x-scroll md:tw-overflow-auto">
+              <div className="">
+                <label>RÉCAPITULATIF DE DEMANDE(S) :</label>
+                <div className="reservation-summary">
+                  <div className="summary-header">
+                    <span className="column-header">LANGUE SOURCE</span>
+                    <span className="column-header">LANGUE CIBLE</span>
+                    <span className="column-header">DATE</span>
+                    <span className="column-header">LIEN</span>
+                    <span className="column-header">TYPE DE SERVICE</span>
                   </div>
-                ))}
+                  {languages.map((lang, index) => (
+                    <div key={index} className="selected-language">
+                      <span className="column">{lang.sourceLanguage}</span>
+                      <span className="column">{lang.language}</span>
+                      <span className="column">{lang.date}</span>
+                      <span className="column">{lang.link}</span>
+                      <span className="column">
+                        {lang.serviceType === "traduction"
+                          ? "Traduction de support"
+                          : lang.serviceType === "sous-titrage"
+                          ? "Sous-titrage de support"
+                          : lang.serviceType === "transcription"
+                          ? "Transcription de support"
+                          : "Réalisation de voix-off"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             <div className="form-group">

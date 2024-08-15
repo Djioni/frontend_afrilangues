@@ -137,7 +137,7 @@ export default function Layout() {
       location.pathname.includes("reservation") ||
       location.pathname.includes("devis")
     ) {
-      setisdashNav(true);
+      setisdashNav(false);
     } else {
       if (location.pathname.includes("checkout")) {
         return null;
