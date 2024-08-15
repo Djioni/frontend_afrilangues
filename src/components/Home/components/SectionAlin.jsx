@@ -146,7 +146,9 @@ const SectionAlin = () => {
         <Subtitle>AFRILANGUES X SPEEDPRESTA</Subtitle>
         <Title>ALIN PROJECT</Title>
         <Subtitle>Innover avec les langues africaines</Subtitle>
-        <a href="https://dico-afrilangues.distribute.app/" target="_blank"></a>
+        <a href="https://dico-afrilangues.distribute.app/" target="_blank">
+          <Button>Découvrir</Button>
+        </a>
       </Column>
     </Container>
   );
