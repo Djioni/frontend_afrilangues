@@ -47,10 +47,11 @@ import ConditionOfSale from "./components/Home/pages/ConditionOfSale";
 import Confidentiality from "./components/Home/pages/Confidentiality";
 import TermsOfUse from "./components/Home/pages/TermsOfUse";
 import Pricing from "./components/Home/components/Pricing/Pricing";
-import { HomeFormation } from "./components/Formation/HomeFormation";
+
 import { Navigation } from "./components/Home";
 import Reservation from "./components/Home/Reservation";
 import Devis from "./components/Home/components/Devis";
+import HomeFormation from "./components/Formation/FactionHome";
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
   const [isLearningDashboardOpen, setIsDashBoardOpen] = useState(true);
@@ -123,6 +124,7 @@ export default function Layout() {
       location.pathname.includes("auth") ||
       location.pathname.includes("forgetpassword") ||
       location.pathname.includes("reset") ||
+      location.pathname.includes("login") ||
       quizValidate
     ) {
       setisdashNav(false);
@@ -157,7 +159,7 @@ export default function Layout() {
     <div>
       {isLearningDashboardOpen && !isPageLoading && !isHomePageNavigation ? (
         <section className="sec-nav">
-          {isHomeNav ? <Navigation /> : !isdashNav ? <Navber /> : null}
+          {isHomeNav ? <Navigation /> : isdashNav ? <Navber /> : null}
         </section>
       ) : isHomeNav ? (
         <section className="sec-nav"></section>
@@ -185,7 +187,17 @@ export default function Layout() {
         <Route path="/forgetpassword" element={<ForgetPasswd />} />
         <Route path="/password/reset/:passToken" element={<NewPassword />} />
         {/* profile */}
-        <Route path="/user/profile" element={<Profile />} />
+        <Route
+          path="/user/profile"
+          element={
+            <div>
+              <section className="sec-nav">
+                <Navber />
+              </section>
+              <Profile />
+            </div>
+          }
+        />
 
         <Route path="/monProfil" element={<MonProfil />} />
         <Route path="/editMonProfil" element={<EditMonProfil />} />
@@ -193,6 +205,9 @@ export default function Layout() {
           path="/propos"
           element={
             <div>
+              <section className="sec-nav">
+                <Navber />
+              </section>
               <div
                 className="w-100 h-100 d-flex flex-column justify-content-center  align-items-center rounded-4 "
                 style={{ minHeight: "100vh", background: "#F6F6F6" }}
@@ -203,8 +218,28 @@ export default function Layout() {
           }
         />
         {/* dashboard routes */}
-        <Route path="/dashboard" element={<LearningDashboard />} />
-        <Route path="/change-language" element={<ChangeLanguage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <div>
+              <section className="sec-nav">
+                <Navber />
+              </section>
+              <LearningDashboard />
+            </div>
+          }
+        />
+        <Route
+          path="/change-language"
+          element={
+            <div>
+              <section className="sec-nav">
+                <Navber />
+              </section>
+              <ChangeLanguage />
+            </div>
+          }
+        />
 
         <Route path="/onboarding-tutorials" element={<OnboardingTotorials />} />
 
@@ -225,9 +260,15 @@ export default function Layout() {
         <Route
           path="/lessons"
           element={
-            <div className="layout">
-              <div className="container">
-                <GrettingLesson />
+            <div>
+              <section className="sec-nav">
+                <Navber />
+              </section>
+
+              <div className="layout">
+                <div className="container">
+                  <GrettingLesson />
+                </div>
               </div>
             </div>
           }
@@ -235,8 +276,13 @@ export default function Layout() {
         <Route
           path="/lessons/section/"
           element={
-            <div className="container">
-              <LessonSection />
+            <div>
+              <section className="sec-nav">
+                <Navber />
+              </section>
+              <div className="container">
+                <LessonSection />
+              </div>
             </div>
           }
         ></Route>

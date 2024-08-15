@@ -4,10 +4,10 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
 import logo from "../../assets/logo.png";
 import "./Navigation.css";
-import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
+
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
@@ -25,6 +25,7 @@ const Navigation = () => {
                 // } else {
                 //   navigate("/");
                 // }
+             
               }}
             >
               <img src={logo} alt="Logo" className="img-fluid" />

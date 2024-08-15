@@ -12,15 +12,13 @@ import {
 } from "./components/index";
 import NewsLetter from "./components/newsletter/NewsLetter";
 
-export const HomeFormation = () => {
+const HomeFormation = () => {
   return (
     <div style={{ overflowX: "hidden" }}>
       <Navigation />
       <Banner />
       <ReferenceAfricanLanguage />
-      <div>
-        <DownloadApp />
-      </div>
+      <DownloadApp />
       <br />
       <br />
       <Pricing />
@@ -31,3 +29,5 @@ export const HomeFormation = () => {
     </div>
   );
 };
+
+export default HomeFormation;
