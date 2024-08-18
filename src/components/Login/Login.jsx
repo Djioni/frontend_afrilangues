@@ -9,6 +9,7 @@ import {
   HiOutlineEyeOff,
 } from "react-icons/hi";
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import "./Login.css";
 import { HiMiniLockClosed } from "react-icons/hi2";
@@ -39,6 +40,8 @@ const Login = () => {
   const [isPageLoading, setIsPageLoding] = useState(false);
   const { token, id } = useSelector((state) => state.auth);
   const currentPath = useSelector((state) => state.currentPath);
+
+  const [isReCaptcha, setIsReCaptcha] = useState(null);
 
   //
 
@@ -125,7 +128,7 @@ const Login = () => {
       setShowModal(true);
       wrongSound.play();
     }
-    if (isFormFilled) {
+    if (isFormFilled && isReCaptcha) {
       setIsLoading(true);
       // send request section (start)
       const userSchma = {
@@ -237,7 +240,7 @@ const Login = () => {
                     />
                   </div>
                 </div>
-                <div className="w-100 d-flex flex-column align-items-center justify-content-center gap-2 mb-4">
+                <div className="w-100 d-flex flex-column align-items-center justify-content-center gap-2 tw-mb-2">
                   <div className="eye_box">
                     <TextInput
                       name="email"
@@ -292,7 +295,27 @@ const Login = () => {
                     </div>
                   </div>
                 </div>
-
+                <div className="tw-flex tw-justify-start">
+                  <ReCAPTCHA
+                    onChange={(value) => {
+                      console.log(value);
+                      axios
+                        .post(
+                          " https://www.google.com/recaptcha/api/siteverify",
+                          {
+                            secret: "6LdrUikqAAAAAIsSmHrFergUawiAsRUtymM7d67K",
+                            responses: value,
+                          }
+                        )
+                        .then((result) => {
+                          console.log(result);
+                        });
+                      setIsReCaptcha(value);
+                    }}
+                    sitekey="6LdrUikqAAAAAIlbAe-6eOrohrcgqkR6My1QpCud
+"
+                  />
+                </div>
                 <button
                   type="submit"
                   className="mainGradient border-0 py-2 rounded-3 text-white language-btn"
