@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "./Layout";
-
+import ReactGA from "react-ga4";
 const App = () => {
   const quizData = [
     {
@@ -41,11 +41,17 @@ const App = () => {
     },
     // Add more lessons
   ];
-  console.log("hello i am from app");
 
-  //
-  useEffect(() => {}, []);
+  // google analytics
+  useEffect(() => {
+    ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID);
 
+    ReactGA.event({
+      category: "USER",
+      action: "VisitorEngaged",
+      label: "africalangues.com",
+    });
+  }, []);
   //
 
   return (
