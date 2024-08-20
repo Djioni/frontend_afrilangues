@@ -44,7 +44,7 @@ const App = () => {
 
   // google analytics
   useEffect(() => {
-    ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID);
+    ReactGA.initialize("MTQB1HZN9F");
 
     ReactGA.event({
       category: "USER",
