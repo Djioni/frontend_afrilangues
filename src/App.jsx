@@ -42,9 +42,10 @@ const App = () => {
     // Add more lessons
   ];
 
+  console.log("meta env", import.meta.env);
   // google analytics
   useEffect(() => {
-    ReactGA.initialize(process.env.GA_TRACKING_ID);
+    ReactGA.initialize("G-MTQB1HZN9F");
 
     ReactGA.event({
       category: "USER",
