@@ -32,6 +32,7 @@ export default function Topics() {
   const usertID = Cookies.get("id");
   const navigate = useNavigate();
   const [checkAuth, setCheckAuth] = useState(false);
+  const [themeCompletionState, setThemeCompletionState] = useState([]);
   const theme = localStorage.getItem("theme");
   const lesson = localStorage.getItem("lesson");
 
@@ -94,6 +95,7 @@ export default function Topics() {
             // manage theme
             console.log("theme", theme.data);
             localStorage.setItem("theme", JSON.stringify(theme.data));
+            getTopicCompletionState(theme.data);
             setUserTheme(theme.data);
             //loading false
             setIsPageLoading(false);
@@ -143,9 +145,38 @@ export default function Topics() {
       }
     }
   };
+
   const toggleModal = () => {
     setShowModal((prevValue) => !prevValue);
   };
+
+  const getTopicCompletionState = async (objectsArray) => {
+    try {
+      const token = JSON.parse(userToken);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const requests = objectsArray.map((obj) =>
+        axios.post(
+          API_URL + "/exercise/satus/theme/status",
+          {
+            themeId: obj.id,
+            userId: JSON.parse(usertID),
+          },
+          config
+        )
+      );
+      const responses = await Promise.all(requests);
+      const fetchedData = responses.map((response) => response.data);
+
+      setThemeCompletionState(fetchedData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <div className="w-full">
       {isPageLoading ? (
@@ -165,7 +196,7 @@ export default function Topics() {
             {/* {adsInfo && <AdsPage adsInfo={adsInfo} />} */}
             <div>
               <div className="row  px-md-5">
-                {userTheme.map((result) => (
+                {userTheme.map((result, themeIndex) => (
                   <div
                     key={result.id}
                     className={`col-12 col-md-6 col-lg-6 col-xl-6 ${
@@ -184,13 +215,21 @@ export default function Topics() {
                           src={`${API_URL}/mediaObject/download/${result.image}`}
                           alt="Card image cap"
                         />
-                        <div className="card-body">
+                        <div className="card-body position-relative">
                           <div className="d-flex justify-content-center">
                             <h2>{result.name}</h2>
                           </div>
                           <div className="d-flex justify-content-center">
                             <span>{"Commencer la leçon"}</span>
                           </div>
+                          {themeCompletionState[themeIndex] != "En cours" && themeCompletionState.length > 0 && (
+                            <div className="position-absolute tickIcon">
+                              <img
+                                src="images/tick_icon.png"
+                                className="tickImage"
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>

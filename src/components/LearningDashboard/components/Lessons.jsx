@@ -27,6 +27,7 @@ export default function Lessons() {
   const [currentLesson, setCurrentLesson] = useState([]);
   const [adsInfo, setAdsInfo] = useState(null);
   const [subscriptionData, setSubscriptionData] = useState(null);
+  const [lessonCompletionState, setLessonCompletionState] = useState([]);
 
   // get params
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -73,7 +74,7 @@ export default function Lessons() {
               "currentAllLessons",
               JSON.stringify(result.data)
             );
-
+            getLessonCompletionState(result.data);
             if (result.data[0]) {
               localStorage.setItem(
                 "currentLessons",
@@ -125,6 +126,33 @@ export default function Lessons() {
     navigate("/dashboard");
   };
 
+  const getLessonCompletionState = async (objectsArray) => {
+    try {
+      const token = JSON.parse(userToken);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const requests = objectsArray.map((obj) =>
+        axios.post(
+          API_URL + "/exercise/satus/lesson/status",
+          {
+            lessonId: obj.id,
+            userId: JSON.parse(userId),
+          },
+          config
+        )
+      );
+      const responses = await Promise.all(requests);
+      const fetchedData = responses.map((response) => response.data);
+
+      setLessonCompletionState(fetchedData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   if (currentLesson[0]) {
     return (
       <div id={isPageLoading ? "" : "gt"}>
@@ -144,7 +172,7 @@ export default function Lessons() {
               title={currentLesson[0]?.theme?.name}
             />
             <div className="row">
-              {currentLesson.map((result) => (
+              {currentLesson.map((result, lessonIndex) => (
                 <div
                   key={result.id}
                   className="col-12 col-md-6 col-lg-4 col-xl-3"
@@ -159,13 +187,21 @@ export default function Lessons() {
                         src={`${API_URL}/mediaObject/download/${result.image}`}
                         alt="Card image cap"
                       />
-                      <div className="card-body">
+                      <div className="card-body position-relative">
                         <div className="d-flex justify-content-center">
                           <h2>{result.name}</h2>
                         </div>
                         <div className="d-flex justify-content-center">
                           <span>{"Commencer la leçon"}</span>
                         </div>
+                        {lessonCompletionState[lessonIndex] != "En cours" && lessonCompletionState.length > 0 && (
+                          <div className="position-absolute tickIcon">
+                            <img
+                              src="images/tick_icon.png"
+                              className="tickImage"
+                            />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

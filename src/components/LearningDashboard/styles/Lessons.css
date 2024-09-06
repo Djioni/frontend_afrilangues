@@ -396,6 +396,21 @@
   }
 }
 
+.tickIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid #5dbc7e;
+  bottom: 20px;
+  right: 10px;
+}
+
+.tickImage {
+  width: 100%;
+  border: none !important;
+  height: auto !important;
+}
+
 @media only screen and (max-width: 576px) {
   .lession-link div h2 {
     color: #000;
