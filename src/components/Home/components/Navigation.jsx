@@ -75,8 +75,8 @@ function Dropdown() {
       </button>
       {isDropdownOpen && (
         <div className="dropdown-content">
-          <a href="#">COURS PARTICULIERS</a>
-          <a href="#">COURS COLLECTIFS</a>
+          <a href="https://forms.gle/9PtVvosHxsdbAyer8">COURS PARTICULIERS</a>
+          <a href="https://forms.gle/9PtVvosHxsdbAyer8">COURS COLLECTIFS</a>
         </div>
       )}
     </div>
