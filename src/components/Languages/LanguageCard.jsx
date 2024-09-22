@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./languageCard.css";
-function LanguageCard({ logo, members }) {
+function LanguageCard({ logo, language }) {
   return (
     <NavLink className="w-100 d-flex flex-column align-items-center justify-content-start gap-1 gap-md-4 text-decoration-none language-card">
       <div
@@ -14,8 +14,11 @@ function LanguageCard({ logo, members }) {
           alt=""
         />
       </div>
-
-      <p className="text-black">{members} members</p>
+      {language && language.member ? (
+        <p className="text-black">{language?.member} members</p>
+      ) : (
+        <p className="text-black">{language?.name}</p>
+      )}
     </NavLink>
   );
 }
