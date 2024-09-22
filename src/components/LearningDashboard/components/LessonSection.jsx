@@ -66,9 +66,10 @@ export default function LearnGrettingLession() {
   const [isPageLoading, setIsPageLoading] = useState(true); // Start with loading state
   const [adsInfo, setAdsInfo] = useState(null);
   const [subscriptionData, setSubscriptionData] = useState(null);
+  const [lessonSectionCompletionState, setLessonSectionCompletionState] =
+    useState([]);
   // get lesson and section
   const lessonsections = useSelector((state) => state.lessonsection);
-
   const [errorMessage, setErrorMessage] = useState(
     "Veuillez d'abord terminer la leçon précédente!"
   );
@@ -121,6 +122,7 @@ export default function LearnGrettingLession() {
                 JSON.stringify(result.data)
               );
               setCurrentLessonSection(result.data);
+              getLessonSectionCompletionState(result.data);
               console.log(result.data);
               setIsPageLoading(false);
             } else {
@@ -150,12 +152,37 @@ export default function LearnGrettingLession() {
     navigate(-1);
   };
 
-  // // handle section with onclick
-
   const handleSection = (sectionID) => {
     console.log("re", sectionID);
     navigate(`/lessons/section/exercise/?id=${sectionID}`);
     localStorage.setItem("currentLessonSectionID", sectionID);
+  };
+
+  const getLessonSectionCompletionState = async (objectsArray) => {
+    try {
+      const token = JSON.parse(userToken);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const requests = objectsArray.map((obj) =>
+        axios.post(
+          API_URL + "/exercise/satus/lesson/section/status",
+          {
+            lessonSectionId: obj.id,
+            userId: JSON.parse(userId),
+          },
+          config
+        )
+      );
+      const responses = await Promise.all(requests);
+      const fetchedData = responses.map((response) => response.data);
+
+      setLessonSectionCompletionState(fetchedData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   if (currentLessonSection[0]) {
@@ -187,7 +214,15 @@ export default function LearnGrettingLession() {
                       } mt-4`}
                       key={result.id}
                     >
-                      <div>
+                      <div className="position-relative">
+                        {lessonSectionCompletionState[index] != "En cours" && lessonSectionCompletionState.length > 0 && (
+                          <div className="position-absolute roundTickIcon">
+                            <img
+                              src="../images/tick_icon.png"
+                              className="tickImage"
+                            />
+                          </div>
+                        )}
                         {result.image ? (
                           <div className="card truncate justify-content-center">
                             <div className="d-flex justify-content-center">

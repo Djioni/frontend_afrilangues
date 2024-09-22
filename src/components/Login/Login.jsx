@@ -128,7 +128,7 @@ const Login = () => {
       setShowModal(true);
       wrongSound.play();
     }
-    if (isFormFilled && isReCaptcha) {
+    if (isFormFilled) {
       setIsLoading(true);
       // send request section (start)
       const userSchma = {
