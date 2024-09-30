@@ -170,7 +170,7 @@ export default function Topics() {
       );
       const responses = await Promise.all(requests);
       const fetchedData = responses.map((response) => response.data);
-
+      console.log("Fetched Data : ", fetchedData)
       setThemeCompletionState(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -222,7 +222,7 @@ export default function Topics() {
                           <div className="d-flex justify-content-center">
                             <span>{"Commencer la leçon"}</span>
                           </div>
-                          {themeCompletionState[themeIndex] != "En cours" && themeCompletionState.length > 0 && (
+                          {themeCompletionState[themeIndex]?.data != "En cours" && themeCompletionState.length > 0 && (
                             <div className="position-absolute tickIcon">
                               <img
                                 src="images/tick_icon.png"

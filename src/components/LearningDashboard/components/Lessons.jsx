@@ -146,7 +146,7 @@ export default function Lessons() {
       );
       const responses = await Promise.all(requests);
       const fetchedData = responses.map((response) => response.data);
-
+      console.log("Fetched Data : ", fetchedData)
       setLessonCompletionState(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -194,7 +194,7 @@ export default function Lessons() {
                         <div className="d-flex justify-content-center">
                           <span>{"Commencer la leçon"}</span>
                         </div>
-                        {lessonCompletionState[lessonIndex] != "En cours" && lessonCompletionState.length > 0 && (
+                        {lessonCompletionState[lessonIndex]?.data != "En cours" && lessonCompletionState.length > 0 && (
                           <div className="position-absolute tickIcon">
                             <img
                               src="images/tick_icon.png"

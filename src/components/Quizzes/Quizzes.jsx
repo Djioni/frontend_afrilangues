@@ -1704,14 +1704,14 @@ const Quizzes = () => {
           } else {
             console.log("Current ID not found in the array");
           }
-          console.log("current section index", currentIndex);
-          console.log("currentSectionIndex", currentSectionIndex);
           if (currentSectionIndex < allFilterSections.length) {
             navigate(
               `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
             );
             dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
-
+            updateExcersiceStatus(
+              allFilterSections[currentSectionIndex - 1].id
+            );
             setIsNextExerciseTrue(true);
             // navigate next Lesson
           } else {
@@ -2031,7 +2031,9 @@ const Quizzes = () => {
               `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
             );
             dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
-
+            updateExcersiceStatus(
+              allFilterSections[currentSectionIndex - 1].id
+            );
             setIsNextExerciseTrue(true);
             // navigate next Lesson
           } else {
@@ -2186,6 +2188,30 @@ const Quizzes = () => {
       }
     }, 0);
   }, []);
+
+  const updateExcersiceStatus = async (exerciseId) => {
+    try {
+      const userToken = Cookies.get("id")
+        ? JSON.parse(Cookies.get("token"))
+        : "";
+      const userId = Cookies.get("id") ? JSON.parse(Cookies.get("id")) : "";
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      };
+      const responses = await axios.post(
+        API_URL + "/exercise/satus/",
+        {
+          exerciseId,
+          userId,
+        },
+        config
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const renderQuestionFormat = () => {
     const currentQuestionData =
