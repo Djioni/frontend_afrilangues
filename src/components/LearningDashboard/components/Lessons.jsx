@@ -136,7 +136,7 @@ export default function Lessons() {
       };
       const requests = objectsArray.map((obj) =>
         axios.post(
-          API_URL + "/exercise/satus/lesson/status",
+          API_URL + "/status/lesson/",
           {
             lessonId: obj.id,
             userId: JSON.parse(userId),

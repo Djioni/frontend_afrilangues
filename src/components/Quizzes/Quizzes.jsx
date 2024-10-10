@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import { Howl } from "howler";
 import {
   MultipleChoiceQuestion,
@@ -16,7 +15,6 @@ import {
 } from "./components/index";
 import { IoSettingsOutline } from "react-icons/io5";
 import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
-import close_icon from "../../assets/close_icon_2.png";
 import quiz_avatar from "../../assets/quiz_avatar.png";
 import quiz_avatar_2 from "../../assets/quiz_avatar_2.png";
 import quiz_avatar_3 from "../../assets/quiz_avatar_3.png";
@@ -24,10 +22,8 @@ import apple_icon from "../../assets/apple-icon.png";
 import car_icon from "../../assets/car-icon.png";
 import fish_icon from "../../assets/fish-icon.png";
 import tiger_icon from "../../assets/tiger-icon.png";
-import dog_sound from "../../assets/dog-sound.mp3";
 import cat_sound from "../../assets/cat-sound.mp3";
 import cow_sound from "../../assets/cow-sound.mp3";
-import good_morning_sound from "../../assets/good-morning.mp3";
 import horse_sound from "../../assets/horse-sound.mp3";
 import true_false_1 from "../../assets/true-false-1.jpg";
 import "./QuizPage.css";
@@ -243,28 +239,6 @@ const quizData1 = [
 const Quizzes = () => {
   // scrolling handle
   const [removeSmPadding, setRemoveSmPadding] = useState("");
-
-  useEffect(() => {
-    // console.log("Adding event listeners");
-    // const updateScreenSize = () => {
-    //   setScreenWidth(window.innerWidth);
-    //   setScreenHeight(window.innerHeight);
-    // };
-    // const handleScroll = () => {
-    //   console.log("Hello");
-    //   setRemoveSmPadding("quiz_footer_add");
-    // };
-    // // Add a resize event listener to update screen size when the window is resized
-    // window.addEventListener("resize", updateScreenSize);
-    // // Check if the scroll event listener is already attached
-    // if (!window.scrollListenerAdded) {
-    //   console.log("Adding scroll event listener");
-    //   window.addEventListener("scroll", handleScroll);
-    //   window.scrollListenerAdded = true;
-    // }
-    // Rest of your code...
-  }, []);
-
   // handle scrolling end
   const currentQuiz = useSelector((state) => state.currentQuiz);
   const [isPageLoading, setIsPageLoading] = useState(true);
@@ -335,15 +309,6 @@ const Quizzes = () => {
       dispatch(QuizValidationAction(false));
     };
   }, []);
-  // Find the lesson object with the specified lesson title
-  // console.log(currentQuiz);
-  // const lessonTitleToFind = "Lesson 6: Translating Words";
-
-  // const lessonObject = quizData.find(
-  //   (lesson) => lesson.lessonTitle === lessonTitleToFind
-  // );
-  // console.log("essonObject", lessonObject);
-  // quizData = [lessonObject];
 
   // PUT IN ORDER STATE
   const [sentence, setSentence] = useState([]);
@@ -369,19 +334,6 @@ const Quizzes = () => {
       // Add word to wordOrder
       setWordOrder((prevOrder) => [...prevOrder, word]);
     }
-
-    // if (sentence.includes(word)) {
-    //   // Remove word from sentence and add it to wordOrder
-    //   setSentence((prevSentence) => prevSentence.filter((w) => w !== word));
-    //   setWordOrder((prevOrder) => [...prevOrder, word]);
-
-    //   console.log(sentence);
-    // } else if (wordOrder.includes(word)) {
-    //   // Remove word from wordOrder and add it to sentence
-    //   setWordOrder((prevOrder) => prevOrder.filter((w) => w !== word));
-    //   setSentence((prevSentence) => [...prevSentence, word]);
-    //   console.log(sentence);
-    // }
   };
 
   const handleTranslationChange = (event) => {
@@ -391,8 +343,6 @@ const Quizzes = () => {
   const handleAnswerSelect = (answer) => {
     setSelectedAnswer(answer);
     setIsVerified(true);
-
-    console.log("hello word");
   };
 
   const handleNext = () => {
@@ -412,11 +362,13 @@ const Quizzes = () => {
     if (currentQuestion < quizData[currentLesson].questions.length - 1) {
       setSelectedAnswer(null);
       setCurrentQuestion(currentQuestion + 1);
-    } else if (currentLesson < quizData.length - 1) {
+    } 
+    else if (currentLesson < quizData.length - 1) {
       setSelectedAnswer(null);
       setCurrentLesson(currentLesson + 1);
       setCurrentQuestion(0);
-    } else {
+    } 
+    else {
       setQuizCompleted(false);
       handleDelete();
     }
@@ -444,10 +396,6 @@ const Quizzes = () => {
           : pair
       )
     );
-
-    // console.log("Is Correct: ", isCorrect);
-    // console.log("Selected Pairs: ", selectedPairs);
-    // console.log("Correct Matches: ", currentQuestionData.correctMatches);
   };
 
   // current progress
@@ -534,6 +482,7 @@ const Quizzes = () => {
             setIsLoading(false);
             isCorrect = true;
             setShowVerifyButton(false);
+            updateExcersiceStatus(currentQuizID);
           } else {
             // point store
             const points = assessment.data.isNumberPoint;
@@ -574,13 +523,15 @@ const Quizzes = () => {
       //   selectedAnswer === currentQuestionData.correctAnswerIndex ||
       //   JSON.stringify(selectedAnswer) ===
       //     JSON.stringify(currentQuestionData.correctAnswers);
-    } else if (currentQuestionData.format === "trueFalse") {
+    } 
+    else if (currentQuestionData.format === "trueFalse") {
       // For true/false, compare the selected answer with the correct answer
       isCorrect = selectedAnswer === currentQuestionData.correctAnswer;
 
       // Hide the verify button
       setShowVerifyButton(false);
-    } else if (currentQuestionData.format === "wordsMatching") {
+    } 
+    else if (currentQuestionData.format === "wordsMatching") {
       // Check if all words are matched to determine completion status
       const correctMatches = currentQuestionData.correctMatches;
       console.log("currentMath", correctMatches);
@@ -671,35 +622,6 @@ const Quizzes = () => {
           isEveryWordMatch = null;
         }
 
-        if (allMatchesCorrect) {
-          // setCorrentWordMatch(true);
-          // successSound.play();
-          // console.log("data", allMatchesCorrect);
-          // toast.success("Correct Answer!", {
-          //   position: "top-right",
-          //   autoClose: 5000,
-          //   hideProgressBar: false,
-          //   closeOnClick: true,
-          //   pauseOnHover: true,
-          //   draggable: true,
-          //   progress: undefined,
-          //   theme: "light",
-          // });
-        } else {
-          // setCorrentWordMatch(false);
-          // wrongSound.play();
-          // toast.error("Wrong Answer!", {
-          //   position: "top-right",
-          //   autoClose: 5000,
-          //   hideProgressBar: false,
-          //   closeOnClick: true,
-          //   pauseOnHover: true,
-          //   draggable: true,
-          //   progress: undefined,
-          //   theme: "light",
-          // });
-        }
-
         // setIsWordMatchingComplete(allWordsMatched);
         setShowVerifyButton(true);
         handleClick();
@@ -749,7 +671,6 @@ const Quizzes = () => {
             setAnswerCorrect(true);
             // Set the state to indicate whether all words are matched
             setIsWordMatchingComplete(allWordsMatched && allMatchesCorrect);
-
             // Check if all word matching is correct
             if (allWordsMatched && allMatchesCorrect) {
               // Calculate the total number of questions completed across all lessons
@@ -762,6 +683,7 @@ const Quizzes = () => {
               // Update the progress state
               isCorrect = true;
               setProgress(totalQuestionsCompleted);
+              updateExcersiceStatus(currentQuizID);
               isEveryWordMatch = true;
             }
             // // Hide the verify button
@@ -792,13 +714,10 @@ const Quizzes = () => {
           }
         }
       }
-      // assessment end
-      // ASSESSEMNT END
-    } else if (currentQuestionData.format === "listenRepeat") {
+    } 
+    else if (currentQuestionData.format === "listenRepeat") {
       setShowVerifyButton(true);
       // For listen and repeat, compare the selected answer with the correct answer
-      // isCorrect = selectedAnswer === currentQuestionData.correctAnswer;
-
       // assessment start
       // Hide and show the verify button
 
@@ -853,6 +772,7 @@ const Quizzes = () => {
             setIsLoading(false);
             isCorrect = true;
             setShowVerifyButton(false);
+            updateExcersiceStatus(currentQuizID);
           } else {
             // point store
             const points = assessment.data.isNumberPoint;
@@ -891,7 +811,8 @@ const Quizzes = () => {
         }
       }
       // assessment end
-    } else if (currentQuestionData.format === "fillInBlank") {
+    } 
+    else if (currentQuestionData.format === "fillInBlank") {
       // For fill in the blank, compare the selected answer with the correct answer (case-insensitive)
       isCorrect =
         selectedAnswer.trim().toLowerCase() ===
@@ -899,12 +820,13 @@ const Quizzes = () => {
 
       // Hide the verify button
       setShowVerifyButton(false);
-    } else if (currentQuestionData.format === "putInOrder") {
+    } 
+    else if (currentQuestionData.format === "putInOrder") {
       // For put in order, compare the selected order with the correct order
       setShowVerifyButton(true);
       console.log(wordOrder.join(" "));
 
-      // assessment start
+      // Assessment Start
       // Hide and show the verify button
 
       const currentQuizID = quizData[0].id;
@@ -957,6 +879,7 @@ const Quizzes = () => {
             setIsLoading(false);
             isCorrect = true;
             setShowVerifyButton(false);
+            updateExcersiceStatus(currentQuizID);
           } else {
             // point store
             const points = assessment.data.isNumberPoint;
@@ -999,19 +922,9 @@ const Quizzes = () => {
       }
       //assessment end
 
-      // isCorrect =
-      //   JSON.stringify(wordOrder) ===
-      //   JSON.stringify(currentQuestionData.correctOrder);
-
-      // // Hide the verify button
-      // setShowVerifyButton(false);
-    } else if (currentQuestionData.format === "translatingWords") {
+    } 
+    else if (currentQuestionData.format === "translatingWords") {
       // For translating words, compare the selected translation with the correct translation (case-insensitive)
-      // isCorrect =
-      //   selectedTranslation.trim().toLowerCase() ===
-      //   currentQuestionData.correctTranslation.trim().toLowerCase();
-
-      // // // Hide the verify button
 
       setShowVerifyButton(true);
       // assessment start
@@ -1067,6 +980,7 @@ const Quizzes = () => {
             setIsLoading(false);
             isCorrect = true;
             setShowVerifyButton(false);
+            updateExcersiceStatus(currentQuizID);
           } else {
             // point store
             const points = assessment.data.isNumberPoint;
@@ -1090,9 +1004,7 @@ const Quizzes = () => {
               );
 
               setShowVerifyButton(false);
-
               isCorrect = true;
-
               successSound.play();
             }
           }
@@ -1108,6 +1020,14 @@ const Quizzes = () => {
       }
       // assessment end
     }
+
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+    console.log("Current Question Data : ", quizData[currentLesson])
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 
     // // Update progress and answer correctness state
     if (currentQuestionData.format === "wordsMatching") {
@@ -1128,10 +1048,9 @@ const Quizzes = () => {
         setAnswerCorrect(false);
       }
     }
-
-    // Update selectedWordMatchingAnswer
-    // setSelectedWordMatchingAnswer(selectedPairs);
   };
+
+
   let [storeLeftIndex, setStoreLeftIndex] = useState([]);
   let [storeRightIndex, setStoreRightIndex] = useState([]);
   const [currentMathWordLength, setCurrentMatchWordLength] = useState(1);
@@ -1169,25 +1088,11 @@ const Quizzes = () => {
         selectedLeftIndex = left;
         selectedRightIndex = right;
         if (currentQuestionData.correctMatches[left] === right) {
-          // setAnswerCorrect(true);
-
-          // successSound.play();
-          // setTimeout(() => {
-          //   setAnswerCorrect(null);
-          // }, 3000);
-
           console.log(`Current match: Left: ${left}, Right: ${right}`);
           leftindex.push(left);
           rightindex.push(right);
-
           return currentQuestionData.correctMatches[left] === right;
         } else {
-          // setAnswerCorrect(false);
-          // wrongSound.play();
-          // setTimeout(() => {
-          //   setAnswerCorrect(null);
-          // }, 3000);
-
           console.log(` wrong Current match: Left: ${left}, Right: ${right}`);
           wrongleftindex.push(left);
           wrongrightindex.push(right);
@@ -1231,37 +1136,6 @@ const Quizzes = () => {
       if (allMatchesCorrect || !allMatchesCorrect) {
         isEveryWordMatch = null;
       }
-
-      if (allMatchesCorrect) {
-        // setCorrentWordMatch(true);
-        // successSound.play();
-        // console.log("data", allMatchesCorrect);
-        // toast.success("Correct Answer!", {
-        //   position: "top-right",
-        //   autoClose: 5000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        //   theme: "light",
-        // });
-      } else {
-        // setCorrentWordMatch(false);
-        // wrongSound.play();
-        // toast.error("Wrong Answer!", {
-        //   position: "top-right",
-        //   autoClose: 5000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        //   theme: "light",
-        // });
-      }
-
-      // setIsWordMatchingComplete(allWordsMatched);
       setShowVerifyButton(true);
       handleClick();
     };
@@ -1361,6 +1235,7 @@ const Quizzes = () => {
             isCorrect = true;
 
             isEveryWordMatch = true;
+            updateExcersiceStatus(currentQuizID);
           }
           // // Hide the verify button
           setShowVerifyButton(allWordsMatched === false ? true : false);
@@ -1443,21 +1318,10 @@ const Quizzes = () => {
       handleNext();
     }
     // Reset selectedWordMatchingAnswer and selectedPairs
-    // setSelectedWordMatchingAnswer([]);
-    // setSelectedPairs([]);
   };
 
   // HANDLE ALERT
   const handleDelete = (prev) => {
-    // Swal.fire({
-    //   title: "Success!",
-    //   text: "Quiz completed successfully.",
-    //   icon: "success",
-    //   confirmButtonText: "OK",
-    // });
-
-    // navigate("/lessons/section/exercise/?id=65312fdc5584c1110faeb164fdf");
-    // setIsPageLoading(true);
     if (
       localStorage.getItem("currentAllExercises") &&
       localStorage.getItem("currentExerciseQuestionLength")
@@ -1709,9 +1573,6 @@ const Quizzes = () => {
               `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
             );
             dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
-            updateExcersiceStatus(
-              allFilterSections[currentSectionIndex - 1].id
-            );
             setIsNextExerciseTrue(true);
             // navigate next Lesson
           } else {
@@ -2004,15 +1865,6 @@ const Quizzes = () => {
             currentAllLessonsectionsData
           );
           console.log("lessonsection", currentAllLessonSections);
-          // current data without current
-          // currentAllLessonSections.forEach((item, index) => {
-          //   if (item.id === currentLessonSectionID) {
-          //     console.log("current", index, item);
-          //   } else {
-          //     allFilterSections.push(item);
-          //   }
-          // });
-          // navigate next section
           const currentIndex = currentAllLessonSections.findIndex(
             (item) => item.id === currentLessonSectionID
           );
@@ -2031,9 +1883,6 @@ const Quizzes = () => {
               `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
             );
             dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
-            updateExcersiceStatus(
-              allFilterSections[currentSectionIndex - 1].id
-            );
             setIsNextExerciseTrue(true);
             // navigate next Lesson
           } else {
@@ -2082,6 +1931,7 @@ const Quizzes = () => {
 
     const currentQuestionData =
       quizData[currentLesson].questions[currentQuestion];
+
     const isCorrect =
       selectedAnswer === currentQuestionData.correctAnswerIndex ||
       JSON.stringify(selectedAnswer) ===
@@ -2100,17 +1950,6 @@ const Quizzes = () => {
       setCurrentQuestion(currentQuestion - 1);
       console.log("called");
     }
-
-    // else if (currentLesson < quizData.length - 1) {
-    //   setSelectedAnswer(null);
-    //   setCurrentLesson(currentLesson + 1);
-    //   setCurrentQuestion(0);
-    // }
-
-    // else {
-    //   setQuizCompleted(true);
-    //   handleDelete();
-    // }
     else {
       console.log("hwllo ealse");
       handleDeletePrev();
@@ -2142,10 +1981,7 @@ const Quizzes = () => {
     console.log("next");
     if (currentQuestion < currentLessonData.questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-      // setCurrentQuestion(currentQuestion + 2);
-
       setShowVerifyButton(true);
-
       setAnswerCorrect(null); // Reset the answer correctness
       console.log("current question", currentQuestion);
     } else if (currentLesson < quizData.length - 1) {
@@ -2157,25 +1993,12 @@ const Quizzes = () => {
     } else {
       handleNext();
     }
-    // Reset selectedWordMatchingAnswer and selectedPairs
-    // setSelectedWordMatchingAnswer([]);
-    // setSelectedPairs([]);
   };
 
   const handleScroll1 = (event) => {
     const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
-
-    // Calculate and update the total scroll height
     const newTotalScroll = scrollHeight - clientHeight;
     TextZoneProgress(newTotalScroll, scrollTop);
-
-    // if (scrollHeight === clientHeight) {
-    //   setHasScrollbar(false);
-    // } else {
-    //   setHasScrollbar(true);
-    // }
-
-    // setIsScrolling(true);
   };
   useEffect(() => {
     setTimeout(() => {
@@ -2201,7 +2024,7 @@ const Quizzes = () => {
         },
       };
       const responses = await axios.post(
-        API_URL + "/exercise/satus/",
+        API_URL + "/status/",
         {
           exerciseId,
           userId,
@@ -2249,7 +2072,8 @@ const Quizzes = () => {
           />
         );
       }
-    } else if (currentQuestionData.format === "trueFalse") {
+    } 
+    else if (currentQuestionData.format === "trueFalse") {
       if (currentQuestionData.imageQuestion) {
         return (
           <TrueFalseImageQuestion
@@ -2260,7 +2084,8 @@ const Quizzes = () => {
           />
         );
       }
-    } else if (currentQuestionData.format === "listenRepeat") {
+    } 
+    else if (currentQuestionData.format === "listenRepeat") {
       return (
         <ListenRepeatQuestion
           audioSrc={currentQuestionData.audioSrc}
@@ -2270,7 +2095,8 @@ const Quizzes = () => {
           rightMultipleAnswer={rightMultipleAnswer}
         />
       );
-    } else if (currentQuestionData.format === "fillInBlank") {
+    } 
+    else if (currentQuestionData.format === "fillInBlank") {
       return (
         <FillInBlankQuestion
           questionText={currentQuestionData.questionText}
@@ -2279,15 +2105,10 @@ const Quizzes = () => {
           onAnswerSelect={handleAnswerSelect}
         />
       );
-    } else if (currentQuestionData.format === "putInOrder") {
+    } 
+    else if (currentQuestionData.format === "putInOrder") {
       return (
         <PutInOrderQuestion
-          // sentence={currentQuestionData.sentence}
-          // correctOrder={currentQuestionData.correctOrder}
-          // setAnswerCorrect={setAnswerCorrect}
-          // onVerify={handleVerify}
-          // handleWordClick={handleWordClick}
-          // wordOrder={wordOrder}
           putWordBg={putWordBg}
           sentence={currentQuestionData.sentence}
           correctOrder={currentQuestionData.correctOrder}
@@ -2297,14 +2118,16 @@ const Quizzes = () => {
           handleWordClick={handleWordClick}
         />
       );
-    } else if (currentQuestionData.format === "textZone") {
+    } 
+    else if (currentQuestionData.format === "textZone") {
       return (
         <TextZone
           TextZoneScrollBarChecker={TextZoneScrollBarChecker}
           TextZoneProgress={TextZoneProgress}
         />
       );
-    } else if (currentQuestionData.format === "translatingWords") {
+    } 
+    else if (currentQuestionData.format === "translatingWords") {
       return (
         <TranslatingWordsQuestion
           word={currentQuestionData.word}
@@ -2314,16 +2137,10 @@ const Quizzes = () => {
           handleTranslationChange={handleTranslationChange}
         />
       );
-    } else if (currentQuestionData.format === "wordsMatching") {
+    } 
+    else if (currentQuestionData.format === "wordsMatching") {
       return (
         <MatchWordsQuestion
-          // leftWords={currentQuestionData.leftWords}
-          // rightWords={currentQuestionData.rightWords}
-          // setSelectedWordMatchingAnswer={setSelectedWordMatchingAnswer}
-          // selectedWordMatchingAnswer={selectedWordMatchingAnswer}
-          // onAnswerSelect={handleAnswerSelect}
-          // currentQuestionData={currentQuestionData}
-          // onVerify={handleVerify}
           handleVerify={handleVerifyWords}
           leftWords={
             quizData[currentLesson].questions[currentQuestion].leftWords
@@ -2618,25 +2435,3 @@ const Quizzes = () => {
 };
 
 export default Quizzes;
-
-// Get the correct matches from currentQuestionData
-// const correctMatches = currentQuestionData.correctMatches;
-
-// // Create an array to store the selected pair indices
-// const selectedPairs = [];
-
-// // Iterate through selectedWordMatchingAnswer to get selected pairs
-// for (const pair of selectedWordMatchingAnswer) {
-//   if (pair.right !== null) {
-//     selectedPairs.push([pair.left, pair.right]);
-//   }
-// }
-
-// // Check if selected pairs match the correct matches
-// isCorrect =
-//   selectedPairs.length === correctMatches.length &&
-//   selectedPairs.every(
-//     ([leftIndex, rightIndex]) =>
-//       correctMatches.includes(leftIndex) &&
-//       correctMatches[rightIndex] === leftIndex
-//   );

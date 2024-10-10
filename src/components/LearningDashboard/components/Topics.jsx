@@ -160,7 +160,7 @@ export default function Topics() {
       };
       const requests = objectsArray.map((obj) =>
         axios.post(
-          API_URL + "/exercise/satus/theme/status",
+          API_URL + "/status/theme/",
           {
             themeId: obj.id,
             userId: JSON.parse(usertID),

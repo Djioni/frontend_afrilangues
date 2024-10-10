@@ -168,7 +168,7 @@ export default function LearnGrettingLession() {
       };
       const requests = objectsArray.map((obj) =>
         axios.post(
-          API_URL + "/exercise/satus/lesson/section/status",
+          API_URL + "/status/lesson/section/",
           {
             lessonSectionId: obj.id,
             userId: JSON.parse(userId),

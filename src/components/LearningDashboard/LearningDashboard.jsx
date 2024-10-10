@@ -52,7 +52,9 @@ function LearningDashboard() {
       axios
         .get(`${API_URL}/exercise/`, config)
         .then((result) => {
-          console.log("exercisedt", result.data);
+          console.log("\n\n\n\n\n\n\n\n")
+          console.log("Exercise : ", result.data);
+          console.log("\n\n\n\n\n\n\n\n")
           dispatch(GetExerciseAction(result.data));
           localStorage.setItem("exercise", JSON.stringify(result.data));
         })

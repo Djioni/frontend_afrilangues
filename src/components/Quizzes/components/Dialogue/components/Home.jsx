@@ -721,9 +721,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
               `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
             );
             dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
-            updateExcersiceStatus(
-              allFilterSections[currentSectionIndex - 1].id
-            );
             setIsNextExerciseTrue(true);
             // navigate next Lesson
           } else {
@@ -1615,30 +1612,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
     handlePrevQuestion();
     setIsDialogExercise(false);
     setIsNextExerciseTrue(true);
-  };
-
-  const updateExcersiceStatus = async (exerciseId) => {
-    try {
-      const userToken = Cookies.get("id")
-        ? JSON.parse(Cookies.get("token"))
-        : "";
-      const userId = Cookies.get("id") ? JSON.parse(Cookies.get("id")) : "";
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      };
-      const responses = await axios.post(
-        API_URL + "/exercise/satus/",
-        {
-          exerciseId,
-          userId,
-        },
-        config
-      );
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
   };
 
   useEffect(() => {
