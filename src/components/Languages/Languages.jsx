@@ -32,7 +32,7 @@ function Languages() {
 
   const GetLanguages = () => {
     axios
-      .get(`${API_URL}/language/member`)
+      .get(`${API_URL}/language/all`)
       .then((result) => {
         console.log(result.data);
         setLanguageData(result.data);
