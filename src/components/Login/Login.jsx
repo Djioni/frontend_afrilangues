@@ -165,8 +165,6 @@ const Login = () => {
             });
 
             //direact login page
-
-            console.log("ready for redirect");
             if (current_url_path) {
               console.log("currentpathhellow", current_url_path);
               window.location.href = current_url_path;
@@ -208,9 +206,30 @@ const Login = () => {
     setShowEmail(!showEmail);
     setEmailInputType(showEmail ? "text" : "password");
   };
+
   const toggleModal = () => {
     setShowModal((prevValue) => !prevValue);
   };
+
+  const submitCaptchaToken = (tokenString) => {
+    try {
+      axios
+        .post(
+          `${API_URL}/captcha/submit`,
+          { recaptchaToken: tokenString },
+          null
+        )
+        .then((result) => {
+          console.log("submitCaptchaToken : ", result);
+        })
+        .catch((err) => {
+          console.log("Error : ", err);
+        });
+    } catch (x) {
+      console.log(x);
+    }
+  };
+
   if (!userToken) {
     return (
       <div>
@@ -299,6 +318,7 @@ const Login = () => {
                   <ReCAPTCHA
                     onChange={(value) => {
                       console.log(value);
+                      submitCaptchaToken(value);
                       axios
                         .post(
                           " https://www.google.com/recaptcha/api/siteverify",
@@ -308,12 +328,11 @@ const Login = () => {
                           }
                         )
                         .then((result) => {
-                          console.log(result);
+                          console.log("Google Captcha Value : ", result);
                         });
                       setIsReCaptcha(value);
                     }}
-                    sitekey="6LdrUikqAAAAAIlbAe-6eOrohrcgqkR6My1QpCud
-"
+                    sitekey="6LdrUikqAAAAAIlbAe-6eOrohrcgqkR6My1QpCud"
                   />
                 </div>
                 <button
