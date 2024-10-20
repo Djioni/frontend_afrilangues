@@ -721,7 +721,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
               `/lessons/section/exercise/?id=${allFilterSections[currentSectionIndex].id}`
             );
             dispatch(CurrentSectionIndexAction(currentSectionIndex + 1));
-
             setIsNextExerciseTrue(true);
             // navigate next Lesson
           } else {

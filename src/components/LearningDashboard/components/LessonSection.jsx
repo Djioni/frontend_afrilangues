@@ -168,7 +168,7 @@ export default function LearnGrettingLession() {
       };
       const requests = objectsArray.map((obj) =>
         axios.post(
-          API_URL + "/exercise/satus/lesson/section/status",
+          API_URL + "/status/lesson/section/",
           {
             lessonSectionId: obj.id,
             userId: JSON.parse(userId),
@@ -178,7 +178,7 @@ export default function LearnGrettingLession() {
       );
       const responses = await Promise.all(requests);
       const fetchedData = responses.map((response) => response.data);
-
+      console.log("Fetched Data : ", fetchedData)
       setLessonSectionCompletionState(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -215,7 +215,7 @@ export default function LearnGrettingLession() {
                       key={result.id}
                     >
                       <div className="position-relative">
-                        {lessonSectionCompletionState[index] != "En cours" && lessonSectionCompletionState.length > 0 && (
+                        {lessonSectionCompletionState[index]?.data != "En cours" && lessonSectionCompletionState.length > 0 && (
                           <div className="position-absolute roundTickIcon">
                             <img
                               src="../images/tick_icon.png"
