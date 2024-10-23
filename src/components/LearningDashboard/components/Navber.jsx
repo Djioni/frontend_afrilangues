@@ -170,7 +170,7 @@ export default function Navber() {
                 <a href="/"> DICTIONNAIRE</a>
               </li> */}
               <li className="d-inline-block d-none d-xl-inline-block">
-                <a href="/">COURS EN DIRECT</a>
+                <a href="https://forms.gle/QGu7JgRR3yWw23Vs9" target="_blank">COURS EN DIRECT</a>
               </li>
               {/* <li className="d-inline-block d-none d-xl-inline-block">
                 <a href="/">TARIFS</a>

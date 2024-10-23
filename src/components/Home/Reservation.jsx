@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import styled from "styled-components";
 import "./reservation.css";
+import { toast } from "react-toastify";
+import GoogleCaptchaVerification from "../Captcha/GoogleCaptchaComponent";
 
 const languageOptions = [
   { value: "afar", label: "Afar", color: "#ffcccb" },
@@ -160,6 +162,13 @@ function Reservation() {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [interpretationType, setInterpretationType] = useState("");
+  const [typeStructure, setTypeStructure] = useState("");
+  const [name, setName] = useState("");
+  const [functionTitle, setFunctionTitle] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [postalAddress, setPostalAddress] = useState("");
+  const [isReCaptcha, setIsReCaptcha] = useState(null);
 
   useEffect(() => {
     document.body.style.margin = "0px";
@@ -180,7 +189,7 @@ function Reservation() {
       setLanguages([
         ...languages,
         {
-          language: selectedLanguage,
+          language: selectedLanguage.value,
           date: formattedDate,
           startTime,
           endTime,
@@ -192,6 +201,75 @@ function Reservation() {
       setStartTime("");
       setEndTime("");
       setInterpretationType("");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      typeStructure,
+      name,
+      function: functionTitle,
+      email,
+      phone,
+      postalAddress,
+      prestations: languages.map((lang) => ({
+        typeInterpretation: lang.interpretationType,
+        datePrestation: lang.date,
+        startTime: lang.startTime,
+        endTime: lang.endTime,
+        language: lang.language,
+      })),
+    };
+
+    try {
+      if (isReCaptcha) {
+        const response = await axios.post(
+          "https://apis.africalangues.com/api/form/interpreting",
+          payload
+        );
+
+        toast.success(response.data.data, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+        setTimeout(() => {
+          // router.push("/");
+        }, 3500);
+      } else {
+        toast.error("Please verify captcha first !", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      toast.error(
+        "Erreur ! Impossible de soumettre le formulaire pour le moment.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
     }
   };
 
@@ -217,12 +295,17 @@ function Reservation() {
         </Paragraph>
         <section className="contact">
           <Subtitle>ET SI ON FAISAIT CONNAISSANCE ?</Subtitle>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="youAre">
+              <label className="label-styling" htmlFor="youAre">
                 VOUS ÊTES : <span className="required">*</span>
               </label>
-              <select id="youAre" className="input-style">
+              <select
+                id="youAre"
+                className="input-style"
+                value={typeStructure}
+                onChange={(e) => setTypeStructure(e.target.value)}
+              >
                 <option value="association">Une association</option>
                 <option value="publicService">Un service publique</option>
                 <option value="privateCompany">Une entreprise privée</option>
@@ -230,7 +313,7 @@ function Reservation() {
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="structureName">
+              <label className="label-styling" htmlFor="structureName">
                 NOM DE VOTRE STRUCTURE : <span className="required">*</span>
               </label>
               <input
@@ -238,10 +321,12 @@ function Reservation() {
                 id="structureName"
                 placeholder="Nom de votre structure"
                 className="input-style"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="function">
+              <label className="label-styling" htmlFor="function">
                 FONCTION : <span className="required">*</span>
               </label>
               <input
@@ -249,10 +334,12 @@ function Reservation() {
                 id="function"
                 placeholder="Fonction"
                 className="input-style"
+                value={functionTitle}
+                onChange={(e) => setFunctionTitle(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="email">
+              <label className="label-styling" htmlFor="email">
                 E-MAIL : <span className="required">*</span>
               </label>
               <input
@@ -260,10 +347,12 @@ function Reservation() {
                 id="email"
                 placeholder="E-mail"
                 className="input-style"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="postalAddress">
+              <label className="label-styling" htmlFor="postalAddress">
                 ADRESSE POSTALE : <span className="required">*</span>
               </label>
               <input
@@ -271,10 +360,12 @@ function Reservation() {
                 id="postalAddress"
                 placeholder="Adresse postale"
                 className="input-style"
+                value={postalAddress}
+                onChange={(e) => setPostalAddress(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="phoneNumber">
+              <label className="label-styling" htmlFor="phoneNumber">
                 NUMERO DE TELEPHONE : <span className="required">*</span>
               </label>
               <input
@@ -282,10 +373,12 @@ function Reservation() {
                 id="phoneNumber"
                 placeholder="Numéro de téléphone"
                 className="input-style"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="interpretationType">
+              <label className="label-styling" htmlFor="interpretationType">
                 TYPE D'INTERPRÉTARIAT : <span className="required">*</span>
               </label>
               <select
@@ -303,7 +396,7 @@ function Reservation() {
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="serviceDate">
+              <label className="label-styling" htmlFor="serviceDate">
                 DATE DE LA PRESTATION : <span className="required">*</span>
               </label>
               <input
@@ -316,7 +409,7 @@ function Reservation() {
             </div>
             <div className="form-group time-group">
               <div className="time-field">
-                <label htmlFor="startTime">
+                <label className="label-styling" htmlFor="startTime">
                   HEURE DE DÉBUT DE LA PRESTATION :{" "}
                   <span className="required">*</span>
                 </label>
@@ -329,7 +422,7 @@ function Reservation() {
                 />
               </div>
               <div className="time-field">
-                <label htmlFor="endTime">
+                <label className="label-styling" htmlFor="endTime">
                   HEURE DE FIN DE LA PRESTATION :{" "}
                   <span className="required">*</span>
                 </label>
@@ -343,7 +436,7 @@ function Reservation() {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="language">
+              <label className="label-styling" htmlFor="language">
                 SÉLECTIONNEZ UNE LANGUE : <span className="required">*</span>
               </label>
               <Select
@@ -357,7 +450,7 @@ function Reservation() {
               <button
                 type="button"
                 onClick={handleAddLanguage}
-                className="add-language-button"
+                className="add-language-button mt-4"
               >
                 Ajouter
               </button>
@@ -376,7 +469,7 @@ function Reservation() {
                   </div>
                   {languages.map((lang, index) => (
                     <div key={index} className="selected-language">
-                      <span className="column">{lang.language.label}</span>
+                      <span className="column">{lang.language}</span>
                       <span className="column">{lang.date}</span>
                       <span className="column">
                         {lang.startTime} - {lang.endTime}
@@ -393,20 +486,68 @@ function Reservation() {
                 </div>
               </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="message">MESSAGE : </label>
-              <textarea
-                id="message"
-                placeholder="Écrivez votre message"
-                className="input-style"
-              ></textarea>
-            </div>
-            <Buttoncontainer>
-              <button type="submit" className="submit-button">
-                ENVOYER
-              </button>
-            </Buttoncontainer>
+            <GoogleCaptchaVerification
+              captchaVerificationDone={setIsReCaptcha}
+              alignment="start"
+            />
+            <button type="submit" className="submit-button">
+              Envoyer
+            </button>
           </form>
+        </section>
+        <section className="mt-5">
+          <div className="ms-5 icon reseaux">
+            <a href="https://www.facebook.com/afrilangues/?locale=fr_FR">
+              <img
+                src="images/facebook-logo.png"
+                alt=""
+                className="custom-logo"
+              />
+            </a>
+            <a href="https://www.instagram.com/afrilangues/">
+              <img
+                src="images/instagram-logo.png"
+                alt=""
+                className="custom-logo"
+              />
+            </a>
+            <a href="https://fr.linkedin.com/company/afrilangues">
+              <img
+                src="images/linkedin-logo.png"
+                alt=""
+                className="custom-logo"
+              />
+            </a>
+            <a href="https://x.com/afrilangues">
+              <img
+                src="images/twitter-logo.png"
+                alt=""
+                className="custom-logo-x"
+              />
+            </a>
+            <a href="https://www.youtube.com/channel/UCeB4UPA38S2hscm54e9gvhg">
+              <img
+                src="images/youtube-logo.png"
+                alt=""
+                className="custom-logo"
+              />
+            </a>
+          </div>
+          <div className="px-5">
+            <hr />
+          </div>
+          <div className="text-center">
+            <img
+              src="images/logo-afrilangues-sans-fond.png"
+              alt=""
+              className="custom-logo-afrilangues"
+            />
+            <p className="custom-ft-size">
+              AFRILANGES SAS - 3 Avenur Victoria, 75004 Paris | Tél: 06 58 48 53
+              13 | contact@afrilangues.fr | www.afrilangues.com
+              <br /> SIRET : 883 723 397 00013
+            </p>
+          </div>
         </section>
       </Container>
     </div>
