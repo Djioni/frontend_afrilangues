@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import "./devis.css";
 import styled from "styled-components";
+import ReCAPTCHA from "react-google-recaptcha";
+import { toast } from "react-toastify";
+import GoogleCaptchaVerification from "../../Captcha/GoogleCaptchaComponent";
 
 const languageOptions = [
   { value: "afar", label: "Afar", color: "#ffcccb" },
@@ -160,38 +163,109 @@ const Paragraph = styled.p`
 `;
 
 function Devis() {
+  const [typeStructure, setTypeStructure] = useState("");
+  const [name, setName] = useState("");
+  const [func, setFunc] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [postalAddress, setPostalAddress] = useState("");
   const [languages, setLanguages] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
-  const [sourceLanguage, setSourceLanguage] = useState("");
+  const [sourceLanguage, setSourceLanguage] = useState(null);
   const [serviceDate, setServiceDate] = useState("");
   const [interpretationType, setInterpretationType] = useState("");
   const [link, setLink] = useState("");
   const [serviceType, setServiceType] = useState("");
+  const [targetLanguage, setTargetLanguage] = useState(null);
+  const [isReCaptcha, setIsReCaptcha] = useState(null);
+  // const router = useRouter();
 
   const handleAddLanguage = () => {
     if (
-      selectedLanguage &&
+      targetLanguage &&
       sourceLanguage &&
       serviceDate &&
       (link || serviceType)
     ) {
-      const formattedDate = new Date(serviceDate).toLocaleDateString("fr-FR");
-      setLanguages([
-        ...languages,
-        {
-          sourceLanguage,
-          language: selectedLanguage.label,
-          date: formattedDate,
-          link,
-          serviceType,
-        },
-      ]);
-      setSelectedLanguage(null);
-      setSourceLanguage("");
+      const formattedDate = new Date(serviceDate).toISOString();
+      const languagesCopy = [...languages];
+      languagesCopy.push({
+        sourceLanguage: sourceLanguage.value,
+        targetLanguage: targetLanguage.value,
+        date: formattedDate,
+        redirectionLink: link,
+        typeService: serviceType,
+      });
+
+      setLanguages(languagesCopy);
+      setTargetLanguage(null);
+      setSourceLanguage(null);
       setServiceDate("");
       setLink("");
       setServiceType("");
       setInterpretationType("");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      typeStructure,
+      name,
+      function: func,
+      email,
+      phone,
+      postalAddress,
+      prestations: languages,
+    };
+
+    try {
+      if (isReCaptcha) {
+        const response = await axios.post(
+          "https://apis.africalangues.com/api/form/translation",
+          payload
+        );
+
+        toast.success(response.data.data, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+        setTimeout(() => {
+          // router.push("/");
+        }, 3500);
+      } else {
+        toast.error("Please verify captcha first !", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      toast.error(
+        "Erreur ! Impossible de soumettre le formulaire pour le moment.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
     }
   };
 
@@ -216,12 +290,17 @@ function Devis() {
         </Paragraph>
         <section className="contact">
           <Subtitle>ET SI ON FAISAIT CONNAISSANCE ?</Subtitle>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="youAre">
+              <label className="label-styling" htmlFor="youAre">
                 VOUS ÊTES : <span className="required">*</span>
               </label>
-              <select id="youAre" className="input-style">
+              <select
+                id="youAre"
+                className="input-style"
+                value={typeStructure}
+                onChange={(e) => setTypeStructure(e.target.value)}
+              >
                 <option value="association">Une Association</option>
                 <option value="publicService">Un Service publique</option>
                 <option value="privateCompany">Une Entreprise privée</option>
@@ -229,7 +308,7 @@ function Devis() {
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="structureName">
+              <label className="label-styling" htmlFor="structureName">
                 NOM DE VOTRE STRUCTURE : <span className="required">*</span>
               </label>
               <input
@@ -237,46 +316,66 @@ function Devis() {
                 id="structureName"
                 placeholder="Nom de votre structure"
                 className="input-style"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="function">FONCTION :</label>
+              <label className="label-styling" htmlFor="function">
+                FONCTION :
+              </label>
               <input
                 type="text"
                 id="function"
                 placeholder="Fonction"
                 className="input-style"
+                value={func}
+                onChange={(e) => setFunc(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="email">E-MAIL :</label>
+              <label className="label-styling" htmlFor="email">
+                E-MAIL :
+              </label>
               <input
                 type="email"
                 id="email"
                 placeholder="E-mail"
                 className="input-style"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="phoneNumber">TÉLÉPHONE :</label>
+              <label className="label-styling" htmlFor="phoneNumber">
+                TÉLÉPHONE :
+              </label>
               <input
                 type="tel"
                 id="phoneNumber"
                 placeholder="Numéro de téléphone"
                 className="input-style"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="postalAddress">ADRESSE POSTALE :</label>
+              <label className="label-styling" htmlFor="postalAddress">
+                ADRESSE POSTALE :
+              </label>
               <input
                 type="text"
                 id="postalAddress"
                 placeholder="Adresse postale"
                 className="input-style"
+                value={postalAddress}
+                onChange={(e) => setPostalAddress(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="serviceType">TYPE DE SERVICE :</label>
+              <label className="label-styling" htmlFor="serviceType">
+                TYPE DE SERVICE :
+              </label>
               <select
                 id="serviceType"
                 className="input-style"
@@ -290,12 +389,8 @@ function Devis() {
                 <option value="voix-off">Réalisation de voix-off</option>
               </select>
             </div>
-            <div className="form-group" style={{ marginBottom: "20px" }}>
-              <label htmlFor="fileUpload">DÉPOSEZ VOTRE SUPPORT :</label>
-              <input type="file" id="fileUpload" className="input-style" />
-            </div>
             <div className="form-group">
-              <label htmlFor="link">
+              <label className="label-styling" htmlFor="link">
                 ou COPIEZ ET COLLEZ LE LIEN DE REDIRECTION VERS CELUI-CI :
               </label>
               <input
@@ -308,33 +403,33 @@ function Devis() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="sourceLanguage">
+              <label className="label-styling" htmlFor="sourceLanguage">
                 LANGUE SOURCE DU SUPPORT : <span className="required">*</span>
               </label>
               <Select
-                id="language"
+                id="sourceLanguage"
                 options={sortedLanguageOptions}
                 styles={customStyles}
                 placeholder="Sélectionner une langue"
-                value={selectedLanguage}
-                onChange={setSelectedLanguage}
+                value={sourceLanguage}
+                onChange={setSourceLanguage}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="language">
+              <label className="label-styling" htmlFor="targetLanguage">
                 LANGUE CIBLE : <span className="required">*</span>
               </label>
               <Select
-                id="language"
+                id="targetLanguage"
                 options={sortedLanguageOptions}
                 styles={customStyles}
                 placeholder="Sélectionner une langue"
-                value={selectedLanguage}
-                onChange={setSelectedLanguage}
+                value={targetLanguage}
+                onChange={setTargetLanguage}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="serviceDate">
+              <label className="label-styling" htmlFor="serviceDate">
                 DATE DE LA LIVRAISON SOUHAITÉE :
               </label>
               <input
@@ -352,51 +447,108 @@ function Devis() {
             >
               Ajouter
             </button>
-            <div className=" tw-overflow-x-scroll md:tw-overflow-auto">
+            <div className="tw-overflow-x-scroll md:tw-overflow-auto">
               <div className="">
-                <label>RÉCAPITULATIF DE DEMANDE(S) :</label>
+                <label className="label-styling">
+                  RÉCAPITULATIF DE DEMANDE(S) :
+                </label>
                 <div className="reservation-summary">
-                  <div className="summary-header">
-                    <span className="column-header">LANGUE SOURCE</span>
-                    <span className="column-header">LANGUE CIBLE</span>
-                    <span className="column-header">DATE</span>
-                    <span className="column-header">LIEN</span>
-                    <span className="column-header">TYPE DE SERVICE</span>
+                  <div
+                    className="table-responsive mt-3"
+                    style={{ marginBottom: "20px" }}
+                  >
+                    <table className="table table-borderless table-hover">
+                      <thead>
+                        <tr>
+                          <th>Langue Source</th>
+                          <th>Langue Cible</th>
+                          <th>Date</th>
+                          <th>Redirection Link</th>
+                          <th>Type de Service</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {languages.map((language, index) => (
+                          <tr key={index}>
+                            <td>{language.sourceLanguage}</td>
+                            <td>{language.targetLanguage}</td>
+                            <td>
+                              {new Date(language.date).toLocaleDateString()}
+                            </td>
+                            <td>
+                              <a href={language.redirectionLink}>Link</a>
+                            </td>
+                            <td>{language.typeService}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
-                  {languages.map((lang, index) => (
-                    <div key={index} className="selected-language">
-                      <span className="column">{lang.sourceLanguage}</span>
-                      <span className="column">{lang.language}</span>
-                      <span className="column">{lang.date}</span>
-                      <span className="column">{lang.link}</span>
-                      <span className="column">
-                        {lang.serviceType === "traduction"
-                          ? "Traduction de support"
-                          : lang.serviceType === "sous-titrage"
-                          ? "Sous-titrage de support"
-                          : lang.serviceType === "transcription"
-                          ? "Transcription de support"
-                          : "Réalisation de voix-off"}
-                      </span>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="message">MESSAGE :</label>
-              <textarea
-                id="message"
-                placeholder="Écrivez votre message"
-                className="input-style"
-              ></textarea>
-            </div>
-            <Buttoncontainer>
-              <button type="submit" className="submit-button">
-                ENVOYER
-              </button>
-            </Buttoncontainer>
+            <GoogleCaptchaVerification
+              captchaVerificationDone={setIsReCaptcha}
+              alignment="start"
+            />
+            <button type="submit" className="submit-button">
+              Envoyer
+            </button>
           </form>
+        </section>
+        <section className="mt-5">
+          <div className="ms-5 icon reseaux">
+            <a href="https://www.facebook.com/afrilangues/?locale=fr_FR">
+              <img
+                src="images/facebook-logo.png"
+                alt=""
+                className="custom-logo"
+              />
+            </a>
+            <a href="https://www.instagram.com/afrilangues/">
+              <img
+                src="images/instagram-logo.png"
+                alt=""
+                className="custom-logo"
+              />
+            </a>
+            <a href="https://fr.linkedin.com/company/afrilangues">
+              <img
+                src="images/linkedin-logo.png"
+                alt=""
+                className="custom-logo"
+              />
+            </a>
+            <a href="https://x.com/afrilangues">
+              <img
+                src="images/twitter-logo.png"
+                alt=""
+                className="custom-logo-x"
+              />
+            </a>
+            <a href="https://www.youtube.com/channel/UCeB4UPA38S2hscm54e9gvhg">
+              <img
+                src="images/youtube-logo.png"
+                alt=""
+                className="custom-logo"
+              />
+            </a>
+          </div>
+          <div className="px-5">
+            <hr />
+          </div>
+          <div className="text-center">
+            <img
+              src="images/logo-afrilangues-sans-fond.png"
+              alt=""
+              className="custom-logo-afrilangues"
+            />
+            <p className="custom-ft-size">
+              AFRILANGES SAS - 3 Avenur Victoria, 75004 Paris | Tél: 06 58 48 53
+              13 | contact@afrilangues.fr | www.afrilangues.com
+              <br /> SIRET : 883 723 397 00013
+            </p>
+          </div>
         </section>
       </Container>
     </div>

@@ -28,6 +28,7 @@ import { ID_LENGTH, TOKEN_LENGTH } from "../../auth/length";
 import "../../App.css";
 import { CurrentPathAction } from "../LearningDashboard/services/actions/CurrentPathAction";
 import { Navigation } from "../Home";
+import GoogleCaptchaVerification from "../Captcha/GoogleCaptchaComponent";
 
 const Login = () => {
   const current_url_path = sessionStorage.getItem("current_url_path");
@@ -40,7 +41,6 @@ const Login = () => {
   const [isPageLoading, setIsPageLoding] = useState(false);
   const { token, id } = useSelector((state) => state.auth);
   const currentPath = useSelector((state) => state.currentPath);
-
   const [isReCaptcha, setIsReCaptcha] = useState(null);
 
   //
@@ -128,7 +128,7 @@ const Login = () => {
       setShowModal(true);
       wrongSound.play();
     }
-    if (isFormFilled) {
+    if (isFormFilled && isReCaptcha) {
       setIsLoading(true);
       // send request section (start)
       const userSchma = {
@@ -165,8 +165,6 @@ const Login = () => {
             });
 
             //direact login page
-
-            console.log("ready for redirect");
             if (current_url_path) {
               console.log("currentpathhellow", current_url_path);
               window.location.href = current_url_path;
@@ -208,9 +206,30 @@ const Login = () => {
     setShowEmail(!showEmail);
     setEmailInputType(showEmail ? "text" : "password");
   };
+
   const toggleModal = () => {
     setShowModal((prevValue) => !prevValue);
   };
+
+  const submitCaptchaToken = (tokenString) => {
+    try {
+      axios
+        .post(
+          `${API_URL}/captcha/submit`,
+          { recaptchaToken: tokenString },
+          null
+        )
+        .then((result) => {
+          console.log("submitCaptchaToken : ", result);
+        })
+        .catch((err) => {
+          console.log("Error : ", err);
+        });
+    } catch (x) {
+      console.log(x);
+    }
+  };
+
   if (!userToken) {
     return (
       <div>
@@ -295,27 +314,10 @@ const Login = () => {
                     </div>
                   </div>
                 </div>
-                <div className="tw-flex tw-justify-start">
-                  <ReCAPTCHA
-                    onChange={(value) => {
-                      console.log(value);
-                      axios
-                        .post(
-                          " https://www.google.com/recaptcha/api/siteverify",
-                          {
-                            secret: "6LdrUikqAAAAAIsSmHrFergUawiAsRUtymM7d67K",
-                            responses: value,
-                          }
-                        )
-                        .then((result) => {
-                          console.log(result);
-                        });
-                      setIsReCaptcha(value);
-                    }}
-                    sitekey="6LdrUikqAAAAAIlbAe-6eOrohrcgqkR6My1QpCud
-"
-                  />
-                </div>
+                <GoogleCaptchaVerification
+                  captchaVerificationDone={setIsReCaptcha}
+                  alignment="center"
+                />
                 <button
                   type="submit"
                   className="mainGradient border-0 py-2 rounded-3 text-white language-btn"
