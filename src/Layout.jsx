@@ -52,6 +52,7 @@ import { Navigation } from "./components/Home";
 import Reservation from "./components/Home/Reservation";
 import Devis from "./components/Home/components/Devis";
 import HomeFormation from "./components/Formation/FactionHome";
+import { ToastContainer } from "react-toastify";
 export default function Layout() {
   const [showModal, setShowModal] = useState(true);
   const [isLearningDashboardOpen, setIsDashBoardOpen] = useState(true);
@@ -379,6 +380,7 @@ export default function Layout() {
           }
         />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

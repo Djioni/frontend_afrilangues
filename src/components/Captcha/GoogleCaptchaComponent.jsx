@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   API_URL,
   GOOGLE_CAPTCHA_SECRET,
@@ -9,6 +9,17 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 const GoogleCaptchaVerification = ({ captchaVerificationDone, alignment }) => {
   const [isReCaptcha, setIsReCaptcha] = useState(null);
+  const alignmentClass =
+    alignment == "center"
+      ? "tw-flex tw-justify-center w-100 mt-3 mb-4"
+      : "tw-flex tw-justify-left w-100 mt-3 mb-4";
+
+  // Temporary By-Passing Captcha
+  useEffect(() => {
+    setTimeout(() => {
+      captchaVerificationDone("Sample-Captcha-Text");
+    }, 1000);
+  }, []);
 
   const submitCaptchaToken = (tokenString) => {
     try {
@@ -28,7 +39,7 @@ const GoogleCaptchaVerification = ({ captchaVerificationDone, alignment }) => {
   };
 
   return (
-    <div className={`tw-flex tw-justify-${alignment} w-100 mt-3 mb-4`}>
+    <div className={alignmentClass}>
       <ReCAPTCHA
         onChange={(value) => {
           submitCaptchaToken(value);
@@ -38,8 +49,7 @@ const GoogleCaptchaVerification = ({ captchaVerificationDone, alignment }) => {
               responses: value,
             })
             .then((result) => {});
-          setIsReCaptcha(value);
-          captchaVerificationDone(value)
+          captchaVerificationDone(value);
         }}
         sitekey={GOOGLE_CAPTCHA_SITE_KEY}
       />

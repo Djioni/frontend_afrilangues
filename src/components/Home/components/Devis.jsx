@@ -4,7 +4,10 @@ import "./devis.css";
 import styled from "styled-components";
 import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import GoogleCaptchaVerification from "../../Captcha/GoogleCaptchaComponent";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const languageOptions = [
   { value: "afar", label: "Afar", color: "#ffcccb" },
@@ -177,7 +180,7 @@ function Devis() {
   const [serviceType, setServiceType] = useState("");
   const [targetLanguage, setTargetLanguage] = useState(null);
   const [isReCaptcha, setIsReCaptcha] = useState(null);
-  // const router = useRouter();
+  const navigate = useNavigate();
 
   const handleAddLanguage = () => {
     if (
@@ -238,7 +241,7 @@ function Devis() {
         });
 
         setTimeout(() => {
-          // router.push("/");
+          navigate("/");
         }, 3500);
       } else {
         toast.error("Please verify captcha first !", {

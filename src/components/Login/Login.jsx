@@ -42,31 +42,19 @@ const Login = () => {
   const { token, id } = useSelector((state) => state.auth);
   const currentPath = useSelector((state) => state.currentPath);
   const [isReCaptcha, setIsReCaptcha] = useState(null);
-
-  //
-
   const [showPassword, setShowPassword] = useState(true); // State to control password visibility
   const [passwordInputType, setPasswordInputType] = useState("password"); // Initial input type is password
   const [showEmail, setShowEmail] = useState(true); // State to control email/username visibility
   const [emailInputType, setEmailInputType] = useState("text"); // Initial input type is text
-
-  // redirect dashboard secton (end)
-  //user data
-  console.log("curr", currentPath);
   const userToken = Cookies.get("token");
   const usertID = Cookies.get("id");
-  console.log(userToken, usertID);
-  const RedirectDashboard = () => {
-    //
 
-    //
+  const RedirectDashboard = () => {
     if (userToken && usertID) {
       const tokenLength = JSON.parse(userToken).length;
       const idLength = JSON.parse(usertID).length;
 
       if (tokenLength > TOKEN_LENGTH && idLength > ID_LENGTH) {
-        console.log("direct dashboard");
-
         navitate("/dashboard");
       } else {
         setIsPageLoding(false);
@@ -79,9 +67,7 @@ const Login = () => {
   useEffect(() => {
     RedirectDashboard();
   }, []);
-  // redirect dashboard section (end)
 
-  // souonds
   const [wrongSound] = useState(
     new Howl({
       src: ["/sounds/wrong.mp3"],
@@ -100,7 +86,6 @@ const Login = () => {
 
   const handleInputs = (e) => {
     setIsFormFilled(true);
-    console.log("hello word");
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
   };
@@ -113,6 +98,7 @@ const Login = () => {
       setIsFormFilled(false);
     }
   }, [email, password]);
+
   useEffect(() => {
     if (email !== "" && password !== "") {
       setIsFormFilled(true);
@@ -120,17 +106,15 @@ const Login = () => {
       setIsFormFilled(false);
     }
   }, []);
+
   const handleSubmit = (e) => {
-    console.log({ email, password });
     e.preventDefault();
-    console.log(isFormFilled);
     if (!isFormFilled) {
       setShowModal(true);
       wrongSound.play();
     }
     if (isFormFilled && isReCaptcha) {
       setIsLoading(true);
-      // send request section (start)
       const userSchma = {
         username: email,
         password,
@@ -139,19 +123,14 @@ const Login = () => {
         .post(`${API_URL}/auth/login`, userSchma)
         .then((result) => {
           setIsLoading(true);
-          console.log(result.status);
           if (result.status === 200) {
             localStorage.clear();
-            console.log(result.data);
             const token = result.data.token;
             const id = result.data.id;
-            // get some resources
 
-            //end
             Cookies.set("token", JSON.stringify(token), { expires: 7 });
             Cookies.set("id", JSON.stringify(id), { expires: 7 });
             sessionStorage.clear();
-            // successSound.play();
             setIsLoading(false);
             toast.success("Connexion réussie!!!!!!👌", {
               position: "top-right",
@@ -166,7 +145,6 @@ const Login = () => {
 
             //direact login page
             if (current_url_path) {
-              console.log("currentpathhellow", current_url_path);
               window.location.href = current_url_path;
               sessionStorage.removeItem("current_url_path");
             } else {
@@ -220,7 +198,6 @@ const Login = () => {
           null
         )
         .then((result) => {
-          console.log("submitCaptchaToken : ", result);
         })
         .catch((err) => {
           console.log("Error : ", err);

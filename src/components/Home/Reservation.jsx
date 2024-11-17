@@ -3,7 +3,10 @@ import Select from "react-select";
 import styled from "styled-components";
 import "./reservation.css";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import GoogleCaptchaVerification from "../Captcha/GoogleCaptchaComponent";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const languageOptions = [
   { value: "afar", label: "Afar", color: "#ffcccb" },
@@ -169,6 +172,7 @@ function Reservation() {
   const [phone, setPhone] = useState("");
   const [postalAddress, setPostalAddress] = useState("");
   const [isReCaptcha, setIsReCaptcha] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.style.margin = "0px";
@@ -242,7 +246,7 @@ function Reservation() {
         });
 
         setTimeout(() => {
-          // router.push("/");
+          navigate("/")
         }, 3500);
       } else {
         toast.error("Please verify captcha first !", {
