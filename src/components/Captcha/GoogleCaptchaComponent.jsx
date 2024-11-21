@@ -14,12 +14,12 @@ const GoogleCaptchaVerification = ({ captchaVerificationDone, alignment }) => {
       ? "tw-flex tw-justify-center w-100 mt-3 mb-4"
       : "tw-flex tw-justify-left w-100 mt-3 mb-4";
 
-  // Temporary By-Passing Captcha
-  useEffect(() => {
-    setTimeout(() => {
-      captchaVerificationDone("Sample-Captcha-Text");
-    }, 1000);
-  }, []);
+  // // Temporary By-Passing Captcha
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     captchaVerificationDone("Sample-Captcha-Text");
+  //   }, 1000);
+  // }, []);
 
   const submitCaptchaToken = (tokenString) => {
     try {
