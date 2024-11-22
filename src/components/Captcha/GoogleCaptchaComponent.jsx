@@ -6,6 +6,7 @@ import {
   GOOGLE_CAPTCHA_SITE_LINK,
 } from "../../api";
 import ReCAPTCHA from "react-google-recaptcha";
+import axios from "axios";
 
 const GoogleCaptchaVerification = ({ captchaVerificationDone, alignment }) => {
   const [isReCaptcha, setIsReCaptcha] = useState(null);
@@ -13,13 +14,6 @@ const GoogleCaptchaVerification = ({ captchaVerificationDone, alignment }) => {
     alignment == "center"
       ? "tw-flex tw-justify-center w-100 mt-3 mb-4"
       : "tw-flex tw-justify-left w-100 mt-3 mb-4";
-
-  // // Temporary By-Passing Captcha
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     captchaVerificationDone("Sample-Captcha-Text");
-  //   }, 1000);
-  // }, []);
 
   const submitCaptchaToken = (tokenString) => {
     try {
