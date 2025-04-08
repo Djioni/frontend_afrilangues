@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { FiChevronLeft } from "react-icons/fi";
 import { BiSolidUser } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiAlertOctagon } from "react-icons/fi";
 import { GiCheckMark } from "react-icons/gi";
-
 import { HiSpeakerWave } from "react-icons/hi2";
 import { DiAndroid } from "react-icons/di";
 import Question from "./Question";
 import ErrorModal from "./ErrorModal";
 import QuizProgressBar from "./QuizProgressBar";
-import { Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { API_URL, AUTH_NAME } from "../../../../../api";
 import { Howl } from "howler";
@@ -48,94 +45,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
       src: ["/sounds/success.mp3"],
     })
   );
-  const questionsData1 = [
-    {
-      question: "Question1",
-      keywords: ["Ǹba!", "Hɛ́rɛ!", "sɔ̀gɔma", "ní", "Hɛ́rɛ"],
-      audio: "/audio/q1.mp3",
-      iconRight: true,
-      inputs: 5,
-      questions: [
-        {
-          id: 1,
-          inputs: 1,
-          inputFirst: false,
-          inputMiddle: true,
-          input1Name: "blank1",
-          text1: "Seriba, í ní",
-        },
-        {
-          id: 2,
-          inputs: 2,
-          input1Name: "blank2",
-          input2Name: "blank3",
-          text1: "Í",
-          text2: "sɔ̀gɔma.",
-        },
-        {
-          id: 3,
-          inputs: 1,
-          inputFirst: true,
-          input1Name: "blank4",
-          text1: "sìra wà?",
-        },
-        {
-          id: 4,
-          inputs: 1,
-          inputFirst: true,
-          input1Name: "blank5",
-        },
-        {
-          id: 5,
-          inputs: 1,
-          inputFirst: true,
-          input1Name: "blank1",
-        },
-      ],
-    },
-    {
-      question: "Question2",
-      keywords: ["sìra", "Ǹse!", "Áw", "ní"],
-      audio: "/audio/q2.mp3",
-      inputs: 4,
-      iconRight: false,
-      questions: [
-        {
-          id: 1,
-          inputs: 1,
-          inputFirst: true,
-          input1Name: "blank1",
-          text1: "ní sɔ̀gɔma.",
-        },
-        {
-          id: 2,
-          inputs: 1,
-          inputFirst: true,
-          input1Name: "blank2",
-          text1: "ní sɔ̀gɔma.",
-        },
-        {
-          id: 3,
-          inputs: 1,
-          inputFirst: false,
-          input1Name: "blank3",
-          text1: "Ǹba! Á",
-          text2: "sɔ̀gɔma..",
-          inputMiddle: true,
-        },
-        {
-          id: 4,
-          inputs: 1,
-          inputFirst: false,
-          input1Name: "blank4",
-          text1: "Hɛ́rɛ",
-          text2: "wà?",
-          inputMiddle: true,
-        },
-      ],
-    },
-    // Add more question objects here if needed.
-  ];
 
   //
   const [isRightShowRightBoxOpen, setIsRightShowBoxOpen] =
@@ -144,15 +53,16 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
     useState("hide-r-box ");
   const [isOpenQuizFooter, setIsFooterOpen] = useState("");
   const [rightSentence, setRightSentence] = useState("");
+
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [isDialogExercise, setIsDialogExercise] = useState(true);
-  // Now 'updatedQuestionsData' contains the updated question objects with the 'icon' property added based on your condition.
-
   const [buttonClickCounter, setButtonClickCounter] = useState(0);
   const navigate = useNavigate();
   let quizData = localStorage.getItem("currentQuiz")
     ? JSON.parse(localStorage.getItem("currentQuiz"))
     : "";
+
+  console.log("JJJJJJ", quizData);
 
   const questionsData = quizData?.map((questionGroup) => {
     const updatedQuestions = questionGroup.questions.map((question, index) => {
@@ -167,6 +77,8 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
       } else {
         question.icon = <BiSolidUser style={{ color: "#df5411" }} size={30} />;
       }
+
+      console.log("))))))))))))))", question);
       return question;
     });
 
@@ -196,28 +108,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
     blank20: "",
   });
 
-  // const [q1Inputs, setQ1Inputs] = useState<Blanks>({
-  //   blank1: "",
-  //   blank2: "",
-  //   blank3: "",
-  //   blank4: "",
-  //   blank5: "",
-  // });
-  // const [q2Inputs, setQ2Inputs] = useState<Blanks>({
-  //   blank1: "",
-  //   blank2: "",
-  //   blank3: "",
-  //   blank4: "",
-  //   blank5: "",
-  // });
-  // const handleQ2Inputs = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setQ2Inputs({ ...q2Inputs, [name]: value });
-  // };
-  // const handleQ1Inputs = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setQ1Inputs({ ...q1Inputs, [name]: value });
-
   // test data
   const [removeSmPadding, setRemoveSmPadding] = useState(false);
   const [answerCorrect, setAnswerCorrect] = useState(null);
@@ -231,150 +121,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
   const currentLessonIndex = useSelector((state) => state.currentLessonIndex);
 
   const [isNextExerciseTrue, setIsNextExerciseTrue] = useState(false);
-
-  // Define quizData as an example (replace with your actual data)
-  // const quizData = [
-  //   {
-  //     questions: [
-  //       { questionText: "Question 1" },
-  //       { questionText: "Question 2" },
-  //       // Add more questions here
-  //     ],
-  //   },
-  //   // Add more lessons here
-  // ];
-
-  // test data end
-  // };
-  const questionsData2 = [
-    {
-      question: "Question1",
-
-      keywords: ["Ǹba!", "Hɛ́rɛ!", "sɔ̀gɔma", "ní", "Hɛ́rɛ"],
-      audio: "/audio/q1.mp3",
-      iconRight: true,
-      inputs: 5,
-      questions: [
-        {
-          id: 1,
-          inputs: 1,
-          inputFirst: false,
-          inputMiddle: true,
-          input1Name: "blank1",
-          text1: "Seriba, í ní",
-          icon: <BiSolidUser className="text-warning" size={30} />,
-        },
-        {
-          id: 2,
-
-          inputs: 2,
-          input1Name: "blank2",
-          input2Name: "blank3",
-          text1: "Í",
-          text2: "sɔ̀gɔma.",
-          icon: <DiAndroid className="text-warning flex-shrink-0 " size={30} />,
-        },
-        {
-          id: 3,
-
-          inputs: 1,
-          inputFirst: true,
-          input1Name: "blank4",
-          text1: "sìra wà?",
-          icon: <BiSolidUser className="text-warning" size={30} />,
-        },
-        {
-          id: 4,
-          inputs: 1,
-          inputFirst: true,
-          input1Name: "blank5",
-          icon: <DiAndroid className="text-warning" size={30} />,
-        },
-      ],
-    },
-    {
-      question: "Question2",
-      keywords: ["sìra", "Ǹse!", "Áw", "ní"],
-      audio: "/audio/q2.mp3",
-      inputs: 4,
-      iconRight: false,
-      questions: [
-        {
-          id: 1,
-          inputs: 1,
-          inputFirst: true,
-          input1Name: "blank1",
-          text1: "ní sɔ̀gɔma.",
-          icon: <DiAndroid className="text-warning" size={30} />,
-        },
-        {
-          id: 2,
-
-          inputs: 1,
-          inputFirst: true,
-          input1Name: "blank2",
-          text1: "ní sɔ̀gɔma.",
-          icon: <DiAndroid className="text-warning" size={30} />,
-        },
-        {
-          id: 3,
-
-          inputs: 1,
-          inputFirst: false,
-          input1Name: "blank3",
-          text1: "Ǹba! Á",
-          text2: "sɔ̀gɔma..",
-          inputMiddle: true,
-          icon: <DiAndroid className="text-warning" size={30} />,
-        },
-        {
-          id: 4,
-
-          inputs: 1,
-          inputFirst: false,
-          input1Name: "blank4",
-          text1: "Hɛ́rɛ",
-          text2: "wà?",
-          inputMiddle: true,
-          icon: <DiAndroid className="text-warning" size={30} />,
-        },
-      ],
-    },
-
-    // {
-    //   id: 0,
-
-    //   inputs: 0,
-    //   inputFirst: false,
-    //   text1: "Hɛ́rɛ ! ",
-    //   icon: <BiSolidUser className="text-warning" size={30} />,
-    // },
-    // {
-    //   question: "Question3",
-    //   iconRight: true,
-    //   inputs: 0,
-    //   audio: "/audio/q3.mp3",
-    //   questions: [
-    //     {
-    //       question: "qustion31",
-    //       icon: <BiSolidUser className="text-warning" size={30} />,
-    //     },
-    //     {
-    //       question: "qustion32",
-    //       icon: <BiSolidUser className="text-warning" size={30} />,
-    //     },
-    //     {
-    //       question: "qustion33",
-    //       icon: <BiSolidUser className="text-warning" size={30} />,
-    //     },
-    //     {
-    //       question: "qustion34",
-    //       icon: <DiAndroid className="text-warning" size={30} />,
-    //     },
-    //   ],
-    // },
-  ];
-
   const [progress, setProgress] = useState(100);
   const [isOpen, setIsOpen] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
@@ -470,14 +216,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
   const [wrongCounter, setWrongCounter] = useState(1);
   const [twoInputsByKey, setTwoInputByKey] = useState(1);
   const GoToNextExercise = () => {
-    // Swal.fire({
-    //   title: "Success!",
-    //   text: "Quiz completed successfully.",
-    //   icon: "success",
-    //   confirmButtonText: "OK",
-    // });
-
-    // navigate("/lessons/section/exercise/?id=65312fdc5584c1110faeb164fdf");
     setIsPageLoading(true);
     if (
       localStorage.getItem("currentAllExercises") &&
@@ -766,13 +504,41 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
       }
     }
   };
+
+  console.log("activeQuestion::::", activeQuestion);
+  console.log("activeQuestion.questions::::", activeQuestion.questions);
   const handleSubmit = async () => {
     if (currentQuestionID < activeQuestion.questions.length + 1) {
       const input = qInputs;
       // Get the current question's keywords, input values, and question data
-      const currentQuestionObject = activeQuestion.questions.filter(
-        (value) => value.id === currentQuestionID
-      )[0];
+      // const currentQuestionObject = activeQuestion.questions.filter(
+      //   (value) => value.id === currentQuestionID
+      // )[0];
+
+      const currentQuestionObject = activeQuestion.questions.find(
+        (value) => value.order === currentQuestionID
+      );
+
+      console.log(
+        "currentQuestionObject:::: in handleSubmit",
+        currentQuestionObject
+      );
+      if (!currentQuestionObject) {
+        console.warn("No question object found for ID:", currentQuestionID);
+        return;
+      }
+
+      // ✅ Step 2: Then destructure
+      const { rawSentence, inputNames } = currentQuestionObject;
+
+      let filledContent = rawSentence;
+      inputNames.forEach((name) => {
+        const val = qInputs[name] || "";
+        filledContent = filledContent.replace("...", val);
+      });
+
+      console.log("final sentence:", rawSentence);
+      console.log("final filled content:", filledContent);
 
       console.log("curentquestion", currentQuestionID);
 
@@ -889,15 +655,20 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
       if (sentence && content) {
         setIsLoading(true);
         // assessment schma
+
         const AssessmentSchma = {
           userId: userID,
           exerciseId: quizID,
           type: "DIALOGUE",
-          sentence: currentSentence,
-          order: currentQuestionOrder,
+          // sentence: currentSentence,
+          // order: currentQuestionOrder,
+          // sentence: currentQuestionObject.sentence,
+          sentence: "Ń bálimamuso, í ní sɔ̀gɔma.",
+          order: currentQuestionObject.order,
           answerLetter: [
             {
-              content: sentence.trim(),
+              // content: sentence.trim(),
+              content: filledContent.trim(),
             },
           ],
         };
@@ -930,12 +701,11 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
             localStorage.setItem("exercisePoints", JSON.stringify(points));
             setClassBoxClass("");
             if (activeQuestion.questions.length === currentQuestionID) {
-              // setActiveQuestionIndex(activeQuestionIndex + 1);
-              // setIsContinueOpen(true);
               setIsFinish(true);
             }
             //
             else {
+              console.log("assessmentdata2222", AssessmentSchma);
               console.log("no more question");
             }
             setWrongCounter(1);
@@ -943,6 +713,7 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
             // update input
             if (currentInput && currentInput2) {
               setTwoInputByKey((prev) => Math.min(prev + 1, 20));
+
               setCurrentQuestionID((prev) => Math.min(prev + 1, 20));
               setCurrentBlankIndex((prev) => Math.min(prev + 1, 20));
               // incrementProgressBar();
@@ -951,7 +722,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
             } else {
               setTwoInputByKey((prev) => Math.min(prev + 1, 20));
               setCurrentBlankIndex((prev) => Math.min(prev + 1, 20));
-
               setCurrentQuestionID((prev) => Math.min(prev + 1, 20));
             }
             // update input end
@@ -1049,9 +819,25 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
   };
   const handleKeyWord = (item) => {
     if (currentQuestionID < activeQuestion.questions.length + 1) {
+      // const currentQuestionObject = activeQuestion.questions.filter(
+      //   (value) => value.order === currentQuestionID
+      // )[0];
+      // const currentQuestionObject = activeQuestion.questions.find(
+      //   (value) => value.id === "1-s"
+      // );
+      debugger;
+      // const currentQuestionObject = activeQuestion.questions[0];
       const currentQuestionObject = activeQuestion.questions.filter(
-        (value) => value.id === currentQuestionID
+        (value) => value.order === currentQuestionID
       )[0];
+      console.log(
+        "currentQuestionObject:::: in handlekeyWord",
+        currentQuestionObject
+      );
+
+      if (!currentQuestionObject) {
+        console.error("Current question not found");
+      }
       console.log(currentBlankIndex);
       setQInputs((prevInputs) => {
         const currentQuestionInputs = { ...prevInputs };
@@ -1095,6 +881,7 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
           setCurrentBlankIndex((prev) =>
             Math.min(prev + 1, twoInputsByKey + 1)
           );
+
           // incrementProgressBar();
         } else {
           currentQuestionInputs[inputName] = item;
@@ -1104,6 +891,7 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
         return currentQuestionInputs; // Return the updated state
       });
       const handleSubmitK = async () => {
+        debugger;
         const inputActive = () => {
           const prevInputs = qInputs;
           const currentQuestionInputs = { ...prevInputs };
@@ -1159,12 +947,15 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
 
         if (currentQuestionID < activeQuestion.questions.length + 1) {
           const input = inputActive();
-          setQInputs(input);
+          // setQInputs(input);
           console.log("value:", input);
+
           // Get the current question's keywords, input values, and question data
-          const currentQuestionObject = activeQuestion.questions.filter(
-            (value) => value.id === currentQuestionID
-          )[0];
+          const currentQuestionObject = activeQuestion.questions[0];
+          // const currentQuestionObject = activeQuestion.questions.filter(
+          //   (value) => value.order === currentQuestionID
+          // )[0];
+          console.log("currentQuestionObject", currentQuestionObject);
 
           console.log("curentquestion", currentQuestionID);
 
@@ -1184,21 +975,11 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
             //update id
             if (currentInput) {
               // setCurrentQuestionID((prev) => prev + 1);
+
               console.log(currentQuestionID);
+
               // extract current question object
               if (currentQuestionObject.inputMiddle) {
-                console.log(
-                  "input fast found!",
-                  `${
-                    currentQuestionObject.text1
-                      ? currentQuestionObject.text1
-                      : ""
-                  } ... ${
-                    currentQuestionObject.text2
-                      ? currentQuestionObject.text2
-                      : ""
-                  }`
-                );
                 sentence = `${
                   currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
                 } ... ${
@@ -1211,15 +992,8 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
                   currentQuestionObject.text2 ? currentQuestionObject.text2 : ""
                 }`;
               }
+
               if (currentQuestionObject.inputFirst) {
-                console.log(
-                  "middle input found!",
-                  `... ${
-                    currentQuestionObject.text1
-                      ? currentQuestionObject.text1
-                      : ""
-                  }`
-                );
                 sentence = `... ${
                   currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
                 }`;
@@ -1235,33 +1009,16 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
 
           const currentInput2 =
             input[`blank${currentQuestionID + doubleInputNumber + 1}`];
-          if (currentQuestionObject.inputs === 2) {
+          if (currentQuestionObject.inputs == 2) {
             currentQuestionOrder = currentQuestionObject.order;
             currentSentence = currentQuestionObject.sentence;
 
             let currentInput =
               input[`blank${currentQuestionID + doubleInputNumber}`];
 
-            console.log("input2");
-
-            console.log("doubleinput", doubleInputNumber);
-
             // update id
+
             if (currentInput && currentInput2) {
-              console.log("input1:", currentInput, "input22:", currentInput2);
-              // setCurrentQuestionID((prev) => prev + 1);
-              console.log(currentQuestionID);
-              // setDoubleInputNumber((prev) => prev + 1);
-              //
-              console.log(
-                "2 input found:",
-                `... ${
-                  currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
-                } ... ${
-                  currentQuestionObject.text2 ? currentQuestionObject.text2 : ""
-                }
-                `
-              );
               sentence = `... ${
                 currentQuestionObject.text1 ? currentQuestionObject.text1 : ""
               } ... ${
@@ -1276,6 +1033,8 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
               `;
             }
           }
+
+          console.log("sentencesentencesentence", sentence);
           // assessment start //
           const quizID = quizData[0].quizid;
           const userID = Cookies.get("id") ? JSON.parse(Cookies.get("id")) : "";
@@ -1293,11 +1052,16 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
               userId: userID,
               exerciseId: quizID,
               type: "DIALOGUE",
-              sentence: currentSentence,
-              order: currentQuestionOrder,
+              sentence: "Ń bálimamuso, í ní sɔ̀gɔma.",
+              // sentence: currentSentence,
+              // order: currentQuestionOrder,
+              // sentence: currentQuestionObject.rawSentence,
+              order: currentQuestionObject.order,
               answerLetter: [
                 {
-                  content: content.trim(),
+                  // content: content.trim(),
+                  // content: content.trim(),
+                  content: "Nsé ! Í  ní  sɔ̀gɔma, ń balimakɛ.",
                 },
               ],
             };
@@ -1310,6 +1074,7 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
             };
 
             // axios request
+
             try {
               const assessment = await axios.post(
                 `${API_URL}/assessment/`,
@@ -1318,6 +1083,7 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
               );
               console.log("ass", assessment.data);
               if (assessment.data.status === "RIGHT") {
+                console.log("Correct answer, playing success sound");
                 // increse process
                 const CurrentProcess = (currentnumber, totalnumber) => {
                   const singleProcess = 20 / totalnumber;
@@ -1559,15 +1325,16 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
           // handle next section and lesson and topic end
         }
         // check end
-        const inputKeyword = [];
-        const [cInputs, setCInputs] = useState([]);
-        const [keyCounter, setKeyCounter] = useState(1);
+        // const inputKeyword = [];
+        // const [cInputs, setCInputs] = useState([]);
+        // const [keyCounter, setKeyCounter] = useState(1);
         console.log("render");
       };
 
       handleSubmitK();
     }
   };
+
   const handleNext = () => {
     setQuestionLength((prev) => Math.min(prev + 1, 20));
     if (questionLength > questionsData.length) {
@@ -1599,9 +1366,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
     setIsRightShowCloseOpen("hide-r-box");
     setIsFooterOpen("");
   };
-  // const handlePrevQuestion = () => {
-  //   console.log("prev");
-  // };
 
   const handleNextQuestion = () => {
     console.log("next");
@@ -1620,6 +1384,8 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
   if (isNextExerciseTrue) {
     return <Exercise />;
   }
+
+  console.log("activeQuestion:", activeQuestion);
   if (isDialogExercise) {
     return (
       <div>
@@ -1636,13 +1402,7 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
             {/* Dialouge here */}
             <Modal show={true} onHide={toggleDialouge} fullscreen={true}>
               {adsInfo && isAdsPage && <AdsPage adsInfo={adsInfo} />}
-              {/* prev and next  */}
-              {/* <div className="prev_arrow" onClick={() => handlePrevQuest()}>
-                <BiSolidLeftArrow />
-              </div>
-              <div className="next_arrow" onClick={() => handleNextQuestion()}>
-                <BiSolidRightArrow />
-              </div> */}
+
               <div>
                 {" "}
                 <div className="w-100">
@@ -1655,12 +1415,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
               </div>
               <div className="w-100 d-flex flex-column align-items-center justify-content-start gap-4 overflow-y-auto ">
                 <div className="w-100 d-flex flex-column  gap-4 align-items-center justify-content-start ">
-                  {/* Dialogue title here */}
-                  {/* <div className="dialogue-title">
-              <h5 className="text-white fw-medium ">
-                Ecoutez et completez ce dialogue
-              </h5>
-            </div> */}
                   {/* Quiz questions here */}
                   <div className="d-quiz-container d-flex flex-column align-items-center justify-content-start rounded-3 ">
                     <div className="w-100 d-flex align-items-center justify-content-center py-3 ">
@@ -1672,7 +1426,8 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
                       </button>
                     </div>
                     {/* Quiz questions main div */}
-                    <div className="w-100 d-flex flex-column align-items-center justify-content-start overflow-y-auto d-quiz-questions-container px-lg-4 px-1">
+
+                    <div className="w-100 d-flex flex-column align-items-center justify-content-start overflow-y-auto d-quiz-questions-container px-lg-4 px-1 h-[800px]">
                       {activeQuestion.questions.map((item, index) => (
                         <Question
                           key={index}
@@ -1683,7 +1438,9 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
                           input2Name={item?.input2Name}
                           text1={item?.text1}
                           text2={item?.text2}
+                          boxes={item.boxes}
                           inputs={item?.inputs}
+                          sentence={item?.sentence}
                           state={qInputs}
                           iconRight={index % 2 == 0 || index == 0}
                         />
@@ -1691,23 +1448,6 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
                     </div>
                     {/* Keywords div here */}
                   </div>
-                  {/* <div className="d-flex align-items-center justify-content-between next-prev-btns">
-              <button
-                onClick={goToPreviousQuestion}
-                disabled={activeQuestionIndex === 0}
-                className="p-3 rounded-circle bg-warning border-0 text-white fw-semibold navigation-btn"
-              >
-              
-                Préc
-              </button>
-              <button
-                onClick={goToNextQuestion}
-                disabled={activeQuestionIndex === questionsData.length - 1}
-                className="p-3 rounded-circle bg-warning border-0 text-white fw-semibold navigation-btn"
-              >
-                Suiv
-              </button>
-            </div> */}
                 </div>
                 {/* verify button here */}
               </div>
@@ -1859,9 +1599,9 @@ const Home = ({ handlePrevQuestion, adsInfo, isAdsPage }) => {
                     {true ? (
                       <button
                         className="verify_button "
-                        onClick={() => {
-                          handleSubmit();
-                        }}
+                        // onClick={() => {
+                        //   handleSubmit();
+                        // }}
                       >
                         <div className="d-flex">
                           {isFinish ? "Continuer" : "Vérifier"}
