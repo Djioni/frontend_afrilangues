@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import GoogleCaptchaVerification from "../Captcha/GoogleCaptchaComponent";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../api";
 
 const languageOptions = [
   { value: "afar", label: "Afar", color: "#ffcccb" },
@@ -230,7 +231,7 @@ function Reservation() {
     try {
       if (isReCaptcha) {
         const response = await axios.post(
-          "https://apis.africalangues.com/api/form/interpreting",
+          `${API_URL}/form/interpreting`,
           payload
         );
 

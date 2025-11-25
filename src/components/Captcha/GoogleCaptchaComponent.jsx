@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
-import {
-  API_URL,
-  GOOGLE_CAPTCHA_SECRET,
-  GOOGLE_CAPTCHA_SITE_KEY,
-  GOOGLE_CAPTCHA_SITE_LINK,
-} from "../../api";
+import { API_URL } from "../../api";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 
 const GoogleCaptchaVerification = ({ captchaVerificationDone, alignment }) => {
   const [isReCaptcha, setIsReCaptcha] = useState(null);
+  const [siteKey, setSiteKey] = useState(null);
   const alignmentClass =
     alignment == "center"
       ? "tw-flex tw-justify-center w-100 mt-3 mb-4"
       : "tw-flex tw-justify-left w-100 mt-3 mb-4";
+
+  // Fetch the site key from the backend on component mount
+  useEffect(() => {
+    const fetchSiteKey = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/captcha/site-key`);
+        setSiteKey(response.data.siteKey);
+      } catch (error) {
+        console.error("Error fetching captcha site key:", error);
+      }
+    };
+    fetchSiteKey();
+  }, []);
 
   const submitCaptchaToken = (tokenString) => {
     try {
@@ -32,20 +41,19 @@ const GoogleCaptchaVerification = ({ captchaVerificationDone, alignment }) => {
     }
   };
 
+  // Don't render the captcha until we have the site key
+  if (!siteKey) {
+    return <div className={alignmentClass}>Loading captcha...</div>;
+  }
+
   return (
     <div className={alignmentClass}>
       <ReCAPTCHA
         onChange={(value) => {
           submitCaptchaToken(value);
-          axios
-            .post(GOOGLE_CAPTCHA_SITE_LINK, {
-              secret: GOOGLE_CAPTCHA_SECRET,
-              responses: value,
-            })
-            .then((result) => {});
           captchaVerificationDone(value);
         }}
-        sitekey={GOOGLE_CAPTCHA_SITE_KEY}
+        sitekey={siteKey}
       />
     </div>
   );
